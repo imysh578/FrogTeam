@@ -6,12 +6,6 @@ import coingecko from "../../../apis/coingecko";
 const CoingeckoCoinList = () => {
 	const [coins, setCoins] = useState([]);
 	const [coinsDisplay, setCoinsDisplay] = useState([]);
-  const [favoriteList, setFavoriteList] = useState([
-    'Bitcoin',
-    'Ethereum',
-    'Cardano',
-    'EOS',
-  ])
 
 	// 첫 랜더링 시 코인 리스트 불러오기
 	useEffect(() => {
@@ -26,11 +20,6 @@ const CoingeckoCoinList = () => {
 		};
 		fetchData();
 	}, []);
-
-  const handleDropdownClick = () => (e) => {
-    console.log(e.target.parentNode);
-    console.log(1);
-  }
 
 	const handleOnChange = () => (e) => {
 		let searchedCoins = [];
@@ -48,34 +37,19 @@ const CoingeckoCoinList = () => {
 
 	return (
 		<>
-			<div className="input-box">
-				<Col md={4}>
-					<InputGroup className="mb-3">
-						<DropdownButton
-							variant="outline-secondary"
-							title="Favorite"
-							id="input-group-dropdown-1"
-						>
-              {
-                favoriteList.map((coin,index) => (
-                  <Dropdown.Item key={index} onClick = {handleDropdownClick()}>{coin}</Dropdown.Item>
-                ))
-              }
-							<Dropdown.Divider />
-							<Dropdown.Item >Edit favorite list</Dropdown.Item>
-						</DropdownButton>
-						<FormControl placeholder="Insert Coin name" onChange={handleOnChange()} />
-					</InputGroup>
-				</Col>
-			</div>
-			<ListGroup>
-        <ListGroup.Item>
-          <span></span>
-          <span>Coin</span>
-          <span>Current Price($)</span>
-          <span>Market Cap($)</span>
-          <span>24h(%)</span>
-        </ListGroup.Item>
+			<Col md={4} className="my-3 input-box">
+				<InputGroup>
+					<FormControl placeholder="Insert Coin name" onChange={handleOnChange()} />
+				</InputGroup>
+			</Col>
+			<ListGroup className="coinlist-box">
+        <div className="col-title list-group-item list-group-item-acion d-flex justify-content-between align-items-center text-light bg-success">
+					<span className="item0">#</span>
+          <span className="item1">Coin</span>
+          <span className="item2">Current Price($)</span>
+          <span className="item3">Market Cap($)</span>
+          <span className="item4">24h(%)</span>
+        </div>
 				{coinsDisplay.map((coin) => (
 					<Coin key={coin.id} coin={coin} />
 				))}
@@ -87,28 +61,28 @@ const CoingeckoCoinList = () => {
 
 const Coin = ({ coin }) => {
 	return (
-		<Link to={`/coin/${coin.id}`} className="text-decoration-none">
-      <ListGroup.Item className="coin-item" action variant="light">
-        <img src={coin.image} alt={coin.name} />
-        <h4>{coin.name}</h4>
-        <span>$ {coin.current_price.toLocaleString()}</span>
-        <span>$ {coin.market_cap.toLocaleString()}</span>
-        {/* 변동률에 따라 색상 설정 */}
-        <span
-          className={
-            coin.price_change_percentage_24h < 0 ? "text-danger" : "text-success"
-          }
-        >
-          {/* 변동률에 따라 화살표 방향 설정 */}
-          {coin.price_change_percentage_24h < 0 ? (
-            <i className="fas fa-sort-down align-middle mx-1"></i>
-          ) : (
-            <i className="fas fa-sort-up align-middle mx-1"></i>
-          )}
-
-          {coin.price_change_percentage_24h}
-        </span>
-      </ListGroup.Item>
+		<Link to={`/coins/${coin.id}`} className="coin text-decoration-none ">
+			<div className="coinlist-item list-group-item list-group-item-acion d-flex justify-content-between align-items-center text-light bg-dark">
+				<img className="item0 coinlist-image" src={coin.image} alt={coin.name} />
+				<span className="item1"> {coin.name}</span>
+				<span className="item2"> $ {coin.current_price.toLocaleString()}</span>
+				<span className="item3"> $ {coin.market_cap.toLocaleString()} </span>
+				<span
+					className={
+						coin.price_change_percentage_24h < 0
+							? "text-danger mx-2 item4"
+							: "text-success mx-2 item4"
+					}
+				>
+					{" "}
+					{coin.price_change_percentage_24h < 0 ? (
+						<i className="fas fa-sort-down align-middle mx-1"></i>
+					) : (
+						<i className="fas fa-sort-up align-middle mx-1"></i>
+					)}
+					{coin.price_change_percentage_24h.toFixed(2)} %
+				</span>
+			</div>
 		</Link>
 	);
 };

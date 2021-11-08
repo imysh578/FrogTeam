@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import coingecko from "../../../apis/coingecko";
@@ -7,24 +8,35 @@ const CoinDetail = () => {
 	const [coinInfo, setCoinInfo] = useState([]);
   const days = [1, 7, 30, 365];
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const [day] = await Promise.all(
-        // days.map((e)=>())
-        [
-        coingecko.get(`/coins/${id}/market_chart`, {
-          params: {
-            vs_currency: "usd",
-            days: 1,
-          },
-        }),
-      ])
-      console.log(day.data.prices);
-		};
-    fetchData()
-	},[]);
-
-	return <div></div>;
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		const [day, week, month, year] = await Promise.all(
+  //       days.map(el => (
+  //         axios.get(`/coins/${id}/market_chart`, {
+  //           params:{
+  //             id: id,
+  //             vs_currency: "usd",
+  //             days: el,
+  //           }
+  //         })
+  //       ))
+  //     // [
+  //     //   axios.get(`/coins/${id}/market_chart`, {
+  //     //     params:{
+  //     //       id: id,
+  //     //       vs_currency: "usd",
+  //     //       days: 1,
+  //     //     }
+  //     //   })
+  //     // ]  
+  //     )
+  //     console.log(day.data.prices);
+  //     console.log(week.data.prices);
+	// 	};
+  //   fetchData()
+	// },[]);
+  console.log(1);
+	return <div>asdf</div>;
 };
 
 export default CoinDetail;
