@@ -1,22 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Col, Dropdown, DropdownButton, FormControl, InputGroup, ListGroup } from "react-bootstrap";
+import { Col, FormControl, InputGroup, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import coingecko from "../../../apis/coingecko";
+import {coingecko, upbit} from "../../../apis/configs";
 
-const CoingeckoCoinList = () => {
+const CoinList = () => {
 	const [coins, setCoins] = useState([]);
 	const [coinsDisplay, setCoinsDisplay] = useState([]);
 
 	// 첫 랜더링 시 코인 리스트 불러오기
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await coingecko.get("coins/markets", {
-				params: {
-					vs_currency: "usd",
-				},
-			});
-			setCoins(response.data);
-			setCoinsDisplay(response.data.slice(0, 10));
+			const response = await Promise.all([
+				coingecko.get("coins/markets", {
+					params: {
+						vs_currency: "usd",
+					},
+				}),
+				upbit.get('/market/all')
+			])
+
+			const [coingeckoData, upbitData] = response;
+
+			setCoins(coingeckoData.data);
+			setCoinsDisplay(coingeckoData.data.slice(0, 10));
+
+			// setCoins(upbitData.data);
+			// setCoinsDisplay(upbitData.data.slice(0, 10));
 		};
 		fetchData();
 	}, []);
@@ -61,8 +70,8 @@ const CoingeckoCoinList = () => {
 
 const Coin = ({ coin }) => {
 	return (
-		<Link to={`/coins/${coin.id}`} className="coin text-decoration-none ">
-			<div className="coinlist-item list-group-item list-group-item-acion d-flex justify-content-between align-items-center text-light bg-dark">
+		<Link to={`/coins/${coin.id}`} className="text-decoration-none ">
+			<div className="coinlist-item list-group-item d-flex justify-content-between align-items-center text-light bg-dark">
 				<img className="item0 coinlist-image" src={coin.image} alt={coin.name} />
 				<span className="item1"> {coin.name}</span>
 				<span className="item2"> $ {coin.current_price.toLocaleString()}</span>
@@ -87,4 +96,4 @@ const Coin = ({ coin }) => {
 	);
 };
 
-export default CoingeckoCoinList;
+export default CoinList;

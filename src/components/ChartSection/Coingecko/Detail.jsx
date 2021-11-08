@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Chart = () => {
+const Detail = () => {
   return (
     <div>
-      Chart
+      Details
     </div>
   )
 }
 
-export default Chart
+export default Detail
