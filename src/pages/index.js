@@ -4,7 +4,6 @@ import HeroSection from '../components/HeroSection'
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 import InfoSection from '../components/InfoSection'
-
 import { homeObjOne, homeObjTwo, homeObjThree, homeObjFour, homeObjFive} from '../components/InfoSection/Data'
 
 const Home = () => {
@@ -17,7 +16,6 @@ const toggle = () => {
           <Sidebar isOpen={isOpen} toggle={toggle} />
           <Navbar toggle={toggle} />  
           <HeroSection />
-          <ChartSection/>
           <InfoSection {...homeObjOne}/>
           <InfoSection {...homeObjTwo}/>
           <InfoSection {...homeObjThree}/>
