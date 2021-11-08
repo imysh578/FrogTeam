@@ -1,0 +1,12 @@
+.coin-item{
+  display: grid;
+  grid-template-columns: auto;
+  
+  img {
+    width: 32px;
+    height: 32px;
+  }
+  h3, span {
+    width: 200px;
+  }
+}
