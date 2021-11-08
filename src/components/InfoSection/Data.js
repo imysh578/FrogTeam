@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import News from '../News';
+
 export const homeObjOne = {
     id: 'about',
     lightBg: false,
@@ -16,11 +19,11 @@ export const homeObjOne = {
 };
 
 export const homeObjTwo = {
-    id: 'about',
+    id: 'discover',
     lightBg: true,
     lightText: false,
     lightTextDesc: false,
-    topLine: '차트분석',
+    topLine: '코인 네트워크',
     headline: ' 무한한 정보제공과 상장된 가상화폐의 서비스 가능 경로 정보 제공',
     description: '자유로운 차트 도구 사용으로 미래의 정확성 향상',
     buttonLabel: 'Learn More',
@@ -33,6 +36,40 @@ export const homeObjTwo = {
 };
 
 export const homeObjThree = {
+    id: 'chart',
+    lightBg: true,
+    lightText: false,
+    lightTextDesc: false,
+    topLine: '차트',
+    headline: ' 무한한 정보제공과 상장된 가상화폐의 서비스 가능 경로 정보 제공',
+    description: '자유로운 차트 도구 사용으로 미래의 정확성 향상',
+    buttonLabel: 'Learn More',
+    imgStart: true,
+    img: require('../../images/svg-3.svg'),
+    alt: 'Car',
+    dark: true,
+    primary: true,
+    darkText: true
+};
+
+export const homeObjFour = {
+    id: 'news',
+    lightBg: false,
+    lightText: true,
+    lightTextDesc: true,
+    topLine: '뉴스',
+    headline: ' 무한한 정보제공과 상장된 가상화폐의 서비스 가능 경로 정보 제공',
+    description: '자유로운 차트 도구 사용으로 미래의 정확성 향상',
+    buttonLabel: 'Learn More',
+    imgStart: true,
+    img: require('../../images/svg-3.svg'),
+    alt: 'News',
+    dark: true,
+    primary: true,
+    darkText: true
+};
+
+export const homeObjFive = {
     id: 'signup',
     lightBg: true,
     lightText: false,
