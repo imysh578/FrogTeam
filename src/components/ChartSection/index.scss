@@ -1,12 +1,45 @@
-.coin-item{
-  display: grid;
-  grid-template-columns: auto;
-  
-  img {
+.coins-container{
+  max-width: 800px;
+  margin: auto;
+  .input-box{
+    text-align: right;
+  }
+}
+.coinlist-item, .col-title {
+  padding-left: 50px;
+  padding-right: 50px;
+  .item0{
     width: 32px;
-    height: 32px;
+    text-align: center;
   }
-  h3, span {
-    width: 200px;
+  .item1{
+    width: 20%;
   }
+  .item2{
+    width: 20%;
+    text-align: right;
+  }
+  .item3{
+    width: 25%;
+    text-align: right;
+  }
+  .item4{
+    display: flex;
+    justify-content: space-evenly;
+    width: 15%;
+    text-align: right;
+  }
+}
+
+.coinlist-item:hover{
+  opacity: 0.9;
+}
+
+.coinsummary {
+  border-color: white !important;
+  border-style: outset !important;
+}
+
+.coin-data-category {
+  font-size: 10px;
 }
