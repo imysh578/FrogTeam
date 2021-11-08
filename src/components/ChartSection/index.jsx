@@ -3,8 +3,8 @@ import { ButtonGroup, Button } from "react-bootstrap";
 import Coingecko from "./Coingecko";
 import './index.scss'
 
-const Chart = ({ chartTab }) => {
-	switch (chartTab) {
+const Contents = ({ tab }) => {
+	switch (tab) {
 		case "Coingecko":
 			return <Coingecko />;
 		case "Upbit":
@@ -16,24 +16,26 @@ const Chart = ({ chartTab }) => {
 };
 
 const ChartSection = () => {
-	const [chartTab, setChartTab] = useState("Coingecko");
+	const [tab, setTab] = useState("Coingecko");
 
 	const handleTabClick = () => (e) => {
 		console.log(e.target.innerText);
-		setChartTab(e.target.innerText);
+		setTab(e.target.innerText);
 	};
 
 	return (
-		<div className="chart-container">
-			<ButtonGroup className="mt-2 mx-2">
-				<Button onClick={handleTabClick()} variant="success">
-					Coingecko
-				</Button>
-				<Button onClick={handleTabClick()} variant="primary">
-					Upbit
-				</Button>
-			</ButtonGroup>
-			<Chart chartTab={chartTab} />
+		<div className="coins-container">
+			<div>
+				<ButtonGroup className="mt-2 mx-2">
+					<Button className="tab" onClick={handleTabClick()} variant="success">
+						Coingecko
+					</Button>
+					<Button className="tab" onClick={handleTabClick()} variant="primary">
+						Upbit
+					</Button>
+				</ButtonGroup>
+			</div>
+			<Contents tab={tab} />
 		</div>
 	);
 };

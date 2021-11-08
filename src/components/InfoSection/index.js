@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { Button } from '../ButtonElements';
 
 import { InfoContainer, InfoWrapper, InfoRow, Column1, Column2, TextWrapper, TopLine, Heading, Subtitle, BtnWrap, ImgWrap, Img } 
@@ -27,6 +28,7 @@ const InfoSection = ({lightBg, id, imgStart, topLine, lightText, headLine, darkT
                               dark2={dark2 ? 1 : 0}
                               >{buttonLabel}</Button>
                           </BtnWrap>
+                              {id === 'chart' ? <Link to='coins'>More detail</Link> : null}
                       </TextWrapper>
                       </Column1>
                       <Column2>

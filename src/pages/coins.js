@@ -1,10 +1,11 @@
 import React from 'react'
+import ChartSection from '../components/ChartSection'
 
 const coin = () => {
   return (
-    <div>
-      tara~
-    </div>
+    <>
+      <ChartSection />
+    </>
   )
 }
 
