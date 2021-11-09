@@ -1,11 +1,11 @@
 import React from 'react'
-import News from '../components/News'
+import NewS from '../components/News'
 
 const NewsPage = () => {
     return (
-        <div>
-            
-        </div>
+        <>
+            <NewS />
+        </>
     )
 }
 
