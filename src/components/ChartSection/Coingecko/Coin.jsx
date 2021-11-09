@@ -1,62 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { resolvePath, useParams } from "react-router-dom";
-import {coingecko} from "../../../apis/configs";
-import Chart from "./Chart";
-import Detail from "./Detail";
+import React from 'react'
+import { Link } from 'react-router-dom';
 
-const Coin = () => {
-	const { id } = useParams();
-	const [chartData, setChartData] = useState([]);
-	const [coinInfo, setCoinInfo] = useState([]);
-	const days = [1, 7, 14, 30, 90, 180, 365];
-	const xyFormat = (array) => {
-		return array.map((el) => ({
-			x: el[0],
-			y: el[1],
-		}));
-	};
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const response = await Promise.all([
-				...days.map((el) =>
-					coingecko.get(`/coins/${id}/market_chart`, {
-						params: {
-							vs_currency: "usd",
-							days: el,
-						},
-					})
-				),
-				coingecko.get("/coins/markets", {
-					params: {
-						vs_currency: "usd",
-						ids: id,
-					},
-				}),
-			]);
-
-			const [day, week, twoWeeks, month, threeMonths, halfYear, year, details] =
-				response.map((el) => {
-					if (el.data.prices) {
-						return xyFormat(el.data.prices);
-					} else return el.data[0];
-				});
-
-			setChartData([day, week, twoWeeks, month, threeMonths, halfYear, year]);
-			setCoinInfo(details);
-		};
-		fetchData();
-	}, []);
-
-	console.log(coinInfo);
-	console.log(chartData);
-
+const Coin = ({ coin }) => {
 	return (
-		<>
-			<div><Chart /></div>
-			<div><Detail/></div>
-		</>
+		<Link to={`/coins/${coin.id}`} className="text-decoration-none ">
+			<div className="coinlist-item list-group-item d-flex justify-content-between align-items-center text-light bg-dark">
+				<img className="item0 coinlist-image" src={coin.image} alt={coin.name} />
+				<span className="item1"> {coin.name}</span>
+				<span className="item2"> $ {coin.current_price.toLocaleString()}</span>
+				<span className="item3"> $ {coin.market_cap.toLocaleString()} </span>
+				<span
+					className={
+						coin.price_change_percentage_24h < 0
+							? "text-danger mx-2 item4"
+							: "text-success mx-2 item4"
+					}
+				>
+					{" "}
+					{coin.price_change_percentage_24h < 0 ? (
+						<i className="fas fa-sort-down align-middle mx-1"></i>
+					) : (
+						<i className="fas fa-sort-up align-middle mx-1"></i>
+					)}
+					{coin.price_change_percentage_24h.toFixed(2)} %
+				</span>
+			</div>
+		</Link>
 	);
 };
 
-export default Coin;
+export default Coin

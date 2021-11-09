@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, FormControl, InputGroup, ListGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import {coingecko, upbit} from "../../../apis/configs";
+import {coingecko} from "../../../apis/configs";
+import Coin from "./Coin";
 
 const CoinList = () => {
 	const [coins, setCoins] = useState([]);
@@ -10,22 +10,14 @@ const CoinList = () => {
 	// 첫 랜더링 시 코인 리스트 불러오기
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await Promise.all([
-				coingecko.get("coins/markets", {
-					params: {
-						vs_currency: "usd",
-					},
-				}),
-				upbit.get('/market/all')
-			])
-
-			const [coingeckoData, upbitData] = response;
-
-			setCoins(coingeckoData.data);
-			setCoinsDisplay(coingeckoData.data.slice(0, 10));
-
-			// setCoins(upbitData.data);
-			// setCoinsDisplay(upbitData.data.slice(0, 10));
+			const response = await coingecko.get("coins/markets", {
+				params: {
+					vs_currency: "usd",
+				},
+			})
+				// 코인게코 코인 리스트 및 정보 불러오기
+			setCoins(response.data);
+			setCoinsDisplay(response.data.slice(0, 10));
 		};
 		fetchData();
 	}, []);
@@ -34,9 +26,9 @@ const CoinList = () => {
 		let searchedCoins = [];
 		coins.forEach((coin) => {
 			if (
-				coin.name.includes(e.target.value) ||
-				coin.id.includes(e.target.value) ||
-        coin.symbol.includes(e.target.value)
+				coin.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+				coin.id.includes(e.target.value.toLowerCase()) ||
+        coin.symbol.includes(e.target.value.toLowerCase())
 			) {
 				searchedCoins = [...searchedCoins, coin];
 			}
@@ -68,32 +60,6 @@ const CoinList = () => {
 };
 
 
-const Coin = ({ coin }) => {
-	return (
-		<Link to={`/coins/${coin.id}`} className="text-decoration-none ">
-			<div className="coinlist-item list-group-item d-flex justify-content-between align-items-center text-light bg-dark">
-				<img className="item0 coinlist-image" src={coin.image} alt={coin.name} />
-				<span className="item1"> {coin.name}</span>
-				<span className="item2"> $ {coin.current_price.toLocaleString()}</span>
-				<span className="item3"> $ {coin.market_cap.toLocaleString()} </span>
-				<span
-					className={
-						coin.price_change_percentage_24h < 0
-							? "text-danger mx-2 item4"
-							: "text-success mx-2 item4"
-					}
-				>
-					{" "}
-					{coin.price_change_percentage_24h < 0 ? (
-						<i className="fas fa-sort-down align-middle mx-1"></i>
-					) : (
-						<i className="fas fa-sort-up align-middle mx-1"></i>
-					)}
-					{coin.price_change_percentage_24h.toFixed(2)} %
-				</span>
-			</div>
-		</Link>
-	);
-};
+
 
 export default CoinList;
