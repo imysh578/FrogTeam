@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Col, Dropdown, DropdownButton, FormControl, InputGroup, ListGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import coingecko from "../../../apis/coingecko";
+import { Col, FormControl, InputGroup, ListGroup } from "react-bootstrap";
+import {coingecko} from "../../../apis/configs";
+import Coin from "./Coin";
 
-const CoingeckoCoinList = () => {
+const CoinList = () => {
 	const [coins, setCoins] = useState([]);
 	const [coinsDisplay, setCoinsDisplay] = useState([]);
 
@@ -14,7 +14,8 @@ const CoingeckoCoinList = () => {
 				params: {
 					vs_currency: "usd",
 				},
-			});
+			})
+				// 코인게코 코인 리스트 및 정보 불러오기
 			setCoins(response.data);
 			setCoinsDisplay(response.data.slice(0, 10));
 		};
@@ -25,9 +26,9 @@ const CoingeckoCoinList = () => {
 		let searchedCoins = [];
 		coins.forEach((coin) => {
 			if (
-				coin.name.includes(e.target.value) ||
-				coin.id.includes(e.target.value) ||
-        coin.symbol.includes(e.target.value)
+				coin.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+				coin.id.includes(e.target.value.toLowerCase()) ||
+        coin.symbol.includes(e.target.value.toLowerCase())
 			) {
 				searchedCoins = [...searchedCoins, coin];
 			}
@@ -59,32 +60,6 @@ const CoingeckoCoinList = () => {
 };
 
 
-const Coin = ({ coin }) => {
-	return (
-		<Link to={`/coins/${coin.id}`} className="coin text-decoration-none ">
-			<div className="coinlist-item list-group-item list-group-item-acion d-flex justify-content-between align-items-center text-light bg-dark">
-				<img className="item0 coinlist-image" src={coin.image} alt={coin.name} />
-				<span className="item1"> {coin.name}</span>
-				<span className="item2"> $ {coin.current_price.toLocaleString()}</span>
-				<span className="item3"> $ {coin.market_cap.toLocaleString()} </span>
-				<span
-					className={
-						coin.price_change_percentage_24h < 0
-							? "text-danger mx-2 item4"
-							: "text-success mx-2 item4"
-					}
-				>
-					{" "}
-					{coin.price_change_percentage_24h < 0 ? (
-						<i className="fas fa-sort-down align-middle mx-1"></i>
-					) : (
-						<i className="fas fa-sort-up align-middle mx-1"></i>
-					)}
-					{coin.price_change_percentage_24h.toFixed(2)} %
-				</span>
-			</div>
-		</Link>
-	);
-};
 
-export default CoingeckoCoinList;
+
+export default CoinList;

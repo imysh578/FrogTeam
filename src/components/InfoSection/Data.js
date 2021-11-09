@@ -49,7 +49,8 @@ export const homeObjThree = {
     alt: 'Car',
     dark: true,
     primary: true,
-    darkText: true
+    darkText: true,
+    link: '/coins'
 };
 
 export const homeObjFour = {

@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import { ButtonGroup, Button } from "react-bootstrap";
-import Coingecko from "./Coingecko";
-import './index.scss'
-
-const Contents = ({ tab }) => {
-	switch (tab) {
-		case "Coingecko":
-			return <Coingecko />;
-		case "Upbit":
-			return <div>Upbit Chart</div>;
-
-		default:
-			break;
-	}
-};
+import { Route, Routes } from "react-router-dom";
+import CoingeckoCoinDetail from "./Coingecko/CoinDetail";
+import CoingeckoCoinList from "./Coingecko/CoinList";
+import "./index.scss";
+import UpbitCoinDetail from "./Upbit/CoinDetail";
+import UpbitCoinList from "./Upbit/CoinList";
 
 const ChartSection = () => {
 	const [tab, setTab] = useState("Coingecko");
@@ -25,17 +17,19 @@ const ChartSection = () => {
 
 	return (
 		<div className="coins-container">
-			<div>
-				<ButtonGroup className="mt-2 mx-2">
-					<Button className="tab" onClick={handleTabClick()} variant="success">
-						Coingecko
-					</Button>
-					<Button className="tab" onClick={handleTabClick()} variant="primary">
-						Upbit
-					</Button>
-				</ButtonGroup>
-			</div>
-			<Contents tab={tab} />
+			<ButtonGroup className="mt-2 mx-2">
+				<Button className="tab" onClick={handleTabClick()} variant="success">
+					Coingecko
+				</Button>
+				<Button className="tab" onClick={handleTabClick()} variant="primary">
+					Upbit
+				</Button>
+			</ButtonGroup>
+
+			<Routes>
+				<Route path="/" element={tab ==='Coingecko' ? <CoingeckoCoinList/> : <UpbitCoinList/>} exact />
+				<Route path="/:id" element={tab === 'Coingecko' ? <CoingeckoCoinDetail /> : <UpbitCoinDetail/>} exact />
+			</Routes>
 		</div>
 	);
 };

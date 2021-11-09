@@ -1,11 +1,11 @@
 import React from 'react'
 
-const CoingeckoChart = () => {
+const Chart = () => {
   return (
     <div>
-      Coingecko Chart
+      Chart
     </div>
   )
 }
 
-export default CoingeckoChart
+export default Chart
