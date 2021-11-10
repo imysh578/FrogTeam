@@ -5,7 +5,7 @@ const Coin = ({ coin, index }) => {
 	return (
 		<>
 			<tr>
-				<th scope="row"> {index} </th>
+				<th> {index} </th>
 				<td>
 					<img src={coin.image} alt={coin.name} />
 				</td>

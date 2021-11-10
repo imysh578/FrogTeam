@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, FormControl, InputGroup, ListGroup } from "react-bootstrap";
+import { Col, FormControl, InputGroup } from "react-bootstrap";
 import { coingecko, coingeckoUrl } from "../../../apis/configs";
 import useAxios from "../../../apis/useAxios";
 import Coin from "./Coin";
@@ -24,6 +24,7 @@ const CoinList = () => {
 	// }, []);
 
 	/* useAxios 사용하는 방법 */
+	
 	const { data, loading, error } = useAxios({
 		method: "GET",
 		baseURL: coingeckoUrl,

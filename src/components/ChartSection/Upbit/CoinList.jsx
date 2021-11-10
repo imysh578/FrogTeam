@@ -1,38 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { Col, FormControl, InputGroup, ListGroup } from "react-bootstrap";
+import { Col, FormControl, InputGroup } from "react-bootstrap";
 import { upbit} from "../../../apis/configs";
 import Coin from "./Coin";
 
 const CoinList = () => {
 	const [coins, setCoins] = useState([]);
 	const [coinsDisplay, setCoinsDisplay] = useState([]);
-
-	// 첫 랜더링 시 코인 리스트 불러오기
+	const [loading, setLoading] = useState(false);
+	
 	useEffect(() => {
-		const fetchData = async () => {
-      // 업비트 코인 리스트 불러오기
-			const response = await upbit.get('/market/all')
-
-      // BTC 마켓 제외하고 찾기
-      const coinList = response.data.filter((el)=>el.market.includes('KRW'))
-      const markets = coinList.map((el) => el.market).toString()
-			
-			// 업비트 가격 데이터 불러오기
-			const tickerData = await upbit.get('ticker', {
-				params: {
-					markets : markets
-				}
-			})
-
-      // 불러온 두 데이터 합치기
-      const mergedData = coinList.map((el, index)=>{
-        return {...el, ...tickerData.data[index]}
-      })
-      
-			setCoins(mergedData);
-			setCoinsDisplay(mergedData.slice(0, 10));
-		};
-		fetchData();
+		setLoading(true);
+	}, [])
+	
+	useEffect(() => {
+		if(!loading){
+			const fetchData = async () => {
+				// 업비트 코인 리스트 불러오기
+				const response = await upbit.get('/market/all')
+	
+				// BTC 마켓 제외하고 찾기
+				const coinList = response.data.filter((el)=>el.market.includes('KRW'))
+				const markets = coinList.map((el) => el.market).toString()
+				
+				// 업비트 가격 데이터 불러오기
+				const tickerData = await upbit.get('ticker', {
+					params: {
+						markets : markets
+					}
+				})
+	
+				// 불러온 두 데이터 합치기
+				const mergedData = coinList.map((el, index)=>{
+					return {...el, ...tickerData.data[index]}
+				})
+				
+				setCoins(mergedData);
+				setCoinsDisplay(mergedData.slice(0, 10));
+			};
+			fetchData();
+		}
+		return setLoading(false)
 	}, []);
 
 	const handleOnChange = () => (e) => {
@@ -57,7 +64,7 @@ const CoinList = () => {
 				</InputGroup>
 			</Col>
 			<table className="table coinlist-table table-striped table-hover text-center">
-				<thead className="text-light bg-primary ">
+				<thead className="text-light bg-primary">
 					<tr>
 						<th>
 							<span>#</span>
@@ -79,7 +86,7 @@ const CoinList = () => {
 				<tbody className="table-dark">
 					{/* {loading && <tr><td colSpan={6}><h1 className="text-center">Loading...</h1></td></tr>} */}
 					{coinsDisplay.map((coin, index) => (
-						<Coin key={coin.id} coin={coin} index={index + 1} />
+						<Coin key={index} coin={coin} index={index + 1} />
 					))}
 				</tbody>
 			</table>

@@ -1,42 +1,41 @@
 import { Chart, registerables } from "chart.js";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import "chartjs-adapter-moment";
-import { chartCofig1 } from "../chartConifgs";
+import { chartCofig1} from "../chartConifgs";
 
 // Registration chart format
 Chart.register(...registerables);
 
-const StaticChart = ({ coinInfo, chartData }) => {
-	console.log(coinInfo);
-	console.log(chartData);
+const StaticChart = ({ coinInfo, chartData, bitcoinChart }) => {
 	useEffect(() => {
 		const ctx = document.getElementById("staticChart");
 		const staticChart = new Chart(ctx, {
 			data: {
 				datasets: [
 					{
-						label: `${coinInfo.name} Price`,
+						label: `${coinInfo.name}`,
 						data: chartData,
 						backgroundColor: "green",
 						borderColor: "green",
 						pointRadius: 0,
 					},
-					// {
-					// 	label: `${coinInfo.name} Price`,
-					// 	data: determinTimeFormat(),
-					// 	backgroundColor: "red",
-					// 	borderColor: "red",
-					// 	pointRadius: 0,
-					// },
+					{
+						label: `Bitcoin`,
+						data: bitcoinChart,
+						backgroundColor: "red",
+						borderColor: "red",
+						pointRadius: 0,
+						hidden: true,
+					},
 				],
 			},
-			...chartCofig1, 
+			...chartCofig1,
 		});
 		return () => {
 			// unmount될 때 canvas 삭제
 			staticChart.destroy();
 		};
-	}, [coinInfo, chartData]);
+	}, [coinInfo, chartData, bitcoinChart]);
 
 	const renderPrice = () => {
 		if (coinInfo) {

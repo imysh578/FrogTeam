@@ -4,7 +4,6 @@ import { Route, Routes } from "react-router-dom";
 import CoingeckoCoinDetail from "./Coingecko/CoinDetail";
 import CoingeckoCoinList from "./Coingecko/CoinList";
 import "./index.scss";
-import UpbitCoinDetail from "./Upbit/CoinDetail";
 import UpbitCoinList from "./Upbit/CoinList";
 
 const ChartSection = () => {
@@ -28,7 +27,7 @@ const ChartSection = () => {
 
 			<Routes>
 				<Route path="/" element={tab ==='Coingecko' ? <CoingeckoCoinList/> : <UpbitCoinList/>} exact />
-				<Route path="/:id" element={tab === 'Coingecko' ? <CoingeckoCoinDetail /> : <UpbitCoinDetail/>} exact />
+				<Route path="/:id" element={<CoingeckoCoinDetail />} exact />
 			</Routes>
 		</div>
 	);

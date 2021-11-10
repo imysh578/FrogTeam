@@ -7,6 +7,7 @@ const CoinDetail = () => {
 	const { id } = useParams();
 	const [chartData, setChartData] = useState([]);
 	const [coinInfo, setCoinInfo] = useState([]);
+	const [bitcoinChart, setBitcoinChart] = useState([]);
 	const [timeFormat, setTimeFormat] = useState(1);
 	
 	const xyFormat = (array) => {
@@ -15,10 +16,16 @@ const CoinDetail = () => {
 			y: el[1],
 		}));
 	};
-
+	
 	const fetchData = async () => {
 		const result = await Promise.all([
 			coingecko.get(`/coins/${id}/market_chart`, {
+				params: {
+					vs_currency: "usd",
+					days: timeFormat,
+				},
+			}),
+			coingecko.get(`/coins/bitcoin/market_chart`, {
 				params: {
 					vs_currency: "usd",
 					days: timeFormat,
@@ -32,11 +39,9 @@ const CoinDetail = () => {
 			}),
 		]);
 
-		const xyData = xyFormat(result[0].data.prices);
-		const details = result[1].data[0];
-		console.log(result);
-		setChartData(xyData);
-		setCoinInfo(details);
+		setChartData(xyFormat(result[0].data.prices));
+		setBitcoinChart(xyFormat(result[1].data.prices));
+		setCoinInfo(result[2].data[0]);
 	};
 	useEffect(() => {
 		fetchData();
@@ -45,11 +50,11 @@ const CoinDetail = () => {
 
 	return (
 		<>
-			<div>{id}</div>
+			
 			<div className="chart-buttons mt-1">
 				<Buttons setTimeFormat={setTimeFormat}/>
 			</div>
-			<div><StaticChart coinInfo = {coinInfo} chartData ={chartData} /></div>
+			<div><StaticChart coinInfo = {coinInfo} chartData ={chartData} bitcoinChart={bitcoinChart}  /></div>
 		</>
 	);
 };
@@ -69,5 +74,7 @@ function Buttons({ setTimeFormat }) {
 		))
 	)
 }
+
+
 
 export default CoinDetail;
