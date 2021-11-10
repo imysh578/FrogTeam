@@ -6,7 +6,7 @@ const Coin = ({coin}) => {
   return (
 		<Link to={`/coins/${coin.english_name}`} className="text-decoration-none ">
 			<div className="coinlist-item list-group-item d-flex justify-content-between align-items-center text-light bg-dark">
-				<img className="item0 coinlist-image" />
+				<div className="item0" />
 				<span className="item1"> {coin.korean_name}</span>
 				<span className="item2"> {coin.trade_price.toLocaleString()} 원</span>
 				<span
