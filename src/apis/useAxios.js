@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const useAxios = (axiosParams) => {
   const [data, setData] = useState(undefined);
@@ -19,7 +19,6 @@ const useAxios = (axiosParams) => {
 
   useEffect(()=>{
     fetchData(axiosParams);
-    return axios.Cancel()
   }, [])
   
   return {data, error, loading}

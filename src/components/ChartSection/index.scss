@@ -4,42 +4,15 @@
   .input-box{
     text-align: right;
   }
-}
-.coinlist-item, .col-title {
-  padding-left: 50px;
-  padding-right: 50px;
-  .item0{
+  img{
     width: 32px;
-    text-align: center;
   }
-  .item1{
-    width: 20%;
-  }
-  .item2{
-    width: 20%;
-    text-align: right;
-  }
-  .item3{
-    width: 25%;
-    text-align: right;
-  }
-  .item4{
-    display: flex;
-    justify-content: space-evenly;
-    width: 15%;
-    text-align: right;
-  }
-}
-
-.coinlist-item:hover{
-  opacity: 0.9;
-}
-
-.coinsummary {
-  border-color: white !important;
-  border-style: outset !important;
-}
-
-.coin-data-category {
-  font-size: 10px;
+  // .coinsummary {
+  //   border-color: white !important;
+  //   border-style: outset !important;
+  // }
+  
+  // .coin-data-category {
+  //   font-size: 10px;
+  // }
 }

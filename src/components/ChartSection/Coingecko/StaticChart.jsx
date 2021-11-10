@@ -7,33 +7,8 @@ import { chartCofig1 } from "../chartConifgs";
 Chart.register(...registerables);
 
 const StaticChart = ({ coinInfo, chartData }) => {
-	const [day, week, twoWeeks, month, threeMonths, halfYear, year] = chartData;
-	// const [day1, week1, twoWeeks1, month1, threeMonths1, halfYear1, year1] = bitcoinChartData;
-	const [timeFormat, setTimeFormat] = useState("24h");
-	const timeFormatList = ["24h", "7d", "14d", "30d", "90d", "180d", "1y"];
-
-	const determinTimeFormat = () => {
-		switch (timeFormat) {
-			case "24h":
-				return day;
-			case "7d":
-				return week;
-			case "14d":
-				return twoWeeks;
-			case "30d":
-				return month;
-			case "90d":
-				return threeMonths;
-			case "180d":
-				return halfYear;
-			case "1y":
-				return year;
-
-			default:
-				return day;
-		}
-	};
-
+	console.log(coinInfo);
+	console.log(chartData);
 	useEffect(() => {
 		const ctx = document.getElementById("staticChart");
 		const staticChart = new Chart(ctx, {
@@ -41,7 +16,7 @@ const StaticChart = ({ coinInfo, chartData }) => {
 				datasets: [
 					{
 						label: `${coinInfo.name} Price`,
-						data: determinTimeFormat(),
+						data: chartData,
 						backgroundColor: "green",
 						borderColor: "green",
 						pointRadius: 0,
@@ -61,7 +36,7 @@ const StaticChart = ({ coinInfo, chartData }) => {
 			// unmount될 때 canvas 삭제
 			staticChart.destroy();
 		};
-	}, [coinInfo, chartData, timeFormat]);
+	}, [coinInfo, chartData]);
 
 	const renderPrice = () => {
 		if (coinInfo) {
@@ -88,26 +63,10 @@ const StaticChart = ({ coinInfo, chartData }) => {
 			<div>
 				<canvas id="staticChart" width={250} height={250}></canvas>
 			</div>
-			<div className="chart-buttons mt-1">
-				<Buttons setTimeFormat={setTimeFormat} timeFormatList={timeFormatList}/>
-			</div>
 		</div>
 	);
 };
 
-function Buttons({ setTimeFormat, timeFormatList }) {
 
-	return	(
-		timeFormatList.map((timeFormat,index) => (
-			<button
-				key={index}
-				onClick={() => setTimeFormat(timeFormat)}
-				className="btn btn-outline-secondary btn-sm mx-1"
-			>
-				{timeFormat}
-			</button>
-		))
-	)
-}
 
 export default StaticChart;

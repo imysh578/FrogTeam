@@ -6,9 +6,9 @@ import StaticChart from "./StaticChart";
 const CoinDetail = () => {
 	const { id } = useParams();
 	const [chartData, setChartData] = useState([]);
-	// const [bitcoinChartData, setBitcoinChartData] = useState([]);
 	const [coinInfo, setCoinInfo] = useState([]);
-	const days = [1, 7, 14, 30, 90, 180, 365];
+	const [timeFormat, setTimeFormat] = useState(1);
+	
 	const xyFormat = (array) => {
 		return array.map((el) => ({
 			x: el[0],
@@ -17,15 +17,13 @@ const CoinDetail = () => {
 	};
 
 	const fetchData = async () => {
-		const response = await Promise.all([
-			...days.map((el) =>
-				coingecko.get(`/coins/${id}/market_chart`, {
-					params: {
-						vs_currency: "usd",
-						days: el,
-					},
-				})
-			),
+		const result = await Promise.all([
+			coingecko.get(`/coins/${id}/market_chart`, {
+				params: {
+					vs_currency: "usd",
+					days: timeFormat,
+				},
+			}),
 			coingecko.get("/coins/markets", {
 				params: {
 					vs_currency: "usd",
@@ -34,55 +32,42 @@ const CoinDetail = () => {
 			}),
 		]);
 
-		const responseData =
-			response.map((el) => {
-				if (el.data.prices) {
-					return xyFormat(el.data.prices);
-				} else return el.data[0];
-			});
-		setChartData(responseData.slice(0,-1));
-		setCoinInfo(responseData.slice(-1,));
+		const xyData = xyFormat(result[0].data.prices);
+		const details = result[1].data[0];
+		console.log(result);
+		setChartData(xyData);
+		setCoinInfo(details);
 	};
 	useEffect(() => {
 		fetchData();
-		return () => coingecko.cancelRequest();
-	}, []);
+	}, [timeFormat]);
 
-	// // 비트코인 데이터
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		const response = await Promise.all([
-	// 			...days.map((el) =>
-	// 				coingecko.get(`/coins/bitcoin/market_chart`, {
-	// 					params: {
-	// 						vs_currency: "usd",
-	// 						days: el,
-	// 					},
-	// 				})
-	// 			)
-	// 		]);
-
-	// 		const responseData =
-	// 			response.map((el) => {
-	// 				if (el.data.prices) {
-	// 					return xyFormat(el.data.prices);
-	// 				} else return el.data[0];
-	// 			});
-	// 		setBitcoinChartData(responseData);
-
-	// 	};
-	// 	fetchData();
-	// }, []);
-
-	console.log(coinInfo);
-	console.log(chartData);
 
 	return (
 		<>
 			<div>{id}</div>
+			<div className="chart-buttons mt-1">
+				<Buttons setTimeFormat={setTimeFormat}/>
+			</div>
 			<div><StaticChart coinInfo = {coinInfo} chartData ={chartData} /></div>
 		</>
 	);
 };
+
+function Buttons({ setTimeFormat }) {
+	const timeFormatList = ["24h", "7d", "14d", "30d", "90d", "180d", "1y"];
+	const days = [1, 7, 14, 30, 90, 180, 365];
+	return	(
+		timeFormatList.map((timeFormat,index) => (
+			<button
+				key={index}
+				onClick={() => setTimeFormat(days[index])}
+				className="btn btn-outline-secondary btn-sm mx-1"
+			>
+				{timeFormat}
+			</button>
+		))
+	)
+}
 
 export default CoinDetail;

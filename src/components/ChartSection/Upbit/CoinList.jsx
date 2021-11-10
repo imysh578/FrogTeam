@@ -56,19 +56,33 @@ const CoinList = () => {
 					<FormControl placeholder="Insert Coin name" onChange={handleOnChange()} />
 				</InputGroup>
 			</Col>
-			<ListGroup className="coinlist-box">
-        <div className="col-title list-group-item list-group-item-acion d-flex justify-content-between align-items-center text-light bg-primary">
-					<span className="item0"></span>
-          <span className="item1">한글명</span>
-          <span className="item2">현재가</span>
-					<span></span>
-          <span className="item3">전일대비(%)</span>
-          <span className="item4">거래대금(₩)</span>
-        </div>
-				{coinsDisplay.map((coin) => (
-					<Coin key={coin.market} coin={coin} />
-				))}
-			</ListGroup>
+			<table className="table coinlist-table table-striped table-hover text-center">
+				<thead className="text-light bg-primary ">
+					<tr>
+						<th>
+							<span>#</span>
+						</th>
+						<th>
+							<span>한글명</span>
+						</th>
+						<th>
+							<span>현재가</span>
+						</th>
+						<th>
+							<span>전일대비(%)</span>
+						</th>
+						<th>
+							<span>거래대금(원)</span>
+						</th>
+					</tr>
+				</thead>
+				<tbody className="table-dark">
+					{/* {loading && <tr><td colSpan={6}><h1 className="text-center">Loading...</h1></td></tr>} */}
+					{coinsDisplay.map((coin, index) => (
+						<Coin key={coin.id} coin={coin} index={index + 1} />
+					))}
+				</tbody>
+			</table>
 		</>
 	);
 };
