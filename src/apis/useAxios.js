@@ -19,6 +19,7 @@ const useAxios = (axiosParams) => {
 
   useEffect(()=>{
     fetchData(axiosParams);
+    return axios.Cancel()
   }, [])
   
   return {data, error, loading}

@@ -6,9 +6,9 @@ import { chartCofig1 } from "../chartConifgs";
 // Registration chart format
 Chart.register(...registerables);
 
-const StaticChart = ({ coinInfo, chartData, bitcoinChartData }) => {
+const StaticChart = ({ coinInfo, chartData }) => {
 	const [day, week, twoWeeks, month, threeMonths, halfYear, year] = chartData;
-	const [day1, week1, twoWeeks1, month1, threeMonths1, halfYear1, year1] = bitcoinChartData;
+	// const [day1, week1, twoWeeks1, month1, threeMonths1, halfYear1, year1] = bitcoinChartData;
 	const [timeFormat, setTimeFormat] = useState("24h");
 	const timeFormatList = ["24h", "7d", "14d", "30d", "90d", "180d", "1y"];
 
@@ -46,13 +46,13 @@ const StaticChart = ({ coinInfo, chartData, bitcoinChartData }) => {
 						borderColor: "green",
 						pointRadius: 0,
 					},
-					{
-						label: `${coinInfo.name} Price`,
-						data: determinTimeFormat(),
-						backgroundColor: "red",
-						borderColor: "red",
-						pointRadius: 0,
-					},
+					// {
+					// 	label: `${coinInfo.name} Price`,
+					// 	data: determinTimeFormat(),
+					// 	backgroundColor: "red",
+					// 	borderColor: "red",
+					// 	pointRadius: 0,
+					// },
 				],
 			},
 			...chartCofig1, 
@@ -98,8 +98,9 @@ const StaticChart = ({ coinInfo, chartData, bitcoinChartData }) => {
 function Buttons({ setTimeFormat, timeFormatList }) {
 
 	return	(
-		timeFormatList.map(timeFormat => (
+		timeFormatList.map((timeFormat,index) => (
 			<button
+				key={index}
 				onClick={() => setTimeFormat(timeFormat)}
 				className="btn btn-outline-secondary btn-sm mx-1"
 			>

@@ -9,36 +9,36 @@ const CoinList = () => {
 	const [coinsDisplay, setCoinsDisplay] = useState([]);
 
 	/* 일반적인 axios 사용 */ 
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		// 코인게코 코인 리스트 및 정보 불러오기
-	// 		const response = await coingecko.get("coins/markets", {
-	// 			params: {
-	// 				vs_currency: "usd",
-	// 			},
-	// 		});
-	// 		setCoins(response.data);
-	// 		setCoinsDisplay(response.data.slice(0, 10));
-	// 	};
-	// 	fetchData();
-	// }, []);
+	useEffect(() => {
+		const fetchData = async () => {
+			// 코인게코 코인 리스트 및 정보 불러오기
+			const response = await coingecko.get("coins/markets", {
+				params: {
+					vs_currency: "usd",
+				},
+			});
+			setCoins(response.data);
+			setCoinsDisplay(response.data.slice(0, 10));
+		};
+		fetchData();
+	}, []);
 
 	/* useAxios 사용하는 방법 */ 
-	const { data, loading, error } = useAxios({
-		method: "GET",
-		baseURL: coingeckoUrl,
-		url: "/coins/markets",
-		params: {
-			vs_currency: "usd",
-		},
-	});
+	// const { data, loading, error } = useAxios({
+	// 	method: "GET",
+	// 	baseURL: coingeckoUrl,
+	// 	url: "/coins/markets",
+	// 	params: {
+	// 		vs_currency: "usd",
+	// 	},
+	// });
 
-	useEffect(() => {
-		if (!loading && data) {
-			setCoins(data);
-			setCoinsDisplay(data.slice(0, 10));
-		}
-	}, [data, loading]);
+	// useEffect(() => {
+	// 	if (!loading && data) {
+	// 		setCoins(data);
+	// 		setCoinsDisplay(data.slice(0, 10));
+	// 	}
+	// }, [data, loading]);
 
 	const handleOnChange = () => (e) => {
 		let searchedCoins = [];
@@ -54,11 +54,11 @@ const CoinList = () => {
 		setCoinsDisplay(searchedCoins.slice(0, 15));
 	};
 
-	if (error) {
-		return (
-			<h1 className="text-danger">{error.message}</h1>
-		)
-	};
+	// if (error) {
+	// 	return (
+	// 		<h1 className="text-danger">{error.message}</h1>
+	// 	)
+	// };
 
 	return (
 		<>
@@ -78,7 +78,7 @@ const CoinList = () => {
 					<span className="item3">Market Cap($)</span>
 					<span className="item4">24h(%)</span>
 				</div>
-				{loading && (<h1>Loading...</h1>)}	
+				{/* {loading && (<h1>Loading...</h1>)}	 */}
 				{coinsDisplay.map((coin) => (
 					<Coin key={coin.id} coin={coin} />
 				))}
