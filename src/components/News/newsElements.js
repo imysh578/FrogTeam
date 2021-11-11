@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 export const NewsContainer = styled.div`
 min-height: 700px;
-position: fixed;
+position: relative;
 bottom: 0;
 left: 0;
 right: 0;
