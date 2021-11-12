@@ -31,6 +31,7 @@ const CoinList = () => {
 		url: "/coins/markets",
 		params: {
 			vs_currency: "usd",
+			per_page: 250,
 		},
 	});
 
