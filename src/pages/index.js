@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 import InfoSection from '../components/InfoSection'
 import { homeObjOne, homeObjTwo, homeObjThree, homeObjFour, homeObjFive} from '../components/InfoSection/Data'
+import Scroll from '../components/Scroll'
 
 const Home = () => {
     const[isOpen, setIsOpen] = useState(false)
@@ -21,6 +22,7 @@ const toggle = () => {
           <InfoSection {...homeObjThree}/>
           <InfoSection {...homeObjFour}/>
           <InfoSection {...homeObjFive}/>
+          <Scroll showBelow={250} />
           <Footer />
         </>
     )
