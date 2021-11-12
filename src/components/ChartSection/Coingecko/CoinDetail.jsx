@@ -9,6 +9,7 @@ const CoinDetail = () => {
 	const [coinInfo, setCoinInfo] = useState([]);
 	const [bitcoinChart, setBitcoinChart] = useState([]);
 	const [timeFormat, setTimeFormat] = useState(1);
+	const [prevData, setPrevData] = useState([])
 	
 	const xyFormat = (array) => {
 		return array.map((el) => ({
@@ -38,15 +39,22 @@ const CoinDetail = () => {
 				},
 			}),
 		]);
-
 		setChartData(xyFormat(result[0].data.prices));
 		setBitcoinChart(xyFormat(result[1].data.prices));
 		setCoinInfo(result[2].data[0]);
 	};
+	
+	
 	useEffect(() => {
 		fetchData();
+		console.log(new Date());
+		return setPrevData(chartData);
+		
 	}, [timeFormat]);
-
+	
+	console.log(chartData);
+	console.log(prevData);
+	console.log(chartData == prevData);
 
 	return (
 		<>

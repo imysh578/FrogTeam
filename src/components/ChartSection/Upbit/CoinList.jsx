@@ -84,7 +84,7 @@ const CoinList = () => {
 					</tr>
 				</thead>
 				<tbody className="table-dark">
-					{/* {loading && <tr><td colSpan={6}><h1 className="text-center">Loading...</h1></td></tr>} */}
+					{loading && <tr><td colSpan={6}><h1 className="text-center">Loading...</h1></td></tr>}
 					{coinsDisplay.map((coin, index) => (
 						<Coin key={index} coin={coin} index={index + 1} />
 					))}

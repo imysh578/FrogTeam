@@ -1,9 +1,9 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react'
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const useAxios = (axiosParams) => {
   const [data, setData] = useState(undefined);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
   const fetchData = async (params) => {
@@ -11,17 +11,17 @@ const useAxios = (axiosParams) => {
       const result = await axios.request(params);
       setData(result.data);
     } catch (error) {
-      setError(error)
+      setError(error);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchData(axiosParams);
-  }, [])
-  
-  return {data, error, loading}
-}
+  }, []);
 
-export default useAxios
+  return { data, error, loading };
+};
+
+export default useAxios;
