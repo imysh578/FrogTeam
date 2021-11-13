@@ -6,6 +6,7 @@ require('dotenv').config()
 // Router 불러오기
 const indexRouter = require("./router/index.js");
 const upbitRouter = require('./router/upbit.js');
+const binaceRouter = require('./router/binance.js');
 const otherRouter = require('./router/other.js');
 
 const app = express();

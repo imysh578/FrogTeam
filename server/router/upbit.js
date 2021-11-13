@@ -13,8 +13,6 @@ const access_key = process.env.UPBIT_OPEN_API_ACCESS_KEY
 const secret_key = process.env.UPBIT_OPEN_API_SECRET_KEY
 const server_url = process.env.UPBIT_OPEN_API_SERVER_URL
 
-console.log(access_key);
-console.log(secret_key);
 const payload = {
     access_key: access_key,
     nonce: uuidv4(),
