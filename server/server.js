@@ -4,11 +4,11 @@ const morgan = require("morgan");
 require("dotenv").config();
 
 // Router 불러오기
-const indexRouter = require("./router/index.js");
-const upbitRouter = require("./router/upbit.js");
-const binaceRouter = require("./router/binance.js");
-const otherRouter = require("./router/other.js");
-const coningeckoRouter = require("./router/coingecko.js");
+const indexRouter = require("./routers/index.js");
+const upbitRouter = require("./routers/upbit.js");
+const binaceRouter = require("./routers/binance.js");
+const otherRouter = require("./routers/other.js");
+const coningeckoRouter = require("./routers/coingecko.js");
 
 const app = express();
 

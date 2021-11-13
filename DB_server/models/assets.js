@@ -4,7 +4,7 @@ module.exports = class Assets extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        id: {
+        no: {
           primaryKey: true,
           type: Sequelize.INTEGER,
           autoIncrement: true,
@@ -37,9 +37,9 @@ module.exports = class Assets extends Sequelize.Model {
 
   // 테이블간 관계 설정
   static associate(db) {
-    // db.Assets.belongsTo(db.Users, {
-    //   foreignKey: "email",
-    //   sourceKey: "email",
-    // });
+    db.Assets.belongsTo(db.Users, {
+      foreignKey: "email",
+      targetKey: "email",
+    });
   }
 };

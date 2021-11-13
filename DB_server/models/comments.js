@@ -48,5 +48,10 @@ module.exports = class Comments extends Sequelize.Model {
       }
     );
   }
-  static associate(db) {}
+  static associate(db) {
+    db.Comments.belongsTo(db.Users, {
+      foreignKey: "email",
+      targetKey: "email",
+    });
+  }
 };

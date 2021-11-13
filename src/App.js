@@ -19,7 +19,6 @@ function App() {
           <Route path=":id" element={<CoinDetail />} />
         </Route>
         <Route path="query" element={<QueryPage />} exact />
-        <Route path="coingecko" element={<h1>Coingecko!!</h1>} />
       </Routes>
     </Router>
   );
