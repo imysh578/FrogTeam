@@ -11,8 +11,10 @@ const client = new Spot(apiKey, apiSecret);
 // client.account().then((response) => client.logger.log(response.data));
 
 // accountStatus
-client.managedSubAccountAssets('alice@test.com').then(response => client.logger.log(response.data))
-  .catch(error => client.logger.error(error))
+// client
+//   .managedSubAccountAssets("alice@test.com")
+//   .then((response) => client.logger.log(response.data))
+//   .catch((error) => client.logger.error(error));
 
 // // accountSnapshot
 // client.accountSnapshot('SPOT')
@@ -36,9 +38,12 @@ client.managedSubAccountAssets('alice@test.com').then(response => client.logger.
 //   .then(response => client.logger.log(response.data))
 //   .catch(error => client.logger.error(error))
 
-router.get('/binace', (req,res) => {
-  console.log('Binance');
-  res.render('Binance')
-})
+router.route("/").get((req, res) => {
+  console.log("Binance");
+  // client.account().then((response) => client.logger.log(response.data));
+  res.sendFile(path.join(__dirname, "../../build/index.html"));
+
+  res.render("Binance");
+});
 
 module.exports = router;
