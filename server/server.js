@@ -5,10 +5,12 @@ require("dotenv").config();
 
 // Router 불러오기
 const indexRouter = require("./routers/index.js");
+// Open API Router
 const upbitRouter = require("./routers/upbit.js");
 const binaceRouter = require("./routers/binance.js");
-const otherRouter = require("./routers/other.js");
 const coningeckoRouter = require("./routers/coingecko.js");
+// 모든 URL에 대한 Router
+const otherRouter = require("./routers/other.js");
 
 const app = express();
 

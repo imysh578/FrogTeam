@@ -24,15 +24,22 @@ const CoinList = () => {
 	// }, []);
 
 	/* useAxios 사용하는 방법 */
-	
+	// 1. Client에서 직접 Open API 불러오는 방법
+	// const { data, loading, error } = useAxios({
+	// 	method: "GET",
+	// 	baseURL: coingeckoUrl,
+	// 	url: "/coins/markets",
+	// 	params: {
+	// 		vs_currency: "usd",
+	// 		per_page: 250,
+	// 	},
+	// });
+
+	// 2. Client Server에서 데이터 받아오는 방법
 	const { data, loading, error } = useAxios({
 		method: "GET",
-		baseURL: coingeckoUrl,
-		url: "/coins/markets",
-		params: {
-			vs_currency: "usd",
-			per_page: 250,
-		},
+		baseURL: 'http://localhost:5000',
+		url: "coingecko/coinlist",
 	});
 
 	useEffect(() => {

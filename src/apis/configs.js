@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const serverUrl = 'http://localhost:5000'
+
 /* Coingecko API */
 export const coingecko = axios.create({
 	// axios를 이용해서 API의 json 데이터를 불러옴
