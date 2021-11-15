@@ -1,15 +1,18 @@
 import { Chart, registerables } from "chart.js";
 import React, { useEffect } from "react";
 import "chartjs-adapter-moment";
-import { chartCofig1} from "../chartConifgs";
+import { chartCofig1} from "../ChartConfig/chartConifgs";
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 // Registration chart format
 Chart.register(...registerables);
+Chart.register(zoomPlugin);
 
 const StaticChart = ({ coinInfo, chartData, bitcoinChart }) => {
 	useEffect(() => {
 		const ctx = document.getElementById("staticChart");
 		const staticChart = new Chart(ctx, {
+			type: 'line',
 			data: {
 				datasets: [
 					{
@@ -28,6 +31,13 @@ const StaticChart = ({ coinInfo, chartData, bitcoinChart }) => {
 						hidden: true,
 					},
 				],
+			},
+			options: {
+				plugins:{
+					zoom:{
+						
+					}
+				}
 			},
 			...chartCofig1,
 		});
