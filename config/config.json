@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "12341234",
+    "database": "frog",
+    "host": "frog.cqrpy1vqvg7t.ap-northeast-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "admin",
+    "password": "12341234",
+    "database": "database_test",
+    "host": "frog.cqrpy1vqvg7t.ap-northeast-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "admin",
+    "password": "12341234",
+    "database": "database_production",
+    "host": "frog.cqrpy1vqvg7t.ap-northeast-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  }
+}
