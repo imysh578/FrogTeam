@@ -9,6 +9,7 @@ const indexRouter = require("./routers/index.js");
 const upbitRouter = require("./routers/upbit.js");
 const binaceRouter = require("./routers/binance.js");
 const coningeckoRouter = require("./routers/coingecko.js");
+const usersRouter = require("./routers/users.js");
 // 모든 URL에 대한 Router
 const otherRouter = require("./routers/other.js");
 
@@ -28,6 +29,7 @@ app.use("/", indexRouter);
 app.use("/upbit", upbitRouter);
 app.use("/binance", binaceRouter);
 app.use("/coingecko", coningeckoRouter);
+app.use("/users", usersRouter);
 app.use(otherRouter);
 
 // ERROR 메세지 창
