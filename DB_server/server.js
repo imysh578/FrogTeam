@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const { sequelize } = require("./models/index.js");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -11,6 +12,13 @@ const signinRouter = require('./routers/signin.js');
 // 포트 설정
 const PORT = 7000;
 app.set("port", process.env.DB_PORT || PORT);
+
+// 데이터 관련 설정
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+//url을 통해 전달되는 데이터에 한글, 공백과 같은 문자가 포함될 경우 인식을 못하는 문제를 해결
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // url과 라우터 매칭
 app.use(morgan("dev"));

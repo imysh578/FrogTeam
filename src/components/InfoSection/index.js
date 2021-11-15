@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../ButtonElements";
 
@@ -33,13 +33,16 @@ const InfoSection = ({
 	primary,
 	dark,
 	dark2,
+	children,
 }) => {
 	return (
 		<>
 			<InfoContainer lightBg={lightBg} id={id}>
 				<InfoWrapper>
+						{children ? children : 
+						<>
 					<InfoRow imgStart={imgStart}>
-						<Column1>
+							<Column1>
 							<TextWrapper>
 								<TopLine>{topLine}</TopLine>
 								<Heading lightText={lightText}>{headLine}</Heading>
@@ -67,6 +70,7 @@ const InfoSection = ({
 							</ImgWrap>
 						</Column2>
 					</InfoRow>
+						</>}
 				</InfoWrapper>
 			</InfoContainer>
 		</>

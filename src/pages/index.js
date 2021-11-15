@@ -4,6 +4,7 @@ import HeroSection from "../components/HeroSection";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import InfoSection from "../components/InfoSection";
+import ChartSection from "../components/ChartSection";
 import {
   homeObjOne,
   homeObjTwo,
@@ -25,7 +26,9 @@ const Home = () => {
       <HeroSection />
       <InfoSection {...homeObjOne} />
       <InfoSection {...homeObjTwo} />
-      <InfoSection {...homeObjThree} />
+      <InfoSection {...homeObjThree}>
+        <ChartSection/>
+      </InfoSection>
       <InfoSection {...homeObjFour} />
       <InfoSection {...homeObjFive} />
       <Scroll showBelow={250} />
