@@ -4,7 +4,7 @@ const axios = require("axios");
 
 const router = express.Router();
 
-const uuidv4 = require("uuid/v4");
+
 const sign = require("jsonwebtoken").sign;
 
 const access_key = process.env.UPBIT_OPEN_API_ACCESS_KEY;
@@ -13,7 +13,6 @@ const server_url = process.env.UPBIT_OPEN_API_SERVER_URL;
 
 const payload = {
   access_key: access_key,
-  nonce: uuidv4(),
 };
 
 const token = sign(payload, secret_key);
