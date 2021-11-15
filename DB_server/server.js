@@ -5,6 +5,8 @@ const { sequelize } = require("./models/index.js");
 const app = express();
 
 const indexRouter = require("./routers/index.js");
+const usersRouter = require('./routers/users.js');
+const signinRouter = require('./routers/signin.js');
 
 // 포트 설정
 const PORT = 7000;
@@ -13,6 +15,8 @@ app.set("port", process.env.DB_PORT || PORT);
 // url과 라우터 매칭
 app.use(morgan("dev"));
 app.use("/", indexRouter);
+app.use('/users', usersRouter);
+app.use('/signin', signinRouter);
 
 // 에러 메서지
 app.use((err, req, res, next) => {
@@ -26,7 +30,7 @@ app.use((err, req, res, next) => {
 sequelize
   // sync : MySQL에 테이블이 존재 하지 않을때 생성
   //      force: true   => 이미 테이블이 있으면 drop하고 다시 테이블 생성
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     console.log("Database connected successfully");
   })

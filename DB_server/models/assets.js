@@ -14,6 +14,14 @@ module.exports = class Assets extends Sequelize.Model {
           type: Sequelize.STRING(45),
           allowNull: false,
         },
+        accessKey: {
+          allowNull: false,
+          type: Sequelize.STRING(45),
+        },
+        privateKey: {
+          allowNull: false,
+          type: Sequelize.STRING(45),
+        },
         asset: {
           allowNull: false,
           type: Sequelize.STRING(45),
