@@ -18,10 +18,14 @@ const redisClient = redis.createClient({
 });
 
 // Router 불러오기
-const indexRouter = require("./router/index.js");
-const upbitRouter = require("./router/upbit.js");
+const indexRouter = require("./routers/index.js");
+// Open API Router
 const authRouter = require("./router/auth");
-const otherRouter = require("./router/other.js");
+const upbitRouter = require("./routers/upbit.js");
+const binaceRouter = require("./routers/binance.js");
+const coningeckoRouter = require("./routers/coingecko.js");
+// 모든 URL에 대한 Router
+const otherRouter = require("./routers/other.js");
 
 const app = express();
 
@@ -72,14 +76,14 @@ app.use(morgan("dev"));
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
 app.use("/upbit", upbitRouter);
+app.use("/binance", binaceRouter);
+app.use("/coingecko", coningeckoRouter);
 app.use(otherRouter);
 
 // ERROR 메세지 창
 app.use((err, req, res, next) => {
-  res.locals.message = err.message;
-  res.locals.error = process.env.NODE_ENV !== "production" ? err : {};
   res.status(err.static || 500);
-  res.render("error");
+  res.send(err);
 });
 
 // PORT 연결상태 확인

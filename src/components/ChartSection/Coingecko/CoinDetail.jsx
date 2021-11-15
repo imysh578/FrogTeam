@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {coingecko} from "../../../apis/configs";
@@ -18,27 +19,47 @@ const CoinDetail = () => {
 	};
 	
 	const fetchData = async () => {
+		// const result = await Promise.all([
+		// 	coingecko.get(`/coins/${id}/market_chart`, {
+		// 		params: {
+		// 			vs_currency: "usd",
+		// 			days: timeFormat,
+		// 		},
+		// 	}),
+		// 	coingecko.get(`/coins/bitcoin/market_chart`, {
+		// 		params: {
+		// 			vs_currency: "usd",
+		// 			days: timeFormat,
+		// 		},
+		// 	}),
+		// 	coingecko.get("/coins/markets", {
+		// 		params: {
+		// 			vs_currency: "usd",
+		// 			ids: id,
+		// 		},
+		// 	}),
+		// ]);
+		const baseUrl = 'http://localhost:5000'
 		const result = await Promise.all([
-			coingecko.get(`/coins/${id}/market_chart`, {
-				params: {
-					vs_currency: "usd",
-					days: timeFormat,
-				},
+			axios.request({
+				method: 'GET',
+				baseURL: baseUrl,
+				url: `/coingecko/chart/${id}/${timeFormat}`,
 			}),
-			coingecko.get(`/coins/bitcoin/market_chart`, {
-				params: {
-					vs_currency: "usd",
-					days: timeFormat,
-				},
+			
+			axios.request({
+				method: 'GET',
+				baseURL: baseUrl,
+				url: `/coingecko/chart/bitcoin/${timeFormat}`,
 			}),
-			coingecko.get("/coins/markets", {
-				params: {
-					vs_currency: "usd",
-					ids: id,
-				},
+			
+			axios.request({
+				method: 'GET',
+				baseURL: baseUrl,
+				url: `/coingecko/coinlist/${id}`,
 			}),
 		]);
-
+		console.log(result);
 		setChartData(xyFormat(result[0].data.prices));
 		setBitcoinChart(xyFormat(result[1].data.prices));
 		setCoinInfo(result[2].data[0]);

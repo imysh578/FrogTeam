@@ -10,12 +10,11 @@ object-assign
   http://jedwatson.github.io/classnames
 */
 
-/*!
- * Chart.js v3.6.0
- * https://www.chartjs.org
- * (c) 2021 Chart.js Contributors
- * Released under the MIT License
- */
+/*! Hammer.JS - v2.0.7 - 2016-04-22
+ * http://hammerjs.github.io/
+ *
+ * Copyright (c) 2016 Jorik Tangelder;
+ * Licensed under the MIT license */
 
 /**
  * A better abstraction over CSS.
@@ -26,6 +25,17 @@ object-assign
  */
 
 /**
+<<<<<<< HEAD:build/static/js/2.35e1a691.chunk.js.LICENSE.txt
+ * A better abstraction over CSS.
+ *
+ * @copyright Oleg Isonen (Slobodskoi) / Isonen 2014-present
+ * @website https://github.com/cssinjs/jss
+ * @license MIT
+ */
+
+/**
+=======
+>>>>>>> 7fd21d5335d1e404a0b9ce4a48f9ccce145cdb37:build/static/js/2.435d3ae9.chunk.js.LICENSE.txt
  * React Router DOM v6.0.0
  *
  * Copyright (c) Remix Software Inc.
