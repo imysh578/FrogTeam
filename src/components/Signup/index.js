@@ -12,7 +12,7 @@ const SignUp = () => {
                 <FormWrap>
                     <Icon to="/">Frog</Icon>
                     <FormContent>
-                        <Form action='#'>
+                        <Form action='http://localhost:5000/auth/join' method='POST'>
                             <FormH1>회원가입</FormH1>
                             <FormLabel htmlFor='for'>이메일</FormLabel>
                             <FormInput type='email' required />
