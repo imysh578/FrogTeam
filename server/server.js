@@ -1,12 +1,21 @@
 const express = require("express");
 const path = require("path");
 const morgan = require("morgan");
-require("dotenv").config();
+const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
-const passportConfig = require("./passport");
-const { sequelize } = require("./models");
+const passportConfig = require("../passport");
+const { sequelize } = require("../models");
+dotenv.config();
+
+// redis
+const redis = require("redis");
+const RedisStore = require("connect-redis")(session);
+const redisClient = redis.createClient({
+  url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+  password: process.env.REDIS_PASSWORD,
+});
 
 // Router 불러오기
 const indexRouter = require("./router/index.js");
@@ -49,9 +58,13 @@ app.use(
       httpOnly: true,
       secure: false,
     },
+    // redis저장 설정
+    store: new RedisStore({ client: redisClient }),
   })
 );
+// passport 설정 선언
 app.use(passport.initialize());
+// req.session 에 passport 입력
 app.use(passport.session());
 
 // URL과 라우터 매칭
