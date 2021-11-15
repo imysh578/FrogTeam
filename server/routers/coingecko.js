@@ -4,7 +4,7 @@ const router = express.Router();
 
 const coingeckoUrl = "https://api.coingecko.com/api/v3";
 
-router.route("/coinlist/:id").get(async (req, res, next) => {
+router.route("/coinlist/").get(async (req, res, next) => {
 	try {
     console.log(req.params.id);
 		const result = await axios.request({
