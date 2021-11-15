@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { Container, FormWrap, Icon, Form, Text, FormButton, FormButton2, FormContent, FormH1, FormInput, FormLabel } from './SignupElements'
 
 const SignUp = () => {
-const [usernameReg, setUsernameReg] = useState('')
-const [passwordReg, setPasswordReg] = useState('')
+// const [usernameReg, setUsernameReg] = useState('')
+// const [passwordReg, setPasswordReg] = useState('')
 
     return (
         <>
