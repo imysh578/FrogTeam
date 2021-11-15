@@ -2,7 +2,6 @@ const express = require("express");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
-const User = require("../models/user");
 const axios = require("axios");
 
 const router = express.Router();
@@ -11,16 +10,16 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
   try {
     // 리액트 클라 부분에서 login, join 컴포넌트 하나 만들고 거기에 아래 axios.post를 적어주자
     // db로 쏴주는 post 클라에 적어줘야 할듯
-    const 유저정보 = { 이메일, 비밀번호 };
-    유저정보 = await axios.post("localhost://db서버");
+    // const 유저정보 = { 이메일, 비밀번호 };
+    // 유저정보 = await axios.post("localhost://db서버");
 
-    // db서버에서 우리로 값 받아오기
-    const { ok } = await axios.get("localhost://db서버");
+    // // db서버에서 우리로 값 받아오기
+    // const { ok } = await axios.get("localhost://db서버");
 
-    if (ok) {
-      // 아이디 이미 있어용
-      return res.redirect("/join?error=exist");
-    }
+    // if (ok) {
+    //   // 아이디 이미 있어용
+    //   return res.redirect("/join?error=exist");
+    // }
 
     // 가입 완료 alert 넣어주기
     return res.redirect("/");

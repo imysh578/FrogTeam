@@ -6,12 +6,11 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("./passport");
-const { sequelize } = require("./models");
 
 // Router 불러오기
 const indexRouter = require("./routers/index.js");
 // Open API Router
-const authRouter = require("./router/auth");
+const authRouter = require("./routers/auth");
 const upbitRouter = require("./routers/upbit.js");
 const binaceRouter = require("./routers/binance.js");
 const coningeckoRouter = require("./routers/coingecko.js");
@@ -22,16 +21,6 @@ const app = express();
 
 // passport setting
 passportConfig();
-
-// sequelize setting
-sequelize
-  .sync({ force: false })
-  .then(() => {
-    console.log("데이터베이스 연결 성공");
-  })
-  .catch((err) => {
-    console.error(err);
-  });
 
 // PORT setting
 const PORT = 5000;
