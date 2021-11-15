@@ -11,6 +11,7 @@ import {BrowserRouter as Router, Routes, Route} from
 import CoinsPage from './pages/coins';
 import CoinDetail from './components/ChartSection/Coingecko/CoinDetail';
 import DiscoverPage from './pages/discover';
+import QueryPage from "./pages/query";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
        <Route path="coins/*" element={<CoinsPage />} exact>
         <Route path=":id" element={<CoinDetail/>} />
        </Route>
+       <Route path="query" element={<QueryPage />} exact />
     </Routes>
         </Router>
   );
