@@ -5,34 +5,33 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import InfoSection from "../components/InfoSection";
 import {
-	homeObjOne,
-	homeObjTwo,
-	homeObjThree,
-	homeObjFour,
-	homeObjFive,
+  homeObjOne,
+  homeObjTwo,
+  homeObjThree,
+  homeObjFour,
+  homeObjFive,
 } from "../components/InfoSection/Data";
 import Scroll from "../components/Scroll";
 
-
 const Home = () => {
-	const [isOpen, setIsOpen] = useState(false);
-	const toggle = () => {
-		setIsOpen(!isOpen);
-	};
-	return (
-		<>
-			<Sidebar isOpen={isOpen} toggle={toggle} />
-			<Navbar toggle={toggle} />
-			<HeroSection />
-			<InfoSection {...homeObjOne} />
-			<InfoSection {...homeObjTwo} />
-			<InfoSection {...homeObjThree} />
-			<InfoSection {...homeObjFour} />
-			<InfoSection {...homeObjFive} />
-			<Scroll showBelow={250} />
-			<Footer />
-		</>
-	);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+  return (
+    <>
+      <Sidebar isOpen={isOpen} toggle={toggle} />
+      <Navbar toggle={toggle} />
+      <HeroSection />
+      <InfoSection {...homeObjOne} />
+      <InfoSection {...homeObjTwo} />
+      <InfoSection {...homeObjThree} />
+      <InfoSection {...homeObjFour} />
+      <InfoSection {...homeObjFive} />
+      <Scroll showBelow={250} />
+      <Footer />
+    </>
+  );
 };
 
 export default Home;
