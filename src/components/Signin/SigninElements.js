@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 export const Container = styled.div`
 min-height: 700px;
-position: fixed;
+position: relative;
 bottom: 0;
 left: 0;
 right: 0;
@@ -99,6 +99,18 @@ color: #fff;
 font-size: 20px;
 cursor: pointer;
 `;
+
+export const FormButton2 = styled.button`
+background: #01bf71;
+padding: 20px 0;
+padding-top: 20px;
+border: none;
+border-radius: 4px;
+color: #fff;
+font-size: 20px;
+cursor: pointer;
+`;
+
 export const Text = styled.span`
 text-align: center;
 margin-top: 24px;

@@ -22,7 +22,7 @@ const [passwordReg, setPasswordReg] = useState('')
                             <FormInput type='password' required />
                             
                             
-                            <FormButton2 type='submit' >Frog 회원가입 완료</FormButton2>
+                            <FormButton2 type='submit'>Frog 회원가입 완료</FormButton2>
                         </Form>
                     </FormContent>
                 </FormWrap>
