@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("../passport");
+const bodyParser = require("body-parser");
 
 dotenv.config();
 
@@ -40,7 +41,7 @@ app.use("/", express.static(path.join(__dirname, "../build")));
 // 데이터 관련 설정
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-//url을 통해 전달되는 데이터에 한글, 공백과 같은 문자가 포함될 경우 인식을 못하는 문제를 해결
+// //url을 통해 전달되는 데이터에 한글, 공백과 같은 문자가
 app.use(cookieParser(process.env.COOKIE_SECRET));
 // req.session 객체 생성
 app.use(

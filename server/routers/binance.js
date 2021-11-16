@@ -43,8 +43,8 @@ router.route("/").get(
   (req, res, next) => {
     console.log("Binance");
 
-    // client.account().then((response) => client.logger.log(response.data));
-    res.sendFile(path.join(__dirname, "../../build/index.html"));
+    client.account().then((response) => client.logger.log(response.data));
+    // res.send()
     next();
   },
   (req, res, next) => {

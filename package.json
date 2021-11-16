@@ -45,6 +45,7 @@
     "sequelize-cli": "^6.3.0",
     "styled-components": "^5.3.3",
     "switch": "^0.0.0",
+    "uuidv4": "^6.2.12",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
