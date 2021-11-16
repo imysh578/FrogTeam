@@ -1,7 +1,7 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
-const axios = require('axios');
+const axios = require("axios");
 
 module.exports = () => {
   passport.use(
@@ -14,10 +14,11 @@ module.exports = () => {
         try {
           // 우리는 db서버를 따로 두기로 했으니까 여기서 비밀번호 해시처리에서 db서버로 쏴주자
           const hash = await bcrypt.hash(password, 12);
-          const result = await axios.post('http://localhost:7000/signin',{email:email, password:hash})
+          const result = await axios.post("http://localhost:7000/signin", {
+            email: email,
+            password: password,
+          });
 
-          console.log(result.data);
-         
           if (result == 3) {
             done(null, false, { message: "가입되지 않은 회원입니다." });
           } else if (result == 2) {

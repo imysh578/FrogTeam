@@ -1,16 +1,19 @@
-const express = require('express');
+const express = require("express");
+const Users = require("../models/users.js");
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('DB server!')
-})
+router.get("/", (req, res) => {
+  res.send("DB server!");
+});
 
-router.get('/userSession',(req,res)=>{
-
+router.get("/userSession", (req, res) => {
   console.log(req);
-  // const user = User.findOne({
-  //   where: { req.query.ID },})
-  res.json(1);
-})
+
+  const user = Users.findOne({
+    where: { email: req.query.ID },
+  });
+
+  res.json(user);
+});
 module.exports = router;

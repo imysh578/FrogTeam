@@ -6,9 +6,9 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 const indexRouter = require("./routers/index.js");
-const usersRouter = require('./routers/users.js');
-const signinRouter = require('./routers/signin.js');
-const signupRouter = require('./routers/signup.js');
+const usersRouter = require("./routers/users.js");
+const signinRouter = require("./routers/signin.js");
+const signupRouter = require("./routers/signup.js");
 
 // 포트 설정
 const PORT = 7000;
@@ -20,9 +20,9 @@ app.use(express.urlencoded({ extended: false }));
 // url과 라우터 매칭
 app.use(morgan("dev"));
 app.use("/", indexRouter);
-app.use('/users', usersRouter);
-app.use('/signin', signinRouter);
-app.use('/signup', signupRouter);
+app.use("/users", usersRouter);
+app.use("/signin", signinRouter);
+app.use("/signup", signupRouter);
 
 // 에러 메서지
 app.use((err, req, res, next) => {
