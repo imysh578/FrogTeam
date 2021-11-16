@@ -13,12 +13,12 @@ router.route("/").post(async (req, res, next) => {
         password: req.body.password,
       },
     });
-    const user1 = await Users.findAll({
+    const user1 = await Users.findOne({
       where: {
         email: req.body.email,
       },
     });
-
+    console.log(user2, user1);
     if (user1 && !user2) {
       res.json(2);
     } else if (user2) {

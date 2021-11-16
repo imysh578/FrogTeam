@@ -16,12 +16,12 @@ module.exports = () => {
           const hash = await bcrypt.hash(password, 12);
           const result = await axios.post("http://localhost:7000/signin", {
             email: email,
-            password: password,
+            password: hash,
           });
-
-          if (result == 3) {
+          console.log(result.data);
+          if (result.data == 3) {
             done(null, false, { message: "가입되지 않은 회원입니다." });
-          } else if (result == 2) {
+          } else if (result.data == 2) {
             done(null, false, { message: "비밀번호가 일치하지 않습니다." });
           } else {
             done(null, result.data);
