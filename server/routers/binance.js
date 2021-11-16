@@ -39,7 +39,7 @@ const client = new Spot(apiKey, apiSecret);
 //   .then(response => client.logger.log(response.data))
 //   .catch(error => client.logger.error(error))
 
-router.route("/").get(
+router.route("/account").get(
   (req, res, next) => {
     console.log("Binance");
 

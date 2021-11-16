@@ -6,19 +6,24 @@ const AssetTotal = () => {
   const [assets, setAssets] = useState([]);
 	const [assetsDisplay, setAssetsDisplay] = useState([]);
 
-  const { data, loading, error } = useAxios({
+  const { data1, loading1, error1 } = useAxios({
 		method: "GET",
 		baseURL: 'http://localhost:5000',
 		url: "upbit/account",
 	});
+  const { data2, loading2, error2 } = useAxios({
+		method: "GET",
+		baseURL: 'http://localhost:5000',
+		url: "binance/account",
+	});
 
 	useEffect(() => {
-		if (!loading && data) {
-			setAssets(data);
-      console.log(data);
-			// setAssetsDisplay(data.slice(0, 10));
+		if (!loading1 && data1) {
+			setAssets(data1);
+      console.log(data1);
+			setAssetsDisplay(data1.slice(0, 10));
 		}
-	}, [data, loading]);
+	}, [data1, loading1]);
 
   return (
     <>
@@ -52,7 +57,7 @@ const AssetTotal = () => {
 					</tr>
 				</thead>
 				<tbody className="table-dark">
-					{/* {loading && <tr><td colSpan={6}><h1 className="text-center">Loading...</h1></td></tr>} */}
+					{loading1 && <tr><td colSpan={9}><h1 className="text-center">Loading...</h1></td></tr>}
 					{assetsDisplay.map((asset, index) => (
 						<Asset key={asset.id} asset={asset} index={index + 1} />
 					))}
