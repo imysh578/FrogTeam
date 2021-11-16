@@ -1,6 +1,7 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
+const axios = require("axios");
 
 module.exports = () => {
   passport.use(
