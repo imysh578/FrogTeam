@@ -60,7 +60,7 @@ const CoinList = () => {
 				searchedCoins = [...searchedCoins, coin];
 			}
 		});
-		setCoinsDisplay(searchedCoins.slice(0, 15));
+		setCoinsDisplay(searchedCoins.slice(0, 10));
 	};
 
 	if (error) {

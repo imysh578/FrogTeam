@@ -1,5 +1,6 @@
 .coins-container{
-  max-width: 800px;
+  min-width: 800px;
+  min-height: 700px;
   margin: auto;
   .input-box{
     text-align: right;
@@ -7,12 +8,4 @@
   img{
     width: 32px;
   }
-  // .coinsummary {
-  //   border-color: white !important;
-  //   border-style: outset !important;
-  // }
-  
-  // .coin-data-category {
-  //   font-size: 10px;
-  // }
 }

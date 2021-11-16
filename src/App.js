@@ -24,9 +24,7 @@ function App() {
        <Route path="signup" element={<SignupPage />} exact />
        <Route path="news" element={<NewsPage />} exact />
        <Route path="discover" element={<DiscoverPage />} exact />
-       <Route path="coins/*" element={<CoinsPage />} exact>
-        <Route path=":id" element={<CoinDetail/>} />
-       </Route>
+       <Route path="coins/*" element={<CoinsPage />} exact />
        <Route path="query" element={<QueryPage />} exact />
     </Routes>
         </Router>
