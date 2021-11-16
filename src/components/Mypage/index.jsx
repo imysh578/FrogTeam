@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
-import Asset from './Asset'
+import AssetTotal from './AssetTotal';
 
 const Mypage = () => {
   const [assets, setAssets] = useState([]);
@@ -11,11 +11,11 @@ const Mypage = () => {
 
   return (
     <div className='Mypage-Container'>
-      <div className = 'asset-list'>
-        <Asset />
+      <div className = 'total'>
+        <AssetTotal />
       </div>
       <Button onClick={handleAddOnclick} variant="success">
-					추가
+					자산 추가
 			</Button>
     </div>
   )

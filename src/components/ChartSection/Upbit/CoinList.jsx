@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Col, FormControl, InputGroup } from "react-bootstrap";
 import { upbit} from "../../../apis/configs";
 import Coin from "./Coin";
+import axios from 'axios';
 
 const CoinList = () => {
 	const [coins, setCoins] = useState([]);
@@ -12,31 +13,36 @@ const CoinList = () => {
 		setLoading(true);
 	}, [])
 	
+	const fetchData = async () => {
+		// 업비트 코인 리스트 불러오기
+		// const response = await upbit.get('/market/all')
+		const response = await axios.get('http://localhost:5000' + '/upbit/market/all')
+		// BTC 마켓 제외하고 찾기
+		const coinList = response.data.filter((el)=>el.market.includes('KRW'))
+		const markets = coinList.map((el) => el.market).toString();
+		
+		// 업비트 가격 데이터 불러오기
+		// const tickerData = await upbit.get('ticker', {
+		// 	params: {
+		// 		markets : markets
+		// 	}
+		// })
+		const tickerData = await axios.post('http://localhost:5000' + '/upbit/ticker', {
+				markets : markets
+		})
+
+		// 불러온 두 데이터 합치기
+		const mergedData = coinList.map((el, index)=>{
+			return {...el, ...tickerData.data[index]}
+		})
+		
+		setCoins(mergedData);
+		setCoinsDisplay(mergedData.slice(0, 10));
+	};
+
+	
 	useEffect(() => {
 		if(!loading){
-			const fetchData = async () => {
-				// 업비트 코인 리스트 불러오기
-				const response = await upbit.get('/market/all')
-	
-				// BTC 마켓 제외하고 찾기
-				const coinList = response.data.filter((el)=>el.market.includes('KRW'))
-				const markets = coinList.map((el) => el.market).toString()
-				
-				// 업비트 가격 데이터 불러오기
-				const tickerData = await upbit.get('ticker', {
-					params: {
-						markets : markets
-					}
-				})
-	
-				// 불러온 두 데이터 합치기
-				const mergedData = coinList.map((el, index)=>{
-					return {...el, ...tickerData.data[index]}
-				})
-				
-				setCoins(mergedData);
-				setCoinsDisplay(mergedData.slice(0, 10));
-			};
 			fetchData();
 		}
 		return setLoading(false)
