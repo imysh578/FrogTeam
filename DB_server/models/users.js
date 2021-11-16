@@ -31,6 +31,10 @@ module.exports = class Users extends Sequelize.Model {
       foreignKey: "email",
       sourceKey: "email",
     });
+    db.Users.hasMany(db.ApiKeys, {
+      foreignKey: "email",
+      sourceKey: "email",
+    });
     db.Users.hasMany(db.Comments, {
       foreignKey: "email",
       sourceKey: "email",

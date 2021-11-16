@@ -4,6 +4,7 @@ const Sequelize = require("sequelize");
 // Model 불러오기
 const Users = require("./users");
 const Assets = require("./assets");
+const ApiKeys = require("./apiKeys");
 const Comments = require("./comments");
 
 const env = process.env.NODE_ENV || "development";
@@ -23,16 +24,19 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.Users = Users;
 db.Assets = Assets;
+db.ApiKeys = ApiKeys;
 db.Comments = Comments;
 
 // MySQL에 모델 넣기
 Users.init(sequelize);
 Assets.init(sequelize);
+ApiKeys.init(sequelize);
 Comments.init(sequelize);
 
 // 관계형 설정
 Users.associate(db);
 Assets.associate(db);
+ApiKeys.associate(db);
 Comments.associate(db);
 
 module.exports = db;

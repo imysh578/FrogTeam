@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-module.exports = class Assets extends Sequelize.Model {
+module.exports = class ApiKeys extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
@@ -15,27 +15,24 @@ module.exports = class Assets extends Sequelize.Model {
           allowNull: false,
         },
         exchange: {
-          type: Sequelize.STRING(45),
-          allowNull: false,
-        },
-        coin: {
+          unique: true,
           allowNull: false,
           type: Sequelize.STRING(45),
         },
-        amount: {
-          type: Sequelize.INTEGER,
+        accessKey: {
           allowNull: true,
+          type: Sequelize.STRING(45),
         },
-        price: {
-          type: Sequelize.INTEGER,
+        privateKey: {
           allowNull: true,
+          type: Sequelize.STRING(45),
         },
       },
       {
         sequelize,
         timestamps: false,
-        modelName: "Assets",
-        tableName: "assets",
+        modelName: "ApiKeys",
+        tableName: "apiKeys",
         charset: "utf8mb4",
         collate: "utf8mb4_general_ci",
       }
@@ -44,13 +41,13 @@ module.exports = class Assets extends Sequelize.Model {
 
   // 테이블간 관계 설정
   static associate(db) {
-    db.Assets.belongsTo(db.Users, {
+    db.ApiKeys.hasMany(db.Assets, {
+      foreignKey: "exchange",
+      sourceKey: "exchange",
+    });
+    db.ApiKeys.belongsTo(db.Users, {
       foreignKey: "email",
       targetKey: "email",
-    });
-    db.Assets.belongsTo(db.ApiKeys, {
-      foreignKey: "exchange",
-      targetKey: "exchange",
     });
   }
 };
