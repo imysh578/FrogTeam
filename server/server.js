@@ -6,7 +6,6 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("../passport");
-const bodyParser = require("body-parser");
 
 dotenv.config();
 
@@ -26,15 +25,10 @@ const upbitRouter = require("./routers/upbit.js");
 const binaceRouter = require("./routers/binance.js");
 const coningeckoRouter = require("./routers/coingecko.js");
 const usersRouter = require("./routers/users.js");
-const signinRouter = require('./routers/signin.js');
 // 모든 URL에 대한 Router
 const otherRouter = require("./routers/other.js");
 
 const app = express();
-
-// passport setting
-passportConfig();
-
 
 // PORT setting
 const PORT = 5000;
@@ -47,9 +41,8 @@ app.use("/", express.static(path.join(__dirname, "../build")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //url을 통해 전달되는 데이터에 한글, 공백과 같은 문자가 포함될 경우 인식을 못하는 문제를 해결
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
+// req.session 객체 생성
 app.use(
   session({
     resave: false,
@@ -63,9 +56,11 @@ app.use(
     store: new RedisStore({ client: redisClient }),
   })
 );
-// passport 설정 선언
+// passport setting
+passportConfig();
+// passport 설정 선언(req에 passport 설정 삽입) 위 use.session이라고 보면 댐
 app.use(passport.initialize());
-// req.session 에 passport 입력
+// req.session 에 passport 정보 저장 (req.session.num = 1 이런거라고 보면 댐)
 app.use(passport.session());
 
 // URL과 라우터 매칭
@@ -76,7 +71,6 @@ app.use("/upbit", upbitRouter);
 app.use("/binance", binaceRouter);
 app.use("/coingecko", coningeckoRouter);
 app.use("/users", usersRouter);
-app.use('/signin/', signinRouter);
 app.use(otherRouter);
 
 // ERROR 메세지 창

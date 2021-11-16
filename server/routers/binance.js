@@ -1,6 +1,6 @@
 const { Spot } = require("@binance/connector");
 const express = require("express");
-const path = require('path');
+const path = require("path");
 
 const router = express.Router();
 
@@ -39,19 +39,17 @@ const client = new Spot(apiKey, apiSecret);
 //   .then(response => client.logger.log(response.data))
 //   .catch(error => client.logger.error(error))
 
-router.route("/").get((req, res, next) => {
-  console.log("Binance");
+router.route("/").get(
+  (req, res, next) => {
+    console.log("Binance");
 
-  // client.account().then((response) => client.logger.log(response.data));
-  res.sendFile(path.join(__dirname, "../../build/index.html"));
-  next()
-}, 
-(req, res, next) => {
-  res.send({ key: 'test'});
-}
+    // client.account().then((response) => client.logger.log(response.data));
+    res.sendFile(path.join(__dirname, "../../build/index.html"));
+    next();
+  },
+  (req, res, next) => {
+    res.send({ key: "test" });
+  }
 );
-
-
-
 
 module.exports = router;
