@@ -25,15 +25,15 @@ const Home = () => {
       <Sidebar isOpen={isOpen} toggle={toggle} />
       <Navbar toggle={toggle} />
       <HeroSection />
-      <InfoSection {...homeObjOne}>
-        <Mypage />
-      </InfoSection>
+      <InfoSection {...homeObjOne} />
       <InfoSection {...homeObjTwo} />
       <InfoSection {...homeObjThree}>
         <ChartSection />
       </InfoSection>
       <InfoSection {...homeObjFour} />
-      <InfoSection {...homeObjFive} />
+      <InfoSection {...homeObjFive}>
+        <Mypage />
+      </InfoSection>
       <Scroll showBelow={250} />
       <Footer />
     </>
