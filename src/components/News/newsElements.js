@@ -12,7 +12,7 @@ top: 0;
 z-index: 0;
 overflow: hidden;
 background: linear-gradient(10deg, 
-rgba(1, 147, 86, 1)0%,
+rgba(1, 1, 1, 1)0%,
 rgba(10, 201, 122, 1) 100%
 );
 `;
@@ -44,5 +44,5 @@ right: 0;
 top: 10px;
 z-index: 0;
 overflow: hidden;
-background: #C8FAC8;
+background: #f9f9f9;
 `;
