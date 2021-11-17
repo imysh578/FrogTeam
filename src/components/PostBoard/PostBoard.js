@@ -1,10 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "./PostBoard.css";
-import ReactHtmlParser from "react-html-parser";
+// import ReactHtmlParser from "react-html-parser";
 
-function App() {
+function PostBoards() {
   const [areaContent, setAreaContent] = useState({
     nickname: "",
     content: "",
@@ -74,7 +74,7 @@ function App() {
           >
             <h4>{element.nickname}</h4>
             <div Style="margin-bottom : 50px">
-              {ReactHtmlParser(element.content)}
+              {/* {ReactHtmlParser(element.content)} */}
             </div>
           </div>
         ))}
@@ -83,4 +83,4 @@ function App() {
   );
 }
 
-export default App;
+export default PostBoards;
