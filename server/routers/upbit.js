@@ -25,7 +25,9 @@ router.route("/account").get(async (req, res, next) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    res.send(data);
+    if(data){
+      res.send(data.slice(1,));
+    }
   } catch (error) {
     console.error(error);
     next(error);
