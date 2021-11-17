@@ -1,6 +1,6 @@
 import React from 'react';
 import {FaBars,} from 'react-icons/fa';
-import{Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavBtn, NavBtnLink} from './NavbarElements';
+import{Nav, NavbarContainer, NavBtnLink2, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavBtn, NavBtnLink} from './NavbarElements';
 
 const Navbar = ({ toggle }) => {
     return (
@@ -29,8 +29,9 @@ const Navbar = ({ toggle }) => {
                     </NavItem>
                 </NavMenu>
                 <NavBtn>
-                    <NavBtnLink to="/signin">Sign In/Up</NavBtnLink>
-                </NavBtn>
+                        <NavBtnLink to="/signin">Sign In/Up</NavBtnLink>OR
+                        <NavBtnLink2 to="/">Sign Out</NavBtnLink2>
+              </NavBtn>
             </NavbarContainer>
         </Nav>
     </>

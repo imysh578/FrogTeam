@@ -11,15 +11,15 @@ function NewS(props) {
   return (
     <div>
       <NewsContainer>
-      <Icon to="/">Frog</Icon>
-      <h1 className="head__text">NEWS</h1>
-      <h2>실시간 주요 뉴스</h2>
-      <div className="all__news">
-        {data ? data.articles.map((news) => (
-              <NewsArticle data={news} key={news.url} />
-            ))
-          : "Loading"}
-      </div>
+        <h1 className="head__text">NEWS</h1>
+
+        <div className="all__news">
+          {data ? data.articles.map((news) => (
+            <NewsArticle data={news} key={news.url} />
+          ))
+            : "Loading"}
+        </div>
+        
       </NewsContainer>
     </div>
   );

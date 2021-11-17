@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import NewS from '../components/News'
+import NewS from '../components/News/index'
 import { NewsContextProvider } from "../components/News/NewsContext";
 import './news.css';
 import Navbar from '../components/Navbar'
