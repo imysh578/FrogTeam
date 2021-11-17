@@ -1,28 +1,31 @@
 const express = require("express");
-const Users = require("../models/users.js");
+const bcrypt = require("bcrypt");
 
+const Users = require("../models/users.js");
 const router = express.Router();
 
 router.route("/").post(async (req, res, next) => {
   try {
     console.log("Signin DB server");
-    console.log(req.body);
-    const user2 = await Users.findOne({
-      where: {
-        email: req.body.email,
-        password: req.body.password,
-      },
-    });
-    const user1 = await Users.findOne({
+
+    let result = 0;
+    const user = await Users.findAll({
       where: {
         email: req.body.email,
       },
     });
-    console.log(user2, user1);
-    if (user1 && !user2) {
+
+    for (i = 0; i < user.length; i++) {
+      if (await bcrypt.compare(req.body.password, user[i].password)) {
+        result = 1;
+      }
+    }
+
+    if (user && result == 1) {
+      console.log("로그인 완료");
+      res.json(user);
+    } else if (user.length == 1) {
       res.json(2);
-    } else if (user2) {
-      res.json(user2);
     } else res.json(3);
   } catch (err) {
     console.error(err);

@@ -8,12 +8,9 @@ router.get("/", (req, res) => {
 });
 
 router.get("/userSession", (req, res) => {
-  console.log(req);
-
   const user = Users.findOne({
     where: { email: req.query.ID },
   });
-
   res.json(user);
 });
 module.exports = router;
