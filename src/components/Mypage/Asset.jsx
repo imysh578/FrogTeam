@@ -26,7 +26,7 @@ const Asset = ({ index, asset }) => {
 				<td>
 					{/* <span> 매수 금액 </span> */}
 					<span > {asset.avg_buy_price ?
-					(Number(asset.avg_buy_price) * Number(asset.balance)).toFixed(0) : 0} 원</span>
+					(Number(asset.avg_buy_price) * Number(asset.balance)).toFixed(0).toLocaleString() : 0} 원</span>
 				</td>
 				<td
 				// className={

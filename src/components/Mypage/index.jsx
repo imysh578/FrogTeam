@@ -4,12 +4,30 @@ import useAxios from "../../hooks/useAxios";
 import AssetList from "./AssetList";
 import Total from "./Total";
 
+function removeDuplicates (arr) {
+  arr.sort((a,b)=>{
+    let currencyA = a.currency.toUpperCase(); // ignore upper and lowercase
+    let currencyB = b.currency.toUpperCase(); // ignore upper and lowercase
+    return currencyA.localeCompare(currencyB)
+  });
+
+  for (let i = 0; i < arr.length; i++) {
+    if(i<arr.length-1){
+      if(arr[i].currency === arr[i+1].currency){
+        arr[i].balance = Number(arr[i].balance) + Number(arr[i+1].balance);
+        arr.splice(i+1,1)
+        i-=1;
+      } else arr[i].balance = Number(arr[i].balance)
+    }
+  }
+}
+
 const Mypage = () => {
 	const [tab, setTab] = useState("Total");
 	const [assets, setAssets] = useState([]);
 	const [assetList, setAssetList] = useState([]);
 
-  const baseUrl = "http://localhost:5000";
+	const baseUrl = "http://localhost:5000";
 	const upbitData = useAxios({
 		method: "GET",
 		baseURL: baseUrl,
@@ -24,10 +42,10 @@ const Mypage = () => {
 		method: "GET",
 		baseURL: baseUrl,
 		url: "coingecko/price",
-    params: {
-      assets,
-      vs_currencies: 'krw',
-    }
+		params: {
+			assets,
+			vs_currencies: "krw",
+		},
 	});
 
 	useEffect(() => {
@@ -37,34 +55,25 @@ const Mypage = () => {
 			!binanceData.loading &&
 			binanceData.data
 		) {
-			let data = [...upbitData.data, ...binanceData.data];
+      let data = [];
 			switch (tab) {
 				case "Total":
-					setAssets(data);
+          data = [...upbitData.data, ...binanceData.data,];
 					break;
 				case "Upbit":
-					setAssets(upbitData.data);
+          data = [...upbitData.data,];
 					break;
 				case "Binance":
-					setAssets(binanceData.data);
+          data = [...binanceData.data,];
 					break;
 				default:
-					setAssets(data);
+					data = [...upbitData.data, ...binanceData.data,];
 					break;
-			}
+        }
+        removeDuplicates(data);
+        setAssets(data);
 		}
 	}, [binanceData.loading, upbitData.loading, tab]);
-
-  useEffect(()=>{
-    let coins = []
-  
-    if(assets){
-      assets.forEach((el) => {
-        coins = [...coins, el.currency]
-      })
-    }
-    console.log(coins);
-  }, [assets])
 
 	const handleAddOnclick = () => {
 		console.log("자산 추가!");
