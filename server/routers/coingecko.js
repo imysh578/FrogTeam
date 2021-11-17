@@ -66,4 +66,6 @@ router.route("/chart/:id/:days").get(async (req, res, next) => {
   }
 });
 
+router.route('/price').get()
+
 module.exports = router;
