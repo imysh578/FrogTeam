@@ -16,6 +16,27 @@ c.sort((x,y)=>x.name.localeCompare(y.name));
 //     }
 //   }
 // })
+function sorting (arr, key) {
+	arr.sort((a,b)=>{
+    if(typeof a[key] == 'string'){
+      let A = a[key].toUpperCase();
+      let B = b[key].toUpperCase();
+      return A.localeCompare(B)
+    } else {
+      let A = a[key];
+      let B = b[key];
+      return A-B
+    }
+  });
+}
+sorting(b,'value')
+console.log(b);
+
+function addExchange (arr, exchange) {
+	return arr.map(el => (
+		el = {...el, exchange: exchange}
+	))
+}
 
 for (let i = 0; i < c.length; i++) {
   if(i<c.length-1){
@@ -28,5 +49,14 @@ for (let i = 0; i < c.length; i++) {
   
 }
 
-
+c = addExchange(c, 'upbit')
 console.log(c)
+
+const x = {
+  '1inch': { krw: 4604.65, usd: 3.89 },
+  apenft: { krw: 0.00622756, usd: 0.00000527 },
+  auction: { krw: 38772, usd: 32.8 },
+  flow: { krw: 14986.51, usd: 12.68 }
+}
+
+console.log(x['apenft']);

@@ -1,16 +1,25 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import useAxios from "../../hooks/useAxios";
 import AssetList from "./AssetList";
 import Total from "./Total";
 
-function removeDuplicates (arr) {
-  arr.sort((a,b)=>{
-    let currencyA = a.currency.toUpperCase(); // ignore upper and lowercase
-    let currencyB = b.currency.toUpperCase(); // ignore upper and lowercase
-    return currencyA.localeCompare(currencyB)
+function sorting (arr, key) {
+	arr.sort((a,b)=>{
+    if(typeof a[key] == 'string'){
+      let A = a[key].toUpperCase();
+      let B = b[key].toUpperCase();
+      return A.localeCompare(B)
+    } else {
+      let A = a[key];
+      let B = b[key];
+      return A-B
+    }
   });
+}
 
+function removeDuplicates (arr) {
   for (let i = 0; i < arr.length; i++) {
     if(i<arr.length-1){
       if(arr[i].currency === arr[i+1].currency){
@@ -22,10 +31,28 @@ function removeDuplicates (arr) {
   }
 }
 
+function addExchange (arr, exchange) {
+	return arr.map(el => (
+		el = {...el, exchange: exchange}
+	))
+}
+
+function getDetails (arr) {
+  let coins = [];
+  let amount = [];
+  let length = arr.length;
+  arr.forEach(el => {
+    coins = [...coins, el.currency]
+    amount = [...amount, el.balance]
+  })
+  return {coins, amount, length}
+}
+
 const Mypage = () => {
 	const [tab, setTab] = useState("Total");
 	const [assets, setAssets] = useState([]);
-	const [assetList, setAssetList] = useState([]);
+	const [totalAssets, setTotalAssets] = useState([]);
+	const [prices, setPrices] = useState([]);
 
 	const baseUrl = "http://localhost:5000";
 	const upbitData = useAxios({
@@ -38,15 +65,29 @@ const Mypage = () => {
 		baseURL: baseUrl,
 		url: "binance/account",
 	});
-	const coingeckoData = useAxios({
-		method: "GET",
-		baseURL: baseUrl,
-		url: "coingecko/price",
-		params: {
-			assets,
-			vs_currencies: "krw",
-		},
-	});
+	
+	useEffect(()=>{
+		const fetchPrice = async() => {
+			let {coins} = getDetails(totalAssets)
+			console.log(coins);
+			const coingeckoData = await axios.post(baseUrl+"/coingecko/price", {
+				ids: coins,
+			});
+			let priceList = coingeckoData.data
+			setPrices(priceList)
+			const temp = [...totalAssets]
+			temp.map(el=>{
+				if(priceList[el.currency.toLowerCase()]){
+					return el = {...el, price : priceList[el.currency.toLowerCase()]}
+				} else return el
+			})
+			console.log(temp);
+			setTotalAssets(temp)
+		}
+		if(totalAssets){
+			fetchPrice();
+		}
+	}, [assets])
 
 	useEffect(() => {
 		if (
@@ -55,23 +96,31 @@ const Mypage = () => {
 			!binanceData.loading &&
 			binanceData.data
 		) {
+			let upbitAssets = addExchange(upbitData.data, 'upbit')
+			let binanceAssets = addExchange(binanceData.data, 'binance')
+			let totalData= [...upbitAssets, ...binanceAssets]
       let data = [];
 			switch (tab) {
 				case "Total":
-          data = [...upbitData.data, ...binanceData.data,];
+          data = [...totalData];
 					break;
 				case "Upbit":
-          data = [...upbitData.data,];
+          data = [...upbitAssets];
 					break;
 				case "Binance":
-          data = [...binanceData.data,];
+          data = [...binanceAssets];
 					break;
 				default:
-					data = [...upbitData.data, ...binanceData.data,];
+					data = [...totalData];
 					break;
         }
+				sorting(data, 'currency')
         removeDuplicates(data);
         setAssets(data);
+				sorting(totalData, 'exchange')
+				setTotalAssets(totalData)
+				console.log(data);
+				console.log(totalData);
 		}
 	}, [binanceData.loading, upbitData.loading, tab]);
 
@@ -85,7 +134,7 @@ const Mypage = () => {
 
 	return (
 		<div className="Mypage-Container">
-			<Total loading={upbitData.loading || binanceData.loading} />
+			<Total loading={upbitData.loading || binanceData.loading} assets={totalAssets}/>
 			<div class="d-flex justify-content-between">
 				<ButtonGroup className="mb-2">
 					<Button className="tab" onClick={handleTabClick()} variant="success">

@@ -1,10 +1,10 @@
 import React from "react";
-import PieChart from "./PieChart";
+import TotalChart from "./TotalChart";
 
-const Total = ({ loading = true }) => {
+const Total = ({ loading = true, assets }) => {
 	return (
     <div>
-      {/* <PieChart data={}/> */}
+      <TotalChart assets={assets}/>
       <table className="table coinlist-table table-striped table-hover text-center">
         <thead className="text-light bg-success ">
           <tr>

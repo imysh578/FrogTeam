@@ -3,7 +3,7 @@
   width: 70%;
   border-radius: 15px;
   margin: auto;
-  background: rgb(143, 142, 142);
+  background: inherit;
 }
 
 .all__news {
@@ -19,6 +19,7 @@
   border: 1px solid rgb(255, 255, 255);
   border-radius: 15px;
   background-color: rgb(44, 168, 121);
+  margin: auto;
 }
 
 .news__title {

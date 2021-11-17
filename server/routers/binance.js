@@ -24,11 +24,10 @@ router.route("/account").get(async (req, res, next) => {
   const data = result.total;
   let balances = []
   for(key in data) {
-    if(data[key] != 0) {
+    if(data[key] > 0.01) {
       balances = [...balances, {currency: key, balance: data[key]}]
     }
   }
-  console.log(data);
 	res.send(balances);
 });
 

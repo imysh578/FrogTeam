@@ -12,11 +12,11 @@ const Asset = ({ index, asset }) => {
 				<td>
 					{/* <span> 매수 평균가 </span> */}
 					<span > {asset.avg_buy_price ?
-					Number(asset.avg_buy_price).toFixed(0).toLocaleString() : 0} 원</span>
+					Number(Number(asset.avg_buy_price).toFixed(0)).toLocaleString() : 0} 원</span>
 				</td>
 				<td>
 					{/* <span> 보유 수량 </span> */}
-					<span > {Number(asset.balance).toFixed(2).toLocaleString()}</span>
+					<span > {Number(Number(asset.balance).toFixed(2)).toLocaleString()}</span>
 				</td>
 				<td>
 					<span> 평가 금액 </span>
@@ -26,7 +26,7 @@ const Asset = ({ index, asset }) => {
 				<td>
 					{/* <span> 매수 금액 </span> */}
 					<span > {asset.avg_buy_price ?
-					(Number(asset.avg_buy_price) * Number(asset.balance)).toFixed(0).toLocaleString() : 0} 원</span>
+					Number((Number(asset.avg_buy_price) * Number(asset.balance)).toFixed(0)).toLocaleString() : 0} 원</span>
 				</td>
 				<td
 				// className={
