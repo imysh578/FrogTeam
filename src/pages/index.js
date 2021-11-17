@@ -5,6 +5,10 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import InfoSection from "../components/InfoSection";
 import ChartSection from "../components/ChartSection";
+import { NewsContextProvider } from "../components/News/NewsContext";
+import NewS2 from '../components/News/index2';
+// import PostBoards from "../components/PostBoard/PostBoard";
+
 import {
   homeObjOne,
   homeObjTwo,
@@ -26,11 +30,15 @@ const Home = () => {
       <Navbar toggle={toggle} />
       <HeroSection />
       <InfoSection {...homeObjOne} />
-      <InfoSection {...homeObjTwo} />
+      <InfoSection {...homeObjTwo} > 
+      {/* <PostBoards />     */}
+      </InfoSection>
       <InfoSection {...homeObjThree}>
         <ChartSection />
       </InfoSection>
-      <InfoSection {...homeObjFour} />
+      <InfoSection {...homeObjFour} ><NewsContextProvider>
+        <NewS2 />
+      </NewsContextProvider>  </InfoSection>
       <InfoSection {...homeObjFive}>
         <Mypage />
       </InfoSection>

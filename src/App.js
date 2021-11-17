@@ -12,7 +12,7 @@ import CoinsPage from './pages/coins';
 import CoinDetail from './components/ChartSection/Coingecko/CoinDetail';
 import DiscoverPage from './pages/discover';
 import QueryPage from "./pages/query";
-
+import PostBoardPage from './pages/postboard';
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
        <Route path="discover" element={<DiscoverPage />} exact />
        <Route path="coins/*" element={<CoinsPage />} exact />
        <Route path="query" element={<QueryPage />} exact />
+       <Route path="postboard" element={<PostBoardPage />} exact />
     </Routes>
         </Router>
   );
