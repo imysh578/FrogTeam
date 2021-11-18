@@ -1,4 +1,6 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import useAxios from "../../hooks/useAxios";
 import { FaBars } from "react-icons/fa";
 import {
   Nav,
@@ -14,6 +16,24 @@ import {
 } from "./NavbarElements";
 
 const Navbar = ({ toggle }) => {
+  const { data, loading, error } = useAxios({
+    method: "get",
+    baseURL: "http://localhost:5000",
+    url: "auth/session",
+  });
+  console.log(data);
+
+  // async (a) => {
+  //   try {
+  //     // const abc = await axios.get("https://api.upbit.com/v1/market/all");
+  //     // console.log(abc);
+  //     const qw = 123;
+  //     console.log("여기가 나와야해");
+  //   } catch {
+  //     console.log("에러얌");
+  //   }
+  // };
+
   return (
     <>
       <Nav>
@@ -85,8 +105,11 @@ const Navbar = ({ toggle }) => {
             </NavItem>
           </NavMenu>
           <NavBtn>
-            <NavBtnLink to="/signin">Sign In/Up</NavBtnLink>OR
-            <NavBtnLink2 to="/auth/logout">Sign Out</NavBtnLink2>
+            {data ? (
+              <NavBtnLink2 to="/auth/logout">Sign Out</NavBtnLink2>
+            ) : (
+              <NavBtnLink to="/signin">Sign In/Up</NavBtnLink>
+            )}
           </NavBtn>
         </NavbarContainer>
       </Nav>

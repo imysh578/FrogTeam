@@ -46,18 +46,34 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
   }
 });
 
-router.get("/aa", () => {
-  console.log("이거 맞아");
-});
-router.get("/logout", isLoggedIn, async (req, res) => {
+router.post("/key", isLoggedIn, async (req, res, next) => {
   try {
-    console.log("잘 들어옴");
-    req.logout();
-    req.session.destroy();
+    const accessKey = await req.body.Access;
+    const secretKey = await req.body.Secret;
+    const whatKey = await req.body.whatKey;
+    const user = await req.session;
+
+    const result = await axios.post("http://localhost:7000/apikey", {
+      accessKey,
+      secretKey,
+      whatKey,
+      user,
+    });
     return res.redirect("/");
-  } catch {
-    console.log("로그아웃 오류");
+  } catch (error) {
+    console.error(error);
+    return next(error);
   }
+});
+
+router.get("/session", isLoggedIn, (req, res) => {
+  res.json(req.session);
+});
+
+router.get("/logout", isLoggedIn, (req, res) => {
+  req.logout();
+  req.session.destroy();
+  res.redirect("/");
 });
 
 module.exports = router;
