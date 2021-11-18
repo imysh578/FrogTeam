@@ -124,9 +124,6 @@ const Mypage = () => {
 		}
 	}, [assets]);
 
-	const handleEditClick = () => {
-		console.log("자산 수정!");
-	};
 	const handleTabClick = (e) => {
 		console.log(e.target.innerText);
 		setTab(e.target.innerText);
@@ -147,7 +144,6 @@ const Mypage = () => {
 				/>
 			) : (
 				<Details
-					handleAddOnclick={handleEditClick}
 					handleTabClick={handleTabClick}
 					loading={upbitData.loading || binanceData.loading}
 					assets={assets}

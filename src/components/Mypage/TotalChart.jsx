@@ -31,7 +31,6 @@ const TotalChart = ({assets}) => {
         temp = [...temp, assetDetails.amounts[i] * assetDetails.prices[i]];
       }
       setAssetDetails(assetDetails)
-      console.log(temp);
       setAmountPrices(temp)
     }
   }, [assets])
