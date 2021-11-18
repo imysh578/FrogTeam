@@ -41,6 +41,8 @@ app.use("/", express.static(path.join(__dirname, "../build")));
 // 데이터 관련 설정
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.raw());
+app.use(bodyParser.text());
 // //url을 통해 전달되는 데이터에 한글, 공백과 같은 문자가
 app.use(cookieParser(process.env.COOKIE_SECRET));
 // req.session 객체 생성

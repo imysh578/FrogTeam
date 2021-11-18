@@ -12,6 +12,7 @@ import DiscoverPage from "./pages/discover";
 import QueryPage from "./pages/query";
 import PostBoardPage from "./pages/postboard";
 import ApikeyPage from "./pages/upbitkey";
+import JhPage from "./pages/jh";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="query" element={<QueryPage />} exact />
         <Route path="postboard" element={<PostBoardPage />} exact />
         <Route path="apikey" element={<ApikeyPage />} exact />
+        <Route path="jh" element={<JhPage />} exact />
       </Routes>
     </Router>
   );

@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Col, FormControl, InputGroup } from "react-bootstrap";
-import useAxios from "../../../hooks/useAxios";
-import Coin from "./Coin";
+import useAxios from "../../hooks/useAxios";
+import { Link } from "react-router-dom";
+import Coin from "../ChartSection/Coingecko/Coin";
 
-const CoinList = () => {
+const 코인뉴스 = () => {
   const [coins, setCoins] = useState([]);
   const [coinsDisplay, setCoinsDisplay] = useState([]);
 
   const { data, loading, error } = useAxios({
     method: "GET",
     baseURL: "http://localhost:5000",
-    url: "coingecko/coinlist",
+    url: "news",
   });
 
+  console.log(data);
   useEffect(() => {
     if (!loading && data) {
       setCoins(data);
@@ -20,68 +22,62 @@ const CoinList = () => {
     }
   }, [data, loading]);
 
-  const handleOnChange = () => (e) => {
-    let searchedCoins = [];
-    coins.forEach((coin) => {
-      if (
-        coin.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        coin.id.includes(e.target.value.toLowerCase()) ||
-        coin.symbol.includes(e.target.value.toLowerCase())
-      ) {
-        searchedCoins = [...searchedCoins, coin];
-      }
-    });
-    setCoinsDisplay(searchedCoins.slice(0, 10));
-  };
-
   if (error) {
     return <h1 className="text-danger">{error.message}</h1>;
   }
 
+  console.log(coinsDisplay);
+
   return (
     <>
-      <Col md={4} className="my-3 input-box">
-        <InputGroup>
-          <FormControl
-            placeholder="Insert Coin name"
-            onChange={handleOnChange()}
-          />
-        </InputGroup>
-      </Col>
-
       <table className="table coinlist-table table-striped table-hover text-center">
         <thead className="text-light bg-success ">
           <tr>
             <th>
-              <span>#</span>
+              <span>No</span>
             </th>
             <th>
-              <span></span>
+              <span>제목</span>
             </th>
             <th>
-              <span>Coin</span>
+              <span>내용</span>
             </th>
             <th>
-              <span>Current Price($)</span>
+              <span>신문사</span>
             </th>
             <th>
-              <span>Market Cap($)</span>
-            </th>
-            <th>
-              <span>24h(%)</span>
+              <span>날짜</span>
             </th>
           </tr>
         </thead>
         <tbody className="table-dark">
           {loading && (
             <tr>
-              <td colSpan={6}>
+              <td colSpan={5}>
                 <h1 className="text-center">Loading...</h1>
               </td>
             </tr>
           )}
           {coinsDisplay.map((coin, index) => (
-            <Coin key={coin.id} coin={coin} index={index + 1} />
+            <tr>
+              <th>
+                <span>{index + 1}</span>
+              </th>
+              <th>
+                <a href={coin.url}>
+                  <span>{coin.name}</span>
+                </a>
+              </th>
+              <th>
+                <span>{coin.description}</span>
+              </th>
+              <th>
+                <span>{coin.provider[0].name}</span>
+              </th>
+              <th>
+                <span>{coin.datePublished}</span>
+              </th>
+            </tr>
           ))}
         </tbody>
       </table>
@@ -89,4 +85,4 @@ const CoinList = () => {
   );
 };
 
-export default CoinList;
+export default 코인뉴스;
