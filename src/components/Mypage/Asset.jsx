@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import { Button, ButtonGroup } from "react-bootstrap";
 
-const Asset = ({ index, asset }) => {
+const Asset = ({ index, asset, editShow }) => {
+	const [editMode, setEditMode] = useState(false);
+	const [inputMode, setInputMode] = useState(false);
+
+	const handleEditClick = (e) => {
+		e.preventDefault();
+		setInputMode(!inputMode);
+	};
+	const handleSubmitClick = (e) => {
+		setInputMode(!inputMode);
+	}
+	const handleCancleClick = (e) => {
+		e.preventDefault();
+		setInputMode(!inputMode)
+	}
+
 	return (
 		<>
 			<tr>
@@ -11,12 +27,20 @@ const Asset = ({ index, asset }) => {
 				</td>
 				<td>
 					{/* <span> 매수 평균가 </span> */}
-					<span > {asset.avg_buy_price ?
-					Number(Number(asset.avg_buy_price).toFixed(0)).toLocaleString() : 0} 원</span>
+					<span>
+						{" "}
+						{asset.avg_buy_price
+							? Number(Number(asset.avg_buy_price).toFixed(0)).toLocaleString()
+							: 0}{" "}
+						원
+					</span>
 				</td>
 				<td>
 					{/* <span> 보유 수량 </span> */}
-					<span > {Number(Number(asset.balance).toFixed(2)).toLocaleString()}</span>
+					<span>
+						{" "}
+						{Number(Number(asset.balance).toFixed(2)).toLocaleString()}
+					</span>
 				</td>
 				<td>
 					<span> 평가 금액 </span>
@@ -25,8 +49,17 @@ const Asset = ({ index, asset }) => {
 				</td>
 				<td>
 					{/* <span> 매수 금액 </span> */}
-					<span > {asset.avg_buy_price ?
-					Number((Number(asset.avg_buy_price) * Number(asset.balance)).toFixed(0)).toLocaleString() : 0} 원</span>
+					<span>
+						{" "}
+						{asset.avg_buy_price
+							? Number(
+									(Number(asset.avg_buy_price) * Number(asset.balance)).toFixed(
+										0
+									)
+							).toLocaleString()
+							: 0}{" "}
+						원
+					</span>
 				</td>
 				<td
 				// className={
@@ -55,6 +88,22 @@ const Asset = ({ index, asset }) => {
 						)}
 						{(asset.signed_change_rate*100).toFixed(2)} % */}
 					</span>
+				</td>
+				<td>
+					{editShow ? (
+						inputMode ? 
+							(<ButtonGroup>
+								<Button onClick={handleSubmitClick} variant="primary">
+									확인
+								</Button>
+								<Button onClick={handleCancleClick} variant="danger">
+									취소
+								</Button>
+							</ButtonGroup>) : 
+							(<Button onClick={handleEditClick} variant="success">
+								수정
+							</Button>)) 
+							: null}
 				</td>
 			</tr>
 		</>
