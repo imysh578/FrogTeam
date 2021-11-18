@@ -11,11 +11,12 @@ module.exports = class ApiKeys extends Sequelize.Model {
           allowNull: false,
         },
         email: {
+          primaryKey: true,
           type: Sequelize.STRING(45),
           allowNull: false,
         },
         exchange: {
-          unique: true,
+          primaryKey: true,
           allowNull: false,
           type: Sequelize.STRING(45),
         },
@@ -23,7 +24,7 @@ module.exports = class ApiKeys extends Sequelize.Model {
           allowNull: true,
           type: Sequelize.STRING(45),
         },
-        privateKey: {
+        secretKey: {
           allowNull: true,
           type: Sequelize.STRING(45),
         },

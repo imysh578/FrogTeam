@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Link} from 'react-router-dom'
+import { Router, Switch, Link } from "react-router-dom";
 import {
   Container,
   FormWrap,
@@ -33,12 +33,10 @@ const SignIn = () => {
               </Text>
               <Text> 어카운트가 없나요? </Text>
               <br />
-          
-              <FormButton2 type="submit">Frog 회원가입</FormButton2>
+              <FormButton2 to="/signup">Frog 회원가입</FormButton2>
             </Form>
           </FormContent>
         </FormWrap>
-        
       </Container>
     </>
   );
