@@ -15,14 +15,11 @@ router.route("/coinlist/").get(async (req, res, next) => {
       },
     });
     const data = result.data;
-    console.log("Data transfer success!");
     // 데이터 클라이언트에 보냄!!
     res.send(data);
   } catch (error) {
     console.log(error);
     next(error);
-  } finally {
-    console.log("From Coingecko API Router");
   }
 });
 router.route("/coinlist/:id").get(async (req, res, next) => {
@@ -37,14 +34,11 @@ router.route("/coinlist/:id").get(async (req, res, next) => {
       },
     });
     const data = result.data;
-    console.log("Data transfer success!");
     // 데이터 클라이언트에 보냄!!
     res.send(data);
   } catch (error) {
     console.log(error);
     next(error);
-  } finally {
-    console.log("From Coingecko API Router");
   }
 });
 
@@ -65,5 +59,45 @@ router.route("/chart/:id/:days").get(async (req, res, next) => {
     next(err);
   }
 });
+
+router.route('/price').post(async(req,res,next) => {
+  try {
+    const {data} = await axios.request({
+      method: "GET",
+      baseURL: coingeckoUrl,
+      url: `/simple/price`,
+      params: {
+        vs_currencies : 'krw,usd',
+        ids: req.body.ids.toString(),
+      },
+    });
+    console.log(data);
+    res.send(data)
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+})
+
+router.route('/ticker').post(async(req,res,next) => {
+  try {
+    const {data} = await axios.request({
+      method: "GET",
+      baseURL: coingeckoUrl,
+      url: `/simple/price`,
+      params: {
+        vs_currencies : 'krw,usd',
+        ids: req.body.ids.toString(),
+      },
+    });
+    console.log(data);
+    res.send(data)
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+})
+
+
 
 module.exports = router;

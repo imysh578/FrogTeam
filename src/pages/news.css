@@ -1,12 +1,13 @@
 .newscontainer {
   font-family: inter;
-  width: 80%;
+  width: 70%;
+  border-radius: 15px;
   margin: auto;
-  background: rgb(143, 142, 142);
+  background: inherit;
 }
 
 .all__news {
-  margin: 0px auto;
+  margin: 1px auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 30px auto;
@@ -16,8 +17,9 @@
   max-width: 300px;
   padding: 30px;
   border: 1px solid rgb(255, 255, 255);
-  border-radius: 5px;
-  background-color: rgb(139, 139, 139);
+  border-radius: 15px;
+  background-color: rgb(44, 168, 121);
+  margin: auto;
 }
 
 .news__title {
@@ -39,7 +41,7 @@
 
 .news__author {
   margin-right: 5px;
-  color: rgb(98, 163, 96);
+  color: rgb(73, 73, 73);
 }
 
 .news__published {

@@ -14,3 +14,5 @@ axios.request(options).then(function (response) {
 }).catch(function (error) {
 	console.error(error);
 });
+
+export const { useGetCryptosQuery } = options;

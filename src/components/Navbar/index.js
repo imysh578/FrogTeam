@@ -100,7 +100,7 @@ const Navbar = ({ toggle }) => {
                 exact="true"
                 offset={-80}
               >
-                Sign Up
+                MyPage
               </NavLinks>
             </NavItem>
           </NavMenu>
