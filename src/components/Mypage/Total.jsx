@@ -1,11 +1,19 @@
 import React from "react";
 import TotalChart from "./TotalChart";
 
+function totalAsset (arr) {
+  let total = 0;
+  arr.forEach(el => {
+    total +=  el.balance * el.price
+  });
+  return total
+}
+
 const Total = ({ loading = true, assets }) => {
 	return (
     <div>
       <TotalChart assets={assets}/>
-      <table className="table coinlist-table table-striped table-hover text-center">
+      <table className="table coinlist-table table-striped table-hover text-center mt-4">
         <thead className="text-light bg-success ">
           <tr>
             <th>
@@ -32,7 +40,7 @@ const Total = ({ loading = true, assets }) => {
           ) : (
             <tr>
               <td>
-                <span>평가 금액</span>
+                <span>{totalAsset(assets)}</span>
               </td>
               <td>
                 <span>매수 금액</span>

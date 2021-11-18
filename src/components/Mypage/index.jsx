@@ -65,29 +65,6 @@ const Mypage = () => {
 		baseURL: baseUrl,
 		url: "binance/account",
 	});
-	
-	useEffect(()=>{
-		const fetchPrice = async() => {
-			let {coins} = getDetails(totalAssets)
-			console.log(coins);
-			const coingeckoData = await axios.post(baseUrl+"/coingecko/price", {
-				ids: coins,
-			});
-			let priceList = coingeckoData.data
-			setPrices(priceList)
-			const temp = [...totalAssets]
-			temp.map(el=>{
-				if(priceList[el.currency.toLowerCase()]){
-					return el = {...el, price : priceList[el.currency.toLowerCase()]}
-				} else return el
-			})
-			console.log(temp);
-			setTotalAssets(temp)
-		}
-		if(totalAssets){
-			fetchPrice();
-		}
-	}, [assets])
 
 	useEffect(() => {
 		if (
@@ -119,10 +96,31 @@ const Mypage = () => {
         setAssets(data);
 				sorting(totalData, 'exchange')
 				setTotalAssets(totalData)
-				console.log(data);
-				console.log(totalData);
 		}
 	}, [binanceData.loading, upbitData.loading, tab]);
+
+	useEffect(()=>{
+		// 가격 속성 추가
+		const fetchPrice = async() => {
+			let {coins} = getDetails(totalAssets)
+			const coingeckoData = await axios.post(baseUrl+"/coingecko/price", {
+				ids: coins,
+			});
+			let priceList = coingeckoData.data
+			setPrices(priceList)
+			let temp = [...totalAssets]
+			temp = temp.map(el=>{
+				if(priceList[el.currency.toLowerCase()]){
+					el = {...el, price : Number(priceList[el.currency.toLowerCase()].krw)}
+				}
+				return(el);
+			})
+			setTotalAssets(temp)
+		}
+		if(totalAssets){
+			fetchPrice();
+		}
+	}, [assets])
 
 	const handleAddOnclick = () => {
 		console.log("자산 추가!");
@@ -135,7 +133,7 @@ const Mypage = () => {
 	return (
 		<div className="Mypage-Container">
 			<Total loading={upbitData.loading || binanceData.loading} assets={totalAssets}/>
-			<div class="d-flex justify-content-between">
+			{/* <div class="d-flex justify-content-between">
 				<ButtonGroup className="mb-2">
 					<Button className="tab" onClick={handleTabClick()} variant="success">
 						Total
@@ -158,7 +156,7 @@ const Mypage = () => {
 					loading={upbitData.loading || binanceData.loading}
 					assets={assets}
 				/>
-			</div>
+			</div> */}
 		</div>
 	);
 };

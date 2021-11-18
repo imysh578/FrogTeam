@@ -1,67 +1,78 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Chart, registerables } from "chart.js";
 import { colorArray } from './colors';
+import { exchanges } from 'ccxt';
 Chart.register(...registerables);
 
 function getDetails (arr) {
   let coins = [];
-  let amount = [];
+  let amounts = [];
+  let prices = [];
+  let exchanges = [];
   let length = arr.length;
   arr.forEach(el => {
     coins = [...coins, el.currency]
-    amount = [...amount, el.balance]
+    amounts = [...amounts, el.balance]
+    prices = [...prices, el.price]
+    exchanges = [...exchanges, el.exchanges]
   })
-  return {coins, amount, length}
+  return {coins, amounts, prices, exchanges, length}
 }
 
 const TotalChart = ({assets}) => {
-  const upbit = assets.filter(el => el.exchange === 'upbit');
-  const binance = assets.filter(el => el.exchange === 'binance');
-  
-  const upbitAssets = getDetails(upbit) 
-  const binanceAssets = getDetails(binance) 
+  const [amountsPrices, setAmountPrices] = useState([]);
+  const [assetDetails, setAssetDetails] = useState({});
   
   useEffect(()=>{
-    console.log(assets);
+    if(assets){
+      let temp =[]
+      let assetDetails = getDetails(assets)
+      for (let i = 0; i < assetDetails.amounts.length; i++) {
+        temp = [...temp, assetDetails.amounts[i] * assetDetails.prices[i]];
+      }
+      setAssetDetails(assetDetails)
+      console.log(temp);
+      setAmountPrices(temp)
+    }
   }, [assets])
 
-  const data = {
-    labels: upbitAssets.coins,
-    datasets: [
-      {
-        label: 'Dataset 1',
-        data: upbitAssets.amount,
-        backgroundColor: colorArray,
-      }
-    ]
-  };
-  const config = {
-    type: 'doughnut',
-    data: data,
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'top',
-        },
-        title: {
-          display: true,
-          text: '보유 자산 포트폴리오(평가 금액)'
-        }
-      }
-    },
-  };
   useEffect(()=>{
+    const data = {
+      labels: assetDetails.coins,
+      datasets: [
+        {
+          label: 'Dataset 1',
+          data: amountsPrices,
+          backgroundColor: colorArray,
+        }
+      ]
+    };
+    const config = {
+      type: 'doughnut',
+      data: data,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: '보유 자산 포트폴리오(평가 금액)'
+          }
+        }
+      },
+    };
     const ctx = document.getElementById("pieChart");
     const pieChart = new Chart(ctx, config);
     return () => {
       pieChart.destroy();
     }
-  })
+  }, [assetDetails])
   return (
     <div>
-      <canvas id="pieChart" width={250} height={250}/>
+      <canvas id="pieChart" height={500}/>
     </div>
   )
 }
