@@ -21,6 +21,7 @@ const Navbar = ({ toggle }) => {
     baseURL: "http://localhost:5000",
     url: "auth/session",
   });
+  console.log(data);
 
   return (
     <>
