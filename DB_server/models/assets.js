@@ -11,10 +11,12 @@ module.exports = class Assets extends Sequelize.Model {
           allowNull: false,
         },
         email: {
+          primaryKey: true,
           type: Sequelize.STRING(45),
           allowNull: false,
         },
         exchange: {
+          primaryKey: true,
           type: Sequelize.STRING(45),
           allowNull: false,
         },

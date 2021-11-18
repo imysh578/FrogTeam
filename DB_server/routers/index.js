@@ -7,13 +7,15 @@ router.get("/", (req, res) => {
   res.send("DB server!");
 });
 
-router.get("/userSession", (req, res) => {
-  console.log(req);
-
-  const user = Users.findOne({
-    where: { email: req.query.ID },
-  });
-
-  res.json(user);
+router.get("/userSession", async (req, res) => {
+  try {
+    const user = await Users.findOne({
+      where: { email: req.query.ID },
+    });
+    // const a = 3;
+    res.json(user);
+  } catch {
+    console.log("세션 에러");
+  }
 });
 module.exports = router;
