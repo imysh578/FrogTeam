@@ -14,9 +14,6 @@ const 코인뉴스 = () => {
     url: "news",
   });
 
-  console.log(data);
-  console.log(coinsDisplay);
-
   useEffect(() => {
     if (!loading && data) {
       setCoins(data);

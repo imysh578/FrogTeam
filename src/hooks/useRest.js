@@ -6,7 +6,6 @@ const getRest = async () => {
     const { data } = await axios.get(
       "https://api.upbit.com/v1/candles/minutes/5?market=KRW-BTC&count=200"
     );
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

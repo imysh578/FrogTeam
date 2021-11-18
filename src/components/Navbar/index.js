@@ -21,18 +21,6 @@ const Navbar = ({ toggle }) => {
     baseURL: "http://localhost:5000",
     url: "auth/session",
   });
-  console.log(data);
-
-  // async (a) => {
-  //   try {
-  //     // const abc = await axios.get("https://api.upbit.com/v1/market/all");
-  //     // console.log(abc);
-  //     const qw = 123;
-  //     console.log("여기가 나와야해");
-  //   } catch {
-  //     console.log("에러얌");
-  //   }
-  // };
 
   return (
     <>

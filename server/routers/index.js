@@ -44,7 +44,6 @@ router.get("/news", async (req, res) => {
       },
     };
     const news = await axios(options);
-    console.log(news.data.value);
     res.json(news.data.value);
   } catch {
     console.log("에러");
@@ -53,7 +52,6 @@ router.get("/news", async (req, res) => {
 
 router.post("/news", async (req, res) => {
   try {
-    console.log(req.body);
     const options = {
       method: "GET",
       url: "https://bing-news-search1.p.rapidapi.com/news/search",
@@ -74,7 +72,6 @@ router.post("/news", async (req, res) => {
       },
     };
     const news = await axios(options);
-    console.log(news.data.value);
     res.json(news.data.value);
   } catch {
     console.log("에러");
@@ -92,7 +89,6 @@ router.get("/new", async (req, res) => {
       },
     };
     const news = await axios(options);
-    console.log(news.data.data.coins[60].name);
     res.json(news.data.data.coins);
   } catch {
     console.log("에러");
