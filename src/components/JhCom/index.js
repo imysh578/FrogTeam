@@ -29,11 +29,7 @@ const 코인뉴스 = () => {
 
       setCoins();
       setCoins(news.data);
-      console.log(news);
-      console.log(coins);
       setCoinsDisplay(news.data.slice(0, 10));
-
-      console.log(coinsDisplay);
     } catch {
       console.log("안댄다 기사 씨발");
     }
@@ -44,9 +40,6 @@ const 코인뉴스 = () => {
     baseURL: "http://localhost:5000",
     url: "news",
   });
-
-  console.log(data);
-  console.log(coinsDisplay);
 
   useEffect(() => {
     if (!loading && data) {
