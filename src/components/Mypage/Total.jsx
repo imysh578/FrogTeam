@@ -40,7 +40,7 @@ const Total = ({ loading = true, assets }) => {
           ) : (
             <tr>
               <td>
-                <span>{totalAsset(assets)}</span>
+                <span>{totalAsset(assets).toFixed(0)} 원</span>
               </td>
               <td>
                 <span>매수 금액</span>

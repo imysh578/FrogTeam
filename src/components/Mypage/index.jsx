@@ -1,51 +1,49 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import useAxios from "../../hooks/useAxios";
-import AssetList from "./AssetList";
+import Details from "./Details";
 import Total from "./Total";
 
-function sorting (arr, key) {
-	arr.sort((a,b)=>{
-    if(typeof a[key] == 'string'){
-      let A = a[key].toUpperCase();
-      let B = b[key].toUpperCase();
-      return A.localeCompare(B)
-    } else {
-      let A = a[key];
-      let B = b[key];
-      return A-B
-    }
-  });
+function sorting(arr, key) {
+	arr.sort((a, b) => {
+		if (typeof a[key] == "string") {
+			let A = a[key].toUpperCase();
+			let B = b[key].toUpperCase();
+			return A.localeCompare(B);
+		} else {
+			let A = a[key];
+			let B = b[key];
+			return A - B;
+		}
+	});
 }
 
-function removeDuplicates (arr) {
-  for (let i = 0; i < arr.length; i++) {
-    if(i<arr.length-1){
-      if(arr[i].currency === arr[i+1].currency){
-        arr[i].balance = Number(arr[i].balance) + Number(arr[i+1].balance);
-        arr.splice(i+1,1)
-        i-=1;
-      } else arr[i].balance = Number(arr[i].balance)
-    }
-  }
+function removeDuplicates(arr) {
+	for (let i = 0; i < arr.length; i++) {
+		if (i < arr.length - 1) {
+			if (arr[i].currency === arr[i + 1].currency) {
+				arr[i].balance = Number(arr[i].balance) + Number(arr[i + 1].balance);
+				arr.splice(i + 1, 1);
+				i -= 1;
+			} else arr[i].balance = Number(arr[i].balance);
+		}
+	}
 }
 
-function addExchange (arr, exchange) {
-	return arr.map(el => (
-		el = {...el, exchange: exchange}
-	))
+function addExchange(arr, exchange) {
+	return arr.map((el) => (el = { ...el, exchange: exchange }));
 }
 
-function getDetails (arr) {
-  let coins = [];
-  let amount = [];
-  let length = arr.length;
-  arr.forEach(el => {
-    coins = [...coins, el.currency]
-    amount = [...amount, el.balance]
-  })
-  return {coins, amount, length}
+function getDetails(arr) {
+	let coins = [];
+	let amount = [];
+	let length = arr.length;
+	arr.forEach((el) => {
+		coins = [...coins, el.currency];
+		amount = [...amount, el.balance];
+	});
+	return { coins, amount, length };
 }
 
 const Mypage = () => {
@@ -53,6 +51,7 @@ const Mypage = () => {
 	const [assets, setAssets] = useState([]);
 	const [totalAssets, setTotalAssets] = useState([]);
 	const [prices, setPrices] = useState([]);
+	const [content, setContent] = useState(true);
 
 	const baseUrl = "http://localhost:5000";
 	const upbitData = useAxios({
@@ -73,90 +72,87 @@ const Mypage = () => {
 			!binanceData.loading &&
 			binanceData.data
 		) {
-			let upbitAssets = addExchange(upbitData.data, 'upbit')
-			let binanceAssets = addExchange(binanceData.data, 'binance')
-			let totalData= [...upbitAssets, ...binanceAssets]
-      let data = [];
+			let upbitAssets = addExchange(upbitData.data, "upbit");
+			let binanceAssets = addExchange(binanceData.data, "binance");
+			let totalData = [...upbitAssets, ...binanceAssets];
+			let data = [];
 			switch (tab) {
 				case "Total":
-          data = [...totalData];
+					data = [...totalData];
 					break;
 				case "Upbit":
-          data = [...upbitAssets];
+					data = [...upbitAssets];
 					break;
 				case "Binance":
-          data = [...binanceAssets];
+					data = [...binanceAssets];
 					break;
 				default:
 					data = [...totalData];
 					break;
-        }
-				sorting(data, 'currency')
-        removeDuplicates(data);
-        setAssets(data);
-				sorting(totalData, 'exchange')
-				setTotalAssets(totalData)
+			}
+			sorting(data, "currency");
+			removeDuplicates(data);
+			setAssets(data);
+			sorting(totalData, "exchange");
+			setTotalAssets(totalData);
 		}
 	}, [binanceData.loading, upbitData.loading, tab]);
 
-	useEffect(()=>{
+	useEffect(() => {
 		// 가격 속성 추가
-		const fetchPrice = async() => {
-			let {coins} = getDetails(totalAssets)
-			const coingeckoData = await axios.post(baseUrl+"/coingecko/price", {
+		const fetchPrice = async () => {
+			let { coins } = getDetails(totalAssets);
+			const coingeckoData = await axios.post(baseUrl + "/coingecko/price", {
 				ids: coins,
 			});
-			let priceList = coingeckoData.data
-			setPrices(priceList)
-			let temp = [...totalAssets]
-			temp = temp.map(el=>{
-				if(priceList[el.currency.toLowerCase()]){
-					el = {...el, price : Number(priceList[el.currency.toLowerCase()].krw)}
+			let priceList = coingeckoData.data;
+			setPrices(priceList);
+			let temp = [...totalAssets];
+			temp = temp.map((el) => {
+				if (priceList[el.currency.toLowerCase()]) {
+					el = {
+						...el,
+						price: Number(priceList[el.currency.toLowerCase()].krw),
+					};
 				}
-				return(el);
-			})
-			setTotalAssets(temp)
-		}
-		if(totalAssets){
+				return el;
+			});
+			setTotalAssets(temp);
+		};
+		if (totalAssets) {
 			fetchPrice();
 		}
-	}, [assets])
+	}, [assets]);
 
-	const handleAddOnclick = () => {
-		console.log("자산 추가!");
+	const handleEditClick = () => {
+		console.log("자산 수정!");
 	};
-	const handleTabClick = () => (e) => {
+	const handleTabClick = (e) => {
 		console.log(e.target.innerText);
 		setTab(e.target.innerText);
 	};
+	const handleDetailClick = () => {
+		setContent(!content)
+	}
 
 	return (
 		<div className="Mypage-Container">
-			<Total loading={upbitData.loading || binanceData.loading} assets={totalAssets}/>
-			{/* <div class="d-flex justify-content-between">
-				<ButtonGroup className="mb-2">
-					<Button className="tab" onClick={handleTabClick()} variant="success">
-						Total
-					</Button>
-					<Button className="tab" onClick={handleTabClick()} variant="primary">
-						Upbit
-					</Button>
-					<Button className="tab" onClick={handleTabClick()} variant="warning">
-						Binance
-					</Button>
-				</ButtonGroup>
-				<ButtonGroup className="mb-2 float-right">
-					<Button onClick={handleAddOnclick} variant="danger">
-						자산 추가
-					</Button>
-				</ButtonGroup>
-			</div>
-			<div className="total">
-				<AssetList
+			<Button className="mb-4" onClick={handleDetailClick} variant={content ? "danger" : "primary"} >
+				{content ? '자세히' : '차트보기'}
+			</Button>
+			{content ? (
+				<Total
+					loading={upbitData.loading || binanceData.loading}
+					assets={totalAssets}
+				/>
+			) : (
+				<Details
+					handleAddOnclick={handleEditClick}
+					handleTabClick={handleTabClick}
 					loading={upbitData.loading || binanceData.loading}
 					assets={assets}
 				/>
-			</div> */}
+			)}
 		</div>
 	);
 };
