@@ -3,41 +3,10 @@ import { Col, FormControl, InputGroup } from "react-bootstrap";
 import useAxios from "../../hooks/useAxios";
 import { Link } from "react-router-dom";
 import Coin from "../ChartSection/Coingecko/Coin";
-import axios from "axios";
 
-// preventDefault 무조건
 const 코인뉴스 = () => {
-  const [키워드, 키워드변경] = useState();
-
   const [coins, setCoins] = useState([]);
   const [coinsDisplay, setCoinsDisplay] = useState([]);
-
-  const keywordHandler = (e) => {
-    e.preventDefault();
-    키워드변경(e.target.value);
-  };
-
-  const submitHandler = async (e) => {
-    try {
-      e.preventDefault();
-      // state에 저장한 값을 가져옵니다.
-
-      let body = {
-        keyword: 키워드,
-      };
-      const news = await axios.post("http://localhost:5000/news", body);
-
-      setCoins();
-      setCoins(news.data);
-      console.log(news);
-      console.log(coins);
-      setCoinsDisplay(news.data.slice(0, 10));
-
-      console.log(coinsDisplay);
-    } catch {
-      console.log("안댄다 기사 씨발");
-    }
-  };
 
   const { data, loading, error } = useAxios({
     method: "GET",
@@ -61,24 +30,19 @@ const 코인뉴스 = () => {
 
   return (
     <>
-      <form
-        onSubmit={submitHandler}
-        style={{ display: "flex", flexDirection: "Column" }}
-      >
-        <Col md={4} className="my-3 input-box">
-          <InputGroup>
-            <input
+      <Col md={4} className="my-3 input-box">
+        <InputGroup>
+          <Form action="http://localhost:5000/auth/join" method="POST">
+            <FormInput
               type="text"
-              value={키워드}
-              onChange={keywordHandler}
               name="keyword"
               placeholder="뉴스 제목 입력"
               required
             />
-            <button type="submit">검색</button>
-          </InputGroup>
-        </Col>
-      </form>
+            <FormButton2 type="submit">Frog 회원가입 완료</FormButton2>
+          </Form>
+        </InputGroup>
+      </Col>
 
       <table className="table coinlist-table table-striped table-hover text-center">
         <thead className="text-light bg-success ">
