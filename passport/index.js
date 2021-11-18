@@ -45,7 +45,6 @@ module.exports = () => {
         },
       });
       done(null, user1.data);
-      // 세션에 추가가 안대요 ㅠㅠ 모르겠네 씨발
     } catch {
       console.log("안댄다 씨발");
     }

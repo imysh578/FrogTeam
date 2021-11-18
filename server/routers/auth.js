@@ -67,7 +67,7 @@ router.post("/key", isLoggedIn, async (req, res, next) => {
 });
 
 router.get("/session", isLoggedIn, (req, res) => {
-  res.json(req.session);
+  res.json(req.user);
 });
 
 router.get("/logout", isLoggedIn, (req, res) => {
