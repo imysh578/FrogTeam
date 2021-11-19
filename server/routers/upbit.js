@@ -74,12 +74,14 @@ router
 				if (priceList[el.currency.toLowerCase()]) {
 					el = {
 						...el,
+						email:'asdf@asdf',
 						price: Number(priceList[el.currency.toLowerCase()].krw),
 						exchange: 'upbit',
 					};
 				}
 				return el;
 			});
+			console.log(temp);
 			res.send(temp);
 		} catch (err) {
 			console.error(err);

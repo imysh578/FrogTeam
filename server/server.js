@@ -26,6 +26,7 @@ const upbitRouter = require("./routers/upbit.js");
 const binaceRouter = require("./routers/binance.js");
 const coningeckoRouter = require("./routers/coingecko.js");
 const usersRouter = require("./routers/users.js");
+const assetsRouter = require("./routers/assets.js");
 // 모든 URL에 대한 Router
 const otherRouter = require("./routers/other.js");
 
@@ -71,6 +72,7 @@ app.use("/auth", authRouter);
 app.use("/upbit", upbitRouter);
 app.use("/binance", binaceRouter);
 app.use("/coingecko", coningeckoRouter);
+app.use("/assets", assetsRouter);
 app.use("/users", usersRouter);
 app.use(otherRouter);
 

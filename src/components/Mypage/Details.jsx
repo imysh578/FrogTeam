@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Button, ButtonGroup } from "react-bootstrap";
 import AssetList from "./AssetList";
-import EditAsset from './EditAsset';
 import ModalComponent from './ModalComponent';
 
 const Details = ({handleTabClick, loading, assets}) => {
@@ -36,7 +35,6 @@ const Details = ({handleTabClick, loading, assets}) => {
 				</ButtonGroup>
 			</div>
 			<ModalComponent show={modalShow} onHide={handleModalShow}>
-				<EditAsset/>
 			</ModalComponent>
 			<div className="total">
 				<AssetList loading={loading} assets={assets} editShow={editShow}/>

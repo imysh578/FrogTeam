@@ -53,6 +53,7 @@ router.post("/key", isLoggedIn, async (req, res, next) => {
     const whatKey = await req.body.whatKey;
     const user = await req.session;
 
+    console.log(req.body);
     const result = await axios.post("http://localhost:7000/apikey", {
       accessKey,
       secretKey,

@@ -1,6 +1,9 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import "./asset.css";
+
+const baseUrl = 'http://localhost:5000'
 
 const Asset = ({ index, asset, editShow }) => {
 	const [inputMode, setInputMode] = useState(false);
@@ -21,11 +24,18 @@ const Asset = ({ index, asset, editShow }) => {
 		e.preventDefault();
 		setInputMode(!inputMode);
 	};
-	const handleSubmitClick = (e) => {
+	const handleSubmitClick = async (e) => {
 		e.preventDefault();
+		console.log(buyPrice);
+		console.log(balance);
+		const result = await axios.post(baseUrl + '/assets/edit', {
+			email:'asdf@asdf',
+			exchange: exchange,
+			coinId: assetName,
+			amount: Number(balance),
+			buyPrice: Number(buyPrice),
+		})
 		setInputMode(!inputMode);
-		if(inputBuyPrice) setBuyPrice(inputBuyPrice);
-		if(inputBalance) setBalance(inputBalance);
 	};
 	const handleCancleClick = (e) => {
 		e.preventDefault();
@@ -36,16 +46,13 @@ const Asset = ({ index, asset, editShow }) => {
 	const handleBuyPriceOnChange = (e) => {
 		console.log(e.target.value);
 		setInputBuyPrice(e.target.value);
+		setBuyPrice(e.target.value);
 	};
 	const handleBalanceOnChange = (e) => {
 		console.log(e.target.value);
 		setInputBalance(e.target.value);
+		setBalance(e.target.value);
 	};
-
-	useEffect(() => {
-		console.log(inputBuyPrice);
-		console.log(inputBalance);
-	}, [inputMode])
 
 	useEffect(() => {
 		const exchange_temp = asset.exchange.toUpperCase();
@@ -73,7 +80,7 @@ const Asset = ({ index, asset, editShow }) => {
 		setExchange(exchange_temp);
 		setProfit(profit_temp);
 		setProfitRate(profitRate_temp);
-	}, [asset, balance, ]);
+	}, [asset, inputMode]);
 
 	
 

@@ -77,7 +77,7 @@ router
 				return el;
 			});
 			// DB에 assets 내용 저장
-			const result = axios.post(dbUrl+'/assets/create',{
+			const result = axios.post(dbUrl+'/assets/check',{
 				data: temp,
 			})
 			console.log(temp);
@@ -87,5 +87,6 @@ router
 			next(err);
 		}
 	})
+	;
 
 module.exports = router;
