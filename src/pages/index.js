@@ -6,38 +6,63 @@ import Sidebar from "../components/Sidebar";
 import InfoSection from "../components/InfoSection";
 import ChartSection from "../components/ChartSection";
 import { NewsContextProvider } from "../components/News/NewsContext";
-import NewS2 from '../components/News/index2';
+import NewS2 from "../components/News/index2";
+import Discover2 from "../components/Discover/index2";
+// import AboutModal from "../components/AboutModal/";
+// import MdVideo from '../video/MdVideo/MdVideo.mp4';
+// import styled from 'styled-components';
 // import PostBoards from "../components/PostBoard/PostBoard";
 
 import {
-  homeObjOne,
-  homeObjTwo,
-  homeObjThree,
-  homeObjFour,
-  homeObjFive,
+	homeObjOne,
+	homeObjTwo,
+	homeObjThree,
+	homeObjFour,
+	homeObjFive,
 } from "../components/InfoSection/Data";
 import Scroll from "../components/Scroll";
 import Mypage from "../components/Mypage/index.jsx";
 import useAxios from "../hooks/useAxios";
 
+// const AboutBg = styled.div`
+// width: 100%;
+// height: 100% fit-content;
+
+// `;
+// const MdVideoBg = styled.video`
+// width: 100%;
+// height: 100%;
+// -o-object-fit: cover;
+// object-fit: cover;
+// background: #232a34;
+// `;
+
 const Home = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
-  const { data, loading, error } = useAxios({
+	const [isOpen, setIsOpen] = useState(false);
+	const toggle = () => {
+		setIsOpen(!isOpen);
+	};
+	const { data, loading, error } = useAxios({
 		method: "get",
 		baseURL: "http://localhost:5000",
 		url: "auth/session",
 	});
 
-  return (
+	return (
 		<>
 			<Sidebar isOpen={isOpen} toggle={toggle} />
 			<Navbar toggle={toggle} />
 			<HeroSection />
-			<InfoSection {...homeObjOne} />
-			<InfoSection {...homeObjTwo}>{/* <PostBoards />     */}</InfoSection>
+			<InfoSection {...homeObjOne}>
+				{/* <AboutBg>
+                <MdVideoBg autoPlay loop muted src=
+                {MdVideo} type='.Video/mp4' />
+      </ AboutBg> */}
+			</InfoSection>
+			<InfoSection {...homeObjTwo}>
+				<Discover2 />
+				{/* <PostBoards />     */}
+			</InfoSection>
 			<InfoSection {...homeObjThree}>
 				<ChartSection />
 			</InfoSection>
