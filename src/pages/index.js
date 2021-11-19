@@ -18,34 +18,43 @@ import {
 } from "../components/InfoSection/Data";
 import Scroll from "../components/Scroll";
 import Mypage from "../components/Mypage/index.jsx";
+import useAxios from "../hooks/useAxios";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => {
     setIsOpen(!isOpen);
   };
+  const { data, loading, error } = useAxios({
+		method: "get",
+		baseURL: "http://localhost:5000",
+		url: "auth/session",
+	});
+
   return (
-    <>
-      <Sidebar isOpen={isOpen} toggle={toggle} />
-      <Navbar toggle={toggle} />
-      <HeroSection />
-      <InfoSection {...homeObjOne} />
-      <InfoSection {...homeObjTwo} > 
-      {/* <PostBoards />     */}
-      </InfoSection>
-      <InfoSection {...homeObjThree}>
-        <ChartSection />
-      </InfoSection>
-      <InfoSection {...homeObjFour} ><NewsContextProvider>
-        <NewS2 />
-      </NewsContextProvider>  </InfoSection>
-      <InfoSection {...homeObjFive}>
-        <Mypage />
-      </InfoSection>
-      <Scroll showBelow={250} />
-      <Footer />
-    </>
-  );
+		<>
+			<Sidebar isOpen={isOpen} toggle={toggle} />
+			<Navbar toggle={toggle} />
+			<HeroSection />
+			<InfoSection {...homeObjOne} />
+			<InfoSection {...homeObjTwo}>{/* <PostBoards />     */}</InfoSection>
+			<InfoSection {...homeObjThree}>
+				<ChartSection />
+			</InfoSection>
+			<InfoSection {...homeObjFour}>
+				<NewsContextProvider>
+					<NewS2 />
+				</NewsContextProvider>{" "}
+			</InfoSection>
+			{data ? (
+				<InfoSection {...homeObjFive}>
+					<Mypage />
+				</InfoSection>
+			) : null}
+			<Scroll showBelow={250} />
+			<Footer />
+		</>
+	);
 };
 
 export default Home;

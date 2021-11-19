@@ -75,6 +75,7 @@ router
 					el = {
 						...el,
 						price: Number(priceList[el.currency.toLowerCase()].krw),
+						exchange: 'upbit',
 					};
 				}
 				return el;
