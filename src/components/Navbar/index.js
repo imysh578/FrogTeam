@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { FaBars } from "react-icons/fa";
 import {
@@ -14,84 +14,94 @@ import {
 	NavBtn,
 	NavBtnLink,
 } from "./NavbarElements";
+import { Button } from "../ButtonElements";
+import ApiKey from "../../components/ApiKey/index";
 
 const Navbar = ({ toggle }) => {
-	const { data, loading, error } = useAxios({
-		method: "get",
-		baseURL: "http://localhost:5000",
-		url: "auth/session",
-	});
-	console.log(data);
+  const { data, loading, error } = useAxios({
+    method: "get",
+    baseURL: "http://localhost:5000",
+    url: "auth/session",
+  });
+  // const data = { id: 1, aa: 2 };
+  // console.log(data);
 
-	// async (a) => {
-	//   try {
-	//     // const abc = await axios.get("https://api.upbit.com/v1/market/all");
-	//     // console.log(abc);
-	//     const qw = 123;
-	//     console.log("여기가 나와야해");
-	//   } catch {
-	//     console.log("에러얌");
-	//   }
-	// };
+  // , payload: data }
+  // console.log(props);
+  // if (data) {
+  //   props.dispatch({ type: "세션저장" });
+  // }
+  // useEffect(() => {}, [data]);
 
-	return (
-		<>
-			<Nav>
-				<NavbarContainer>
-					<NavLogo to="/"> Frog </NavLogo>
-					<MobileIcon onClick={toggle}>
-						<FaBars />
-					</MobileIcon>
-					<NavMenu>
-						<NavItem>
-							<NavLinks
-								to="about"
-								smooth={true}
-								duration={500}
-								spy={true}
-								exact="true"
-								offset={-80}
-							>
-								About
-							</NavLinks>
-						</NavItem>
-						<NavItem>
-							<NavLinks
-								to="discover"
-								smooth={true}
-								duration={500}
-								spy={true}
-								exact="true"
-								offset={-80}
-							>
-								Discover
-							</NavLinks>
-						</NavItem>
-						<NavItem>
-							<NavLinks
-								to="chart"
-								smooth={true}
-								duration={500}
-								spy={true}
-								exact="true"
-								offset={-80}
-							>
-								Chart
-							</NavLinks>
-						</NavItem>
-						<NavItem>
-							<NavLinks
-								to="news"
-								smooth={true}
-								duration={500}
-								spy={true}
-								exact="true"
-								offset={-80}
-							>
-								News
-							</NavLinks>
-						</NavItem>
-						{data ? (
+  const signoutHandler = async (e) => {
+    e.preventDefault();
+    try {
+      console.log("된다");
+      await axios.get("http://localhost:5000/auth/logout");
+      window.location.replace("/");
+    } catch {
+      console.log("로그아웃 오류");
+    }
+  };
+
+  return (
+    <>
+      <Nav>
+        <NavbarContainer>
+          <NavLogo to="/"> Frog </NavLogo>
+          <MobileIcon onClick={toggle}>
+            <FaBars />
+          </MobileIcon>
+          <NavMenu>
+            <NavItem>
+              <NavLinks
+                to="about"
+                smooth={true}
+                duration={500}
+                spy={true}
+                exact="true"
+                offset={-80}
+              >
+                About
+              </NavLinks>
+            </NavItem>
+            <NavItem>
+              <NavLinks
+                to="discover"
+                smooth={true}
+                duration={500}
+                spy={true}
+                exact="true"
+                offset={-80}
+              >
+                Discover
+              </NavLinks>
+            </NavItem>
+            <NavItem>
+              <NavLinks
+                to="chart"
+                smooth={true}
+                duration={500}
+                spy={true}
+                exact="true"
+                offset={-80}
+              >
+                Chart
+              </NavLinks>
+            </NavItem>
+            <NavItem>
+              <NavLinks
+                to="news"
+                smooth={true}
+                duration={500}
+                spy={true}
+                exact="true"
+                offset={-80}
+              >
+                News
+              </NavLinks>
+            </NavItem>
+            {data ? (
 							<NavItem>
 								<NavLinks
 									to="signup"
@@ -105,18 +115,29 @@ const Navbar = ({ toggle }) => {
 								</NavLinks>
 							</NavItem>
 						) : null}
-					</NavMenu>
-					<NavBtn>
-						{data ? (
-							<NavBtnLink2 to="/auth/logout">Sign Out</NavBtnLink2>
-						) : (
-							<NavBtnLink to="/signin">Sign In/Up</NavBtnLink>
-						)}
-					</NavBtn>
-				</NavbarContainer>
-			</Nav>
-		</>
-	);
+            {data ? <ApiKey></ApiKey> : null}
+          </NavMenu>
+
+          <NavBtnLink to="/now">실시간 연습중</NavBtnLink>
+          <NavBtn>
+            {data ? (
+              <NavBtnLink2 to="/" onClick={signoutHandler}>
+                Sign Out
+              </NavBtnLink2>
+            ) : (
+              <NavBtnLink to="/signin">Sign In/Up</NavBtnLink>
+            )}
+          </NavBtn>
+        </NavbarContainer>
+      </Nav>
+    </>
+  );
 };
+
+// function lala(state) {
+//   return {
+//     state,
+//   };
+// }
 
 export default Navbar;
