@@ -5,6 +5,7 @@ import useAxios from "../../hooks/useAxios";
 import Details from "./Details";
 import Total from "./Total";
 
+/* 컴포넌트에서 사용하는 함수들 */
 function sorting(arr, key) {
 	arr.sort((a, b) => {
 		if (typeof a[key] == "string") {
@@ -36,21 +37,21 @@ function addExchange(arr, exchange) {
 }
 
 function getDetails(arr) {
-	let coins = [];
-	let amount = [];
+	let currencyList = [];
+	let balanceList = [];
 	let length = arr.length;
 	arr.forEach((el) => {
-		coins = [...coins, el.currency];
-		amount = [...amount, el.balance];
+		currencyList = [...currencyList, el.currency];
+		balanceList = [...balanceList, el.balance];
 	});
-	return { coins, amount, length };
+	return { currencyList, balanceList, length };
 }
 
+/* 마이페이지 */
 const Mypage = () => {
 	const [tab, setTab] = useState("Total");
 	const [assets, setAssets] = useState([]);
 	const [totalAssets, setTotalAssets] = useState([]);
-	const [prices, setPrices] = useState([]);
 	const [content, setContent] = useState(true);
 
 	const baseUrl = "http://localhost:5000";
@@ -97,32 +98,6 @@ const Mypage = () => {
 			setTotalAssets(totalData);
 		}
 	}, [binanceData.loading, upbitData.loading, tab]);
-
-	useEffect(() => {
-		// 가격 속성 추가
-		const fetchPrice = async () => {
-			let { coins } = getDetails(totalAssets);
-			const coingeckoData = await axios.post(baseUrl + "/coingecko/price", {
-				ids: coins,
-			});
-			let priceList = coingeckoData.data;
-			setPrices(priceList);
-			let temp = [...totalAssets];
-			temp = temp.map((el) => {
-				if (priceList[el.currency.toLowerCase()]) {
-					el = {
-						...el,
-						price: Number(priceList[el.currency.toLowerCase()].krw),
-					};
-				}
-				return el;
-			});
-			setTotalAssets(temp);
-		};
-		if (totalAssets) {
-			fetchPrice();
-		}
-	}, [assets]);
 
 	const handleTabClick = (e) => {
 		console.log(e.target.innerText);

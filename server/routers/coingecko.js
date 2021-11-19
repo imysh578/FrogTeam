@@ -12,6 +12,8 @@ router.route("/coinlist/").get(async (req, res, next) => {
       url: `/coins/markets/`,
       params: {
         vs_currency: "usd",
+        per_page:250,
+        
       },
     });
     const data = result.data;

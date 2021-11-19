@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 
 const Asset = ({ index, asset, editShow }) => {
-	const [editMode, setEditMode] = useState(false);
 	const [inputMode, setInputMode] = useState(false);
+	const [buyPrice, setBuyPrice] = useState(0);
+	const [totalAsset, setTotalAsset] = useState(0);
+	const [balance, setBalance] = useState(0);
+	const [assetName, setAssetName] = useState(0);
+	const [exchange, setExchange] = useState(0);
+	const [profit, setProfit] = useState(0);
 
 	const handleEditClick = (e) => {
 		e.preventDefault();
@@ -11,55 +16,56 @@ const Asset = ({ index, asset, editShow }) => {
 	};
 	const handleSubmitClick = (e) => {
 		setInputMode(!inputMode);
-	}
+	};
 	const handleCancleClick = (e) => {
 		e.preventDefault();
-		setInputMode(!inputMode)
-	}
+		setInputMode(!inputMode);
+	};
+
+	useEffect(() => {
+		const exchange_temp = asset.exchange.toUpperCase();
+		const assetName_temp = asset.currency.toUpperCase();
+		const balance_temp = Number(Number(asset.balance).toFixed(2)).toLocaleString();
+		const totalAsset_temp = Number((Number(asset.price) * Number(asset.balance)).toFixed(0)).toLocaleString();
+		const buyPrice_temp = Number(Number(asset.avg_buy_price * Number(asset.balance)).toFixed(0)).toLocaleString();
+		console.log(totalAsset_temp-buyPrice_temp);
+		const profit_temp = Number(Number(totalAsset_temp) - Number(buyPrice_temp)).toLocaleString();
+
+		setBuyPrice(buyPrice_temp);
+		setTotalAsset(totalAsset_temp);
+		setBalance(balance_temp);
+		setAssetName(assetName_temp);
+		setExchange(exchange_temp);
+		setProfit(profit_temp);
+	}, [asset]);
 
 	return (
 		<>
 			<tr>
 				<th> {index} </th>
 				<td>
+					{/* <span>거래소</span> */}
+					<span>{exchange}</span>
+				</td>
+				<td>
 					{/* <span>보유코인</span> */}
-					<span>{asset.currency}</span>
+					<span>{assetName}</span>
 				</td>
 				<td>
 					{/* <span> 매수 평균가 </span> */}
-					<span>
-						{" "}
-						{asset.avg_buy_price
-							? Number(Number(asset.avg_buy_price).toFixed(0)).toLocaleString()
-							: 0}{" "}
-						원
-					</span>
+					<span>{totalAsset}원</span>
 				</td>
 				<td>
 					{/* <span> 보유 수량 </span> */}
-					<span>
-						{" "}
-						{Number(Number(asset.balance).toFixed(2)).toLocaleString()}
-					</span>
+					<span>{balance}</span>
 				</td>
 				<td>
-					<span> 평가 금액 </span>
-					{/* <span > {asset.avg_buy_price ?
-					Number(asset.avg_buy_price) * Number(asset.balance) : 0} 원</span> */}
+					{/* <span> 평가 금액 </span> */}
+					<span> {totalAsset} 원</span>
 				</td>
 				<td>
 					{/* <span> 매수 금액 </span> */}
-					<span>
-						{" "}
-						{asset.avg_buy_price
-							? Number(
-									(Number(asset.avg_buy_price) * Number(asset.balance)).toFixed(
-										0
-									)
-							).toLocaleString()
-							: 0}{" "}
-						원
-					</span>
+					<span>{buyPrice} 원</span>
 				</td>
 				<td
 				// className={
@@ -68,8 +74,7 @@ const Asset = ({ index, asset, editShow }) => {
 				// 		: "text-success mx-2"
 				// }
 				>
-					<span> 평가 수익 </span>
-					{/* <span > {Math.floor(asset.acc_trade_price_24h/1000000)}백만 </span> */}
+					{profit}
 				</td>
 				<td>
 					<span>수익률</span>
@@ -91,19 +96,21 @@ const Asset = ({ index, asset, editShow }) => {
 				</td>
 				<td>
 					{editShow ? (
-						inputMode ? 
-							(<ButtonGroup>
+						inputMode ? (
+							<ButtonGroup>
 								<Button onClick={handleSubmitClick} variant="primary">
 									확인
 								</Button>
 								<Button onClick={handleCancleClick} variant="danger">
 									취소
 								</Button>
-							</ButtonGroup>) : 
-							(<Button onClick={handleEditClick} variant="success">
+							</ButtonGroup>
+						) : (
+							<Button onClick={handleEditClick} variant="success">
 								수정
-							</Button>)) 
-							: null}
+							</Button>
+						)
+					) : null}
 				</td>
 			</tr>
 		</>

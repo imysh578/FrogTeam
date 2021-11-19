@@ -5,18 +5,18 @@ import { exchanges } from 'ccxt';
 Chart.register(...registerables);
 
 function getDetails (arr) {
-  let coins = [];
-  let amounts = [];
+  let currencies = [];
+  let balances = [];
   let prices = [];
   let exchanges = [];
   let length = arr.length;
   arr.forEach(el => {
-    coins = [...coins, el.currency]
-    amounts = [...amounts, el.balance]
+    currencies = [...currencies, el.currency]
+    balances = [...balances, el.balance]
     prices = [...prices, el.price]
     exchanges = [...exchanges, el.exchanges]
   })
-  return {coins, amounts, prices, exchanges, length}
+  return {currencies, balances, prices, exchanges, length}
 }
 
 const TotalChart = ({assets}) => {
@@ -27,8 +27,8 @@ const TotalChart = ({assets}) => {
     if(assets){
       let temp =[]
       let assetDetails = getDetails(assets)
-      for (let i = 0; i < assetDetails.amounts.length; i++) {
-        temp = [...temp, assetDetails.amounts[i] * assetDetails.prices[i]];
+      for (let i = 0; i < assetDetails.balances.length; i++) {
+        temp = [...temp, assetDetails.balances[i] * assetDetails.prices[i]];
       }
       setAssetDetails(assetDetails)
       setAmountPrices(temp)
@@ -37,7 +37,7 @@ const TotalChart = ({assets}) => {
 
   useEffect(()=>{
     const data = {
-      labels: assetDetails.coins,
+      labels: assetDetails.currencies,
       datasets: [
         {
           label: 'Dataset 1',
