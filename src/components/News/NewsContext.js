@@ -1,23 +1,36 @@
 import React, { createContext, useEffect, useState } from "react";
+import { Col, FormControl, InputGroup } from "react-bootstrap";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import useAxios from "../../hooks/useAxios";
 
 export const NewsContext = createContext();
 
 export const NewsContextProvider = (props) => {
-  const [data, setData] = useState();
-  const apiKey = "9ba9bcc1788c4c28b9b649c02adff80b";
+  const [coins, setCoins] = useState([]);
+  const [coinsDisplay, setCoinsDisplay] = useState([]);
+
+  const { data, loading, error } = useAxios({
+    method: "GET",
+    baseURL: "http://localhost:5000",
+    url: "news",
+  });
+
+  // setCoins(data);
 
   useEffect(() => {
-    axios
-      .get(
-        `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${apiKey}`
-      )
-      .then((response) => setData(response.data))
-      .catch((error) => console.log(error));
-  }, []);
+    if (!loading && data) {
+      setCoins(data);
+      setCoinsDisplay(data.slice(0, 10));
+    }
+  }, [data, loading]);
+
+  if (error) {
+    return <h1 className="text-danger">{error.message}</h1>;
+  }
 
   return (
-    <NewsContext.Provider value={{ data }}>
+    <NewsContext.Provider value={{ coinsDisplay }}>
       {props.children}
     </NewsContext.Provider>
   );

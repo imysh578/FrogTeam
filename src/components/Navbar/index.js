@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { FaBars } from "react-icons/fa";
 import {
@@ -14,6 +14,7 @@ import {
   NavBtn,
   NavBtnLink,
 } from "./NavbarElements";
+import { Button } from "../ButtonElements";
 
 const Navbar = ({ toggle }) => {
   const { data, loading, error } = useAxios({
@@ -21,7 +22,15 @@ const Navbar = ({ toggle }) => {
     baseURL: "http://localhost:5000",
     url: "auth/session",
   });
-  console.log(data);
+  // const data = { id: 1, aa: 2 };
+  // console.log(data);
+
+  // , payload: data }
+  // console.log(props);
+  // if (data) {
+  //   props.dispatch({ type: "세션저장" });
+  // }
+  // useEffect(() => {}, [data]);
 
   const signoutHandler = async (e) => {
     e.preventDefault();
@@ -118,5 +127,11 @@ const Navbar = ({ toggle }) => {
     </>
   );
 };
+
+// function lala(state) {
+//   return {
+//     state,
+//   };
+// }
 
 export default Navbar;
