@@ -15,6 +15,7 @@ import {
   NavBtnLink,
 } from "./NavbarElements";
 import { Button } from "../ButtonElements";
+import ApiKey from "../../components/ApiKey/index";
 
 const Navbar = ({ toggle }) => {
   const { data, loading, error } = useAxios({
@@ -112,21 +113,10 @@ const Navbar = ({ toggle }) => {
                 MyPage
               </NavLinks>
             </NavItem>
-            {data ? (
-              <NavItem>
-                <NavLinks
-                  to="apikey"
-                  smooth={true}
-                  duration={500}
-                  spy={true}
-                  exact="true"
-                  offset={-80}
-                >
-                  나의 자산 불러오기
-                </NavLinks>
-              </NavItem>
-            ) : null}
+            {data ? <ApiKey></ApiKey> : null}
           </NavMenu>
+
+          <NavBtnLink to="/now">실시간 연습중</NavBtnLink>
           <NavBtn>
             {data ? (
               <NavBtnLink2 to="/" onClick={signoutHandler}>
