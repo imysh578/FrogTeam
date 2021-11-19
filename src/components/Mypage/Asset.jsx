@@ -36,6 +36,8 @@ const Asset = ({ index, asset, editShow }) => {
 			buyPrice: Number(buyPrice),
 		})
 		setInputMode(!inputMode);
+		if(inputBuyPrice) setBuyPrice(inputBuyPrice);
+		if(inputBalance) setBalance(inputBalance);
 	};
 	const handleCancleClick = (e) => {
 		e.preventDefault();
