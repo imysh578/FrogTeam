@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { FaBars } from "react-icons/fa";
 import {
@@ -14,6 +14,8 @@ import {
   NavBtn,
   NavBtnLink,
 } from "./NavbarElements";
+import { Button } from "../ButtonElements";
+import ApiKey from "../../components/ApiKey/index";
 
 const Navbar = ({ toggle }) => {
   const { data, loading, error } = useAxios({
@@ -21,18 +23,26 @@ const Navbar = ({ toggle }) => {
     baseURL: "http://localhost:5000",
     url: "auth/session",
   });
-  console.log(data);
+  // const data = { id: 1, aa: 2 };
+  // console.log(data);
 
-  // async (a) => {
-  //   try {
-  //     // const abc = await axios.get("https://api.upbit.com/v1/market/all");
-  //     // console.log(abc);
-  //     const qw = 123;
-  //     console.log("여기가 나와야해");
-  //   } catch {
-  //     console.log("에러얌");
-  //   }
-  // };
+  // , payload: data }
+  // console.log(props);
+  // if (data) {
+  //   props.dispatch({ type: "세션저장" });
+  // }
+  // useEffect(() => {}, [data]);
+
+  const signoutHandler = async (e) => {
+    e.preventDefault();
+    try {
+      console.log("된다");
+      await axios.get("http://localhost:5000/auth/logout");
+      window.location.replace("/");
+    } catch {
+      console.log("로그아웃 오류");
+    }
+  };
 
   return (
     <>
@@ -103,10 +113,15 @@ const Navbar = ({ toggle }) => {
                 MyPage
               </NavLinks>
             </NavItem>
+            {data ? <ApiKey></ApiKey> : null}
           </NavMenu>
+
+          <NavBtnLink to="/now">실시간 연습중</NavBtnLink>
           <NavBtn>
             {data ? (
-              <NavBtnLink2 to="/auth/logout">Sign Out</NavBtnLink2>
+              <NavBtnLink2 to="/" onClick={signoutHandler}>
+                Sign Out
+              </NavBtnLink2>
             ) : (
               <NavBtnLink to="/signin">Sign In/Up</NavBtnLink>
             )}
@@ -116,5 +131,11 @@ const Navbar = ({ toggle }) => {
     </>
   );
 };
+
+// function lala(state) {
+//   return {
+//     state,
+//   };
+// }
 
 export default Navbar;

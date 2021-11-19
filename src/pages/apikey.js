@@ -1,5 +1,5 @@
 import React from "react";
-import ApiKey from "../components/ApiKey";
+import ApiKey from "../components/ApiKey/index";
 
 const ApikeyPage = () => {
   return (

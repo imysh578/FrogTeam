@@ -58,7 +58,7 @@ export const homeObjFour = {
   lightTextDesc: true,
   topLine: "뉴스",
   headline: " 무한한 정보제공과 상장된 가상화폐의 서비스 가능 경로 정보 제공",
-  description: "자유로운 차트 도구 사용으로 미래의 정확성 향상",
+  description: "코인 동향 뉴스",
   buttonLabel: "Learn More",
   imgStart: true,
   dark: true,

@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const { sequelize } = require("./models/index.js");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.set("port", process.env.DB_PORT || PORT);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.raw());
+app.use(bodyParser.text());
 
 // url과 라우터 매칭
 app.use(morgan("dev"));
