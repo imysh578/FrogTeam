@@ -112,6 +112,20 @@ const Navbar = ({ toggle }) => {
                 MyPage
               </NavLinks>
             </NavItem>
+            {data ? (
+              <NavItem>
+                <NavLinks
+                  to="apikey"
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  exact="true"
+                  offset={-80}
+                >
+                  나의 자산 불러오기
+                </NavLinks>
+              </NavItem>
+            ) : null}
           </NavMenu>
           <NavBtn>
             {data ? (

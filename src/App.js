@@ -9,10 +9,8 @@ import NewsPage from "./pages/news";
 import CoinsPage from "./pages/coins";
 import CoinDetail from "./components/ChartSection/Coingecko/CoinDetail";
 import DiscoverPage from "./pages/discover";
-import QueryPage from "./pages/query";
 import PostBoardPage from "./pages/postboard";
-import ApikeyPage from "./pages/upbitkey";
-import JhPage from "./pages/jh";
+import ApikeyPage from "./pages/apikey";
 
 function App() {
   return (
@@ -24,10 +22,8 @@ function App() {
         <Route path="news" element={<NewsPage />} exact />
         <Route path="discover" element={<DiscoverPage />} exact />
         <Route path="coins/*" element={<CoinsPage />} exact />
-        <Route path="query" element={<QueryPage />} exact />
         <Route path="postboard" element={<PostBoardPage />} exact />
         <Route path="apikey" element={<ApikeyPage />} exact />
-        <Route path="jh" element={<JhPage />} exact />
       </Routes>
     </Router>
   );
