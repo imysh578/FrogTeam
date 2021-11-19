@@ -1,39 +1,52 @@
-// import React from 'react'
-// import millify from 'millify';
-// import { Link } from 'react-router-dom';
-// import { useGetCryptosQuery } from '../Discover/DiscoverData';
-// import {Col, Title, Row, Statistic,  } from '../Discover/DiscoverElements'
-// import axios from "axios";
 
-// const Discover = () => {
-//   const { data, isFetching } = useGetCryptosQuery(10);
-//   const globalStats = data?.data?.stats;
+import { DiscoverContainer} from './DiscoverElements'
+import React, { useContext } from "react";
+import DiscoverArray from "./DiscoverArray";
+import { useState, useEffect } from 'react';
+import useAxios from '../../hooks/useAxios';
 
-//   // if (isFetching) return <Loader />;
+import  options  from "./options";
 
-//   return (
-//     <>
-      {/* <Title level={2} className="heading">Global Crypto Stats</Title>
-      <Row gutter={[32, 32]}>
-        <Col span={12}><Statistic title="Total Cryptocurrencies" value={globalStats.total} /></Col>
-        <Col span={12}><Statistic title="Total Exchanges" value={millify(globalStats.totalExchanges)} /></Col>
-        <Col span={12}><Statistic title="Total Market Cap:" value={`$${millify(globalStats.totalMarketCap)}`} /></Col>
-        <Col span={12}><Statistic title="Total 24h Volume" value={`$${millify(globalStats.total24hVolume)}`} /></Col>
-        <Col span={12}><Statistic title="Total Cryptocurrencies" value={globalStats.total} /></Col>
-        <Col span={12}><Statistic title="Total Markets" value={millify(globalStats.totalMarkets)} /></Col>
-      </Row> */}
-      {/* <div className="home-heading-container">
-//         <Title level={2} className="home-title">Top 10 Cryptos In The World</Title>
-//         <Title level={3} className="show-more"><Link to="/">Show more</Link></Title>
-//       </div>
-     
-//       <div className="home-heading-container">
-//         <Title level={2} className="home-title">Latest Crypto News</Title>
-//         <Title level={3}><Link to="/news">Show more</Link></Title>
-//       </div> */}
+function Discover(props) {
+  const [dataETF, setDataETF] = useState([])
+  const {data, error, loading} = useAxios(options);
+  useEffect(()=>{
+    if(data){
+      setDataETF(data.data)
+      console.log(data.data);
+    }
+  }, [data])
   
-//     </>
-//   );
-// };
+  return (
+  
+      <DiscoverContainer>
+        <h1 className= "DiscoverTitle"><br/><br/>Discover ETF </h1>
+        <table className="table coinlist-table table-striped table-hover text-center">
+				<thead className="text-light bg-success ">
+					<tr>
+						<th>
+							<span>Symbol</span>
+						</th>
+						<th>
+							<span>Name</span>
+						</th>
+						<th>
+							<span>Exchange</span>
+						</th>
+						<th>
+							<span>Currency</span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+          {dataETF ? dataETF.slice(0,35).map((etf, index) => (
+            <DiscoverArray key={index} symbol={etf.symbol} name={etf.name} exchange={etf.exchange} currency={etf.currency} />
+          ))
+            : "Loading"}
+        </tbody>
+			</table>
+      </DiscoverContainer>
+  );
+}
 
-// export default Discover;
+export default Discover;
