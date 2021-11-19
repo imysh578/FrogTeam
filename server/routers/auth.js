@@ -73,7 +73,8 @@ router.get("/session", isLoggedIn, (req, res) => {
 router.get("/logout", isLoggedIn, (req, res) => {
   req.logout();
   req.session.destroy();
-  res.redirect("/");
+  // res.redirect("/");
+  res.send("로그아웃 완료");
 });
 
 module.exports = router;
