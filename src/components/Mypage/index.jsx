@@ -32,9 +32,6 @@ function removeDuplicates(arr) {
 	}
 }
 
-function addExchange(arr, exchange) {
-	return arr.map((el) => (el = { ...el, exchange: exchange }));
-}
 
 function getDetails(arr) {
 	let currencyList = [];
@@ -73,8 +70,8 @@ const Mypage = () => {
 			!binanceData.loading &&
 			binanceData.data
 		) {
-			let upbitAssets = addExchange(upbitData.data, "upbit");
-			let binanceAssets = addExchange(binanceData.data, "binance");
+			let upbitAssets = [...upbitData.data];
+			let binanceAssets = [...binanceData.data];
 			let totalData = [...upbitAssets, ...binanceAssets];
 			let data = [];
 			switch (tab) {

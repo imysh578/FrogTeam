@@ -1,102 +1,130 @@
 import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
+import "./asset.css";
 
 const Asset = ({ index, asset, editShow }) => {
 	const [inputMode, setInputMode] = useState(false);
 	const [buyPrice, setBuyPrice] = useState(0);
+	const [totalBuyPrice, setTotalBuyPrice] = useState(0);
 	const [totalAsset, setTotalAsset] = useState(0);
 	const [balance, setBalance] = useState(0);
 	const [assetName, setAssetName] = useState(0);
 	const [exchange, setExchange] = useState(0);
 	const [profit, setProfit] = useState(0);
+	const [profitRate, setProfitRate] = useState(0);
 
+	const [inputBuyPrice, setInputBuyPrice] = useState(buyPrice);
+	const [inputBalance, setInputBalance] = useState(balance);
+
+	// 버튼 핸들러
 	const handleEditClick = (e) => {
 		e.preventDefault();
 		setInputMode(!inputMode);
 	};
 	const handleSubmitClick = (e) => {
+		e.preventDefault();
 		setInputMode(!inputMode);
+		if(inputBuyPrice) setBuyPrice(inputBuyPrice);
+		if(inputBalance) setBalance(inputBalance);
 	};
 	const handleCancleClick = (e) => {
 		e.preventDefault();
 		setInputMode(!inputMode);
 	};
+	
+	// input 값 핸들러
+	const handleBuyPriceOnChange = (e) => {
+		console.log(e.target.value);
+		setInputBuyPrice(e.target.value);
+	};
+	const handleBalanceOnChange = (e) => {
+		console.log(e.target.value);
+		setInputBalance(e.target.value);
+	};
+
+	useEffect(() => {
+		console.log(inputBuyPrice);
+		console.log(inputBalance);
+	}, [inputMode])
 
 	useEffect(() => {
 		const exchange_temp = asset.exchange.toUpperCase();
 		const assetName_temp = asset.currency.toUpperCase();
-		const balance_temp = Number(Number(asset.balance).toFixed(2)).toLocaleString();
-		const totalAsset_temp = Number((Number(asset.price) * Number(asset.balance)).toFixed(0)).toLocaleString();
-		const buyPrice_temp = Number(Number(asset.avg_buy_price * Number(asset.balance)).toFixed(0)).toLocaleString();
-		console.log(totalAsset_temp-buyPrice_temp);
-		const profit_temp = Number(Number(totalAsset_temp) - Number(buyPrice_temp)).toLocaleString();
+		const balance_temp = Number(Number(asset.balance).toFixed(2));
+		const averageBuyPrice_temp = Number(Number(asset.price).toFixed(2));
+		const totalAsset_temp = Number(
+			(Number(asset.price) * Number(asset.balance)).toFixed(0)
+		);
+		const totalBuyPrice_temp = Number(
+			Number(asset.avg_buy_price * Number(asset.balance)).toFixed(0)
+		);
+		const profit_temp = Number(
+			Number(totalAsset_temp) - Number(totalBuyPrice_temp)
+		);
+		const profitRate_temp = Number(
+			((profit_temp / totalBuyPrice_temp) * 100).toFixed(2)
+		);
 
-		setBuyPrice(buyPrice_temp);
+		setBuyPrice(averageBuyPrice_temp);
+		setTotalBuyPrice(totalBuyPrice_temp);
 		setTotalAsset(totalAsset_temp);
 		setBalance(balance_temp);
 		setAssetName(assetName_temp);
 		setExchange(exchange_temp);
 		setProfit(profit_temp);
-	}, [asset]);
+		setProfitRate(profitRate_temp);
+	}, [asset, balance, ]);
+
+	
 
 	return (
 		<>
 			<tr>
 				<th> {index} </th>
 				<td>
-					{/* <span>거래소</span> */}
 					<span>{exchange}</span>
 				</td>
 				<td>
-					{/* <span>보유코인</span> */}
 					<span>{assetName}</span>
 				</td>
+				{inputMode ? (
+					<>
+						<td>
+							<input
+								type="number"
+								placeholder={buyPrice}
+								onChange={handleBuyPriceOnChange}
+								min="0.01"
+								/>
+						</td>
+						<td>
+							<input
+								type="number"
+								placeholder={balance}
+								onChange={handleBalanceOnChange}
+								min="0.01"
+							/>
+						</td>
+					</>
+				) : (
+					<>
+						<td>
+							<span>{buyPrice.toLocaleString()}원</span>
+						</td>
+						<td>
+							<span>{balance.toLocaleString()}</span>
+						</td>
+					</>
+				)}
 				<td>
-					{/* <span> 매수 평균가 </span> */}
-					<span>{totalAsset}원</span>
+					<span> {totalAsset.toLocaleString()} 원</span>
 				</td>
 				<td>
-					{/* <span> 보유 수량 </span> */}
-					<span>{balance}</span>
+					<span>{totalBuyPrice.toLocaleString()} 원</span>
 				</td>
-				<td>
-					{/* <span> 평가 금액 </span> */}
-					<span> {totalAsset} 원</span>
-				</td>
-				<td>
-					{/* <span> 매수 금액 </span> */}
-					<span>{buyPrice} 원</span>
-				</td>
-				<td
-				// className={
-				// 	asset.price_change_percentage_24h < 0
-				// 		? "text-danger mx-2"
-				// 		: "text-success mx-2"
-				// }
-				>
-					{profit}
-				</td>
-				<td>
-					<span>수익률</span>
-					<span
-					// className={
-					// 	asset.signed_change_rate < 0
-					// 		? "text-danger mx-2 "
-					// 		: "text-success mx-2 "
-					// }
-					>
-						{/* {" "}
-						{asset.signed_change_rate <i 0 ? (
-							<i className="fas fa-sort-down align-middle mx-1"></i>
-						) : (
-							<i className="fas fa-sort-up align-middle mx-1"></i>
-						)}
-						{(asset.signed_change_rate*100).toFixed(2)} % */}
-					</span>
-				</td>
-				<td>
-					{editShow ? (
-						inputMode ? (
+				{editShow ? (
+					<td>
+						{inputMode ? (
 							<ButtonGroup>
 								<Button onClick={handleSubmitClick} variant="primary">
 									확인
@@ -109,9 +137,33 @@ const Asset = ({ index, asset, editShow }) => {
 							<Button onClick={handleEditClick} variant="success">
 								수정
 							</Button>
-						)
-					) : null}
-				</td>
+						)}
+					</td>
+				) : (
+					<>
+						<td
+							className={
+								profit < 0
+									? "text-danger d-flex justify-content-between"
+									: "text-success d-flex justify-content-between"
+							}
+						>
+							<span>{profit.toLocaleString()} 원</span>
+							<span
+								className={
+									profitRate < 0 ? "text-danger mx-2 " : "text-success mx-2 "
+								}
+							>
+								{profitRate < 0 ? (
+									<i className="fas fa-sort-down align-middle mx-1"></i>
+								) : (
+									<i className="fas fa-sort-up align-middle mx-1"></i>
+								)}
+								{profitRate} %
+							</span>
+						</td>
+					</>
+				)}
 			</tr>
 		</>
 	);

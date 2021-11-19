@@ -11,7 +11,7 @@ function getDetails (arr) {
   let exchanges = [];
   let length = arr.length;
   arr.forEach(el => {
-    currencies = [...currencies, el.currency]
+    currencies = [...currencies, el.currency.toUpperCase()]
     balances = [...balances, el.balance]
     prices = [...prices, el.price]
     exchanges = [...exchanges, el.exchanges]

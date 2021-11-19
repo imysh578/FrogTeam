@@ -29,12 +29,8 @@ const AssetList = ({ loading, assets, editShow, children }) => {
 							<span>매수 금액</span>
 						</th>
 						<th>
-							<span>평가 수익</span>
+							<span> {editShow ? null : '평가 수익'}</span>
 						</th>
-						<th>
-							<span>수익률</span>
-						</th>
-						<th> </th>
 					</tr>
 				</thead>
 				<tbody className="table-dark">
