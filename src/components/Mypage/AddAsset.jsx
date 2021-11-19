@@ -47,6 +47,7 @@ const AddAsset = ({ onHide }) => {
 			buyPrice,
 		};
 		const result = await axios.post(`${baseUrl}/assets/create`, data);
+		// window.location.href = '/'
 	};
 
 	return (
