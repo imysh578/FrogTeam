@@ -48,6 +48,7 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
 
 router.post("/key", isLoggedIn, async (req, res, next) => {
   try {
+    console.log(req.body);
     const accessKey = await req.body.Access;
     const secretKey = await req.body.Secret;
     const whatKey = await req.body.whatKey;
