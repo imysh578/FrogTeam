@@ -34,6 +34,9 @@ const Details = ({handleTabClick, loading, assets}) => {
 					</Button>
 				</ButtonGroup>
 			</div>
+			<Button variant="primary" onClick={() => setModalShow(true)}>
+        Launch vertically centered modal
+      </Button>
 			<ModalComponent show={modalShow} onHide={handleModalShow}>
 			</ModalComponent>
 			<div className="total">

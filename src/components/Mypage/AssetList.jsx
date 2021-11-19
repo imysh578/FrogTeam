@@ -10,11 +10,14 @@ const AssetList = ({ loading, assets, editShow, children }) => {
 						<th>
 							<span>#</span>
 						</th>
-						<th>
+						{/* <th>
 							<span>거래소</span>
-						</th>
+						</th> */}
 						<th>
 							<span>보유 코인</span>
+						</th>
+						<th>
+							<span>현재가</span>
 						</th>
 						<th>
 							<span>매수 평균가</span>

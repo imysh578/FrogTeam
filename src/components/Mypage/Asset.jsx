@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
-import "./asset.css";
 
-const baseUrl = 'http://localhost:5000'
+const baseUrl = "http://localhost:5000";
 
 const Asset = ({ index, asset, editShow }) => {
 	const [inputMode, setInputMode] = useState(false);
 	const [buyPrice, setBuyPrice] = useState(0);
+	const [price, setPrice] = useState(0);
 	const [totalBuyPrice, setTotalBuyPrice] = useState(0);
 	const [totalAsset, setTotalAsset] = useState(0);
 	const [balance, setBalance] = useState(0);
@@ -16,8 +16,8 @@ const Asset = ({ index, asset, editShow }) => {
 	const [profit, setProfit] = useState(0);
 	const [profitRate, setProfitRate] = useState(0);
 
-	const [inputBuyPrice, setInputBuyPrice] = useState(buyPrice);
-	const [inputBalance, setInputBalance] = useState(balance);
+	const [inputBuyPrice, setInputBuyPrice] = useState(asset.avg_buy_price);
+	const [inputBalance, setInputBalance] = useState(asset.balance);
 
 	// 버튼 핸들러
 	const handleEditClick = (e) => {
@@ -28,22 +28,22 @@ const Asset = ({ index, asset, editShow }) => {
 		e.preventDefault();
 		console.log(buyPrice);
 		console.log(balance);
-		const result = await axios.post(baseUrl + '/assets/edit', {
-			email:'asdf@asdf',
+		const result = await axios.post(baseUrl + "/assets/edit", {
+			email: "asdf@asdf",
 			exchange: exchange,
 			coinId: assetName,
 			amount: Number(balance),
 			buyPrice: Number(buyPrice),
-		})
+		});
 		setInputMode(!inputMode);
-		if(inputBuyPrice) setBuyPrice(inputBuyPrice);
-		if(inputBalance) setBalance(inputBalance);
+		if (inputBuyPrice) setBuyPrice(inputBuyPrice);
+		if (inputBalance) setBalance(inputBalance);
 	};
 	const handleCancleClick = (e) => {
 		e.preventDefault();
 		setInputMode(!inputMode);
 	};
-	
+
 	// input 값 핸들러
 	const handleBuyPriceOnChange = (e) => {
 		console.log(e.target.value);
@@ -59,21 +59,26 @@ const Asset = ({ index, asset, editShow }) => {
 	useEffect(() => {
 		const exchange_temp = asset.exchange.toUpperCase();
 		const assetName_temp = asset.currency.toUpperCase();
-		const balance_temp = Number(Number(asset.balance).toFixed(2));
-		const averageBuyPrice_temp = Number(Number(asset.price).toFixed(2));
+		const balance_temp = Number(Number(inputBalance).toFixed(2));
+		const price_temp = Number(Number(asset.price).toFixed(2));
+		const averageBuyPrice_temp = Number(Number(inputBuyPrice).toFixed(2));
 		const totalAsset_temp = Number(
-			(Number(asset.price) * Number(asset.balance)).toFixed(0)
+			(Number(asset.price) * Number(inputBalance)).toFixed(0)
 		);
 		const totalBuyPrice_temp = Number(
-			Number(asset.avg_buy_price * Number(asset.balance)).toFixed(0)
+			Number(inputBuyPrice * Number(inputBalance)).toFixed(0)
 		);
 		const profit_temp = Number(
 			Number(totalAsset_temp) - Number(totalBuyPrice_temp)
 		);
-		const profitRate_temp = Number(
-			((profit_temp / totalBuyPrice_temp) * 100).toFixed(2)
-		);
+		let profitRate_temp = 0;
+		if (totalBuyPrice_temp) {
+			profitRate_temp = Number(
+				((profit_temp / totalBuyPrice_temp) * 100).toFixed(2)
+			);
+		}
 
+		setPrice(price_temp);
 		setBuyPrice(averageBuyPrice_temp);
 		setTotalBuyPrice(totalBuyPrice_temp);
 		setTotalAsset(totalAsset_temp);
@@ -84,17 +89,20 @@ const Asset = ({ index, asset, editShow }) => {
 		setProfitRate(profitRate_temp);
 	}, [asset, inputMode]);
 
-	
+	useEffect(() => {}, [inputMode]);
 
 	return (
 		<>
 			<tr>
 				<th> {index} </th>
-				<td>
+				{/* <td>
 					<span>{exchange}</span>
-				</td>
+				</td> */}
 				<td>
 					<span>{assetName}</span>
+				</td>
+				<td>
+					<span>{price.toLocaleString()}원</span>
 				</td>
 				{inputMode ? (
 					<>
@@ -104,7 +112,7 @@ const Asset = ({ index, asset, editShow }) => {
 								placeholder={buyPrice}
 								onChange={handleBuyPriceOnChange}
 								min="0.01"
-								/>
+							/>
 						</td>
 						<td>
 							<input
@@ -150,26 +158,22 @@ const Asset = ({ index, asset, editShow }) => {
 					</td>
 				) : (
 					<>
-						<td
-							className={
-								profit < 0
-									? "text-danger d-flex justify-content-between"
-									: "text-success d-flex justify-content-between"
-							}
-						>
-							<span>{profit.toLocaleString()} 원</span>
-							<span
-								className={
-									profitRate < 0 ? "text-danger mx-2 " : "text-success mx-2 "
-								}
-							>
-								{profitRate < 0 ? (
-									<i className="fas fa-sort-down align-middle mx-1"></i>
-								) : (
-									<i className="fas fa-sort-up align-middle mx-1"></i>
-								)}
-								{profitRate} %
-							</span>
+						<td className={profit < 0 ? "text-danger" : "text-success"}>
+							<div className="d-flex justify-content-between">
+								<span>{profit.toLocaleString()} 원</span>
+								<span
+									className={
+										profitRate < 0 ? "text-danger mx-2 " : "text-success mx-2 "
+									}
+								>
+									{profitRate < 0 ? (
+										<i className="fas fa-sort-down align-middle mx-1"></i>
+									) : (
+										<i className="fas fa-sort-up align-middle mx-1"></i>
+									)}
+									{profitRate} %
+								</span>
+							</div>
 						</td>
 					</>
 				)}

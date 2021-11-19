@@ -8,6 +8,7 @@ const router = express.Router();
 router.route('/edit').post(async(req,res,next) => {
   try {
     const data = req.body;
+    let result = {};
     console.log(data);
     const read = await Assets.findOne({
       where:{
@@ -16,7 +17,6 @@ router.route('/edit').post(async(req,res,next) => {
         coinId: data.coinId,
       }
     })
-    console.log(read);
     if (read === null) {
       const create = await Assets.create({
         email: 'asdf@asdf',
@@ -48,8 +48,10 @@ router.route('/edit').post(async(req,res,next) => {
 router.route('/check').post(async(req,res,next) => {
   try {
     const data = req.body.data;
-    console.log(data);
-    data.forEach((el)=>{
+    let temp = []
+
+    for (let i = 0; i < data.length; i++) {
+      const el = data[i];
       const read = await Assets.findOne({
         where:{
           email: 'asdf@asdf',
@@ -58,13 +60,12 @@ router.route('/check').post(async(req,res,next) => {
         }
       })
       if(read !== null) {
-        el.avg_buy_price = read.buyPrice;
-        el.balance = read.amount;
+        el.avg_buy_price = read.dataValues.buyPrice;
+        el.balance = read.dataValues.amount;
       }
-    })
-    console.log(data);
-
-    res.send(data)
+      temp = [...temp, el]
+    }
+    res.send(temp)
   } catch (err) {
     console.error(err);
     next(err);

@@ -76,12 +76,11 @@ router
 				}
 				return el;
 			});
-			// DB에 assets 내용 저장
-			const result = axios.post(dbUrl+'/assets/check',{
+			// DB에 있는 assets 체크, 있으면 그 값으로 변경
+			const {data} = await axios.post(dbUrl+'/assets/check',{
 				data: temp,
 			})
-			console.log(temp);
-			res.send(temp);
+			res.send(data);
 		} catch (err) {
 			console.error(err);
 			next(err);

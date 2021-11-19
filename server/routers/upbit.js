@@ -81,8 +81,11 @@ router
 				}
 				return el;
 			});
-			console.log(temp);
-			res.send(temp);
+			// DB에 있는 assets 체크, 있으면 그 값으로 변경
+			const {data} = await axios.post(dbUrl+'/assets/check',{
+				data: temp,
+			})
+			res.send(data);
 		} catch (err) {
 			console.error(err);
 			next(err);
