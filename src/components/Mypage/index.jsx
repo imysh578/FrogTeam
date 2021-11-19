@@ -62,7 +62,7 @@ const Mypage = () => {
 		baseURL: baseUrl,
 		url: "binance/account",
 	});
-
+	console.log(upbitData.data)
 	useEffect(() => {
 		if (
 			!upbitData.loading &&

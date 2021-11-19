@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
-import useAxios from "../../hooks/useAxios";
 
 const baseUrl = "http://localhost:5000";
 
@@ -19,13 +18,6 @@ const Asset = ({ index, asset, editShow }) => {
 
 	const [inputBuyPrice, setInputBuyPrice] = useState(0);
 	const [inputBalance, setInputBalance] = useState(0);
-
-	// 로그인 정보 불러오기
-	const signIn = useAxios({
-    method: "get",
-    baseURL: "http://localhost:5000",
-    url: "auth/session",
-  });
 
 	// 버튼 핸들러
 	const handleEditClick = (e) => {
@@ -83,17 +75,15 @@ const Asset = ({ index, asset, editShow }) => {
 		setProfit(profit_temp);
 		setProfitRate(profitRate_temp);
 	}, [asset, inputMode]);
-
+	
 	useEffect( async ()=>{
-		if(signIn){
-			const result = await axios.post(baseUrl + "/assets/edit", {
-				email: signIn.data.user.email,
-				exchange: exchange,
-				coinId: assetName,
-				amount: Number(balance),
-				buyPrice: Number(buyPrice),
-			});
-		}
+		const result = await axios.post(baseUrl + "/assets/edit", {
+			email: asset.email,
+			exchange: exchange,
+			coinId: assetName,
+			amount: Number(balance),
+			buyPrice: Number(buyPrice),
+		});
 	}, [inputMode])
 	
 	return (

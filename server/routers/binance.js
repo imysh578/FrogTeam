@@ -69,6 +69,7 @@ router
 				if (priceList[el.currency.toLowerCase()]) {
 					el = {
 						...el,
+						email: req.user.user.email,
 						price: Number(priceList[el.currency.toLowerCase()].krw),
 						exchange: 'binance',
             avg_buy_price: 0,

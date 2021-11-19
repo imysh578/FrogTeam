@@ -10,6 +10,7 @@ const access_key = process.env.UPBIT_OPEN_API_ACCESS_KEY;
 const secret_key = process.env.UPBIT_OPEN_API_SECRET_KEY;
 const server_url = "https://api.upbit.com/v1";
 const dbUrl = "http://localhost:7000";
+const baseUrl = 'http://localhost:5000';
 
 const payload = {
 	access_key: access_key,
@@ -74,7 +75,7 @@ router
 				if (priceList[el.currency.toLowerCase()]) {
 					el = {
 						...el,
-						email:'asdf@asdf',
+						email: req.user.user.email,
 						price: Number(priceList[el.currency.toLowerCase()].krw),
 						exchange: 'upbit',
 					};

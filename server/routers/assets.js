@@ -20,8 +20,9 @@ router.route("/edit").post(async (req, res, next) => {
 
 router.route("/create").post(async (req, res, next) => {
   try {
+    const email = req.user.user.email
     const data = req.body;
-    const result = await axios.post(dbUrl+'/assets/create', data)
+    const result = await axios.post(dbUrl+'/assets/create', {data, email})
     res.send('Create success!')
   } catch (error) {
     console.error(error);

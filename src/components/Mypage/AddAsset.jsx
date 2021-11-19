@@ -23,7 +23,6 @@ const AddAsset = ({ onHide }) => {
 	const [coinName, setCoinName] = useState("");
 	const [amount, setAmount] = useState(0);
 	const [buyPrice, setBuyPrice] = useState(0);
-	const email = "asdf@asdf";
 
 	const exchangeOnChange = (e) => {
 		setExchange(e.target.value);
@@ -42,7 +41,6 @@ const AddAsset = ({ onHide }) => {
 	const handleSubmitOnClick = async (e) => {
 		e.preventDefault();
 		const data = {
-			email,
 			exchange: exchange.toUpperCase(),
 			coinName,
 			amount,

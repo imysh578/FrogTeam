@@ -6,7 +6,7 @@ import Coin from "./Coin";
 const CoinList = () => {
   const [coins, setCoins] = useState([]);
   const [coinsDisplay, setCoinsDisplay] = useState([]);
-
+  
   const { data, loading, error } = useAxios({
     method: "GET",
     baseURL: "http://localhost:5000",
