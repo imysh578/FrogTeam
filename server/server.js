@@ -26,6 +26,7 @@ const upbitRouter = require("./routers/upbit.js");
 const binaceRouter = require("./routers/binance.js");
 const coningeckoRouter = require("./routers/coingecko.js");
 const usersRouter = require("./routers/users.js");
+const assetsRouter = require("./routers/assets.js");
 const nowRouter = require("./routers/now.js");
 const discoverRouter = require("./routers/discover.js");
 
@@ -76,6 +77,7 @@ app.use("/auth", authRouter);
 app.use("/upbit", upbitRouter);
 app.use("/binance", binaceRouter);
 app.use("/coingecko", coningeckoRouter);
+app.use("/assets", assetsRouter);
 app.use("/users", usersRouter);
 app.use("/now", nowRouter);
 app.use("/discover", discoverRouter);

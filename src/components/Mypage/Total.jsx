@@ -1,15 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TotalChart from "./TotalChart";
 
-function totalAsset (arr) {
-  let total = 0;
-  arr.forEach(el => {
-    total +=  el.balance * el.price
-  });
-  return total
-}
-
 const Total = ({ loading = true, assets }) => {
+	const [buyPrice, setBuyPrice] = useState(0);
+	const [totalAsset, setTotalAsset] = useState(0);
+	const [profit, setProfit] = useState(0);
+	const [profitRate, setProfitRate] = useState(0);
+
+  const getTotalInfos = () => {
+    let totalAsset_temp = 0;
+    let buyPrice_temp = 0;
+    let profit_temp = 0;
+    let profitRate_temp = 0;
+    assets.forEach(el => {
+      totalAsset_temp +=  Number(el.balance) * Number(el.price);
+      buyPrice_temp += Number(el.balance) * Number(el.avg_buy_price);
+    })
+    profit_temp = totalAsset_temp-buyPrice_temp ;
+    profitRate_temp = profit_temp/buyPrice_temp*100
+    setTotalAsset(Math.floor(totalAsset_temp));
+    setBuyPrice(Math.floor(buyPrice_temp));
+    setProfit(Math.floor(profit_temp));
+    setProfitRate(profitRate_temp.toFixed(2));
+  }
+  
+  useEffect(() => {
+    getTotalInfos();
+	}, [assets]);
+
 	return (
     <div>
       <TotalChart assets={assets}/>
@@ -40,16 +58,16 @@ const Total = ({ loading = true, assets }) => {
           ) : (
             <tr>
               <td>
-                <span>{totalAsset(assets).toFixed(0)} 원</span>
+                <span>{totalAsset} 원</span>
               </td>
               <td>
-                <span>매수 금액</span>
+                <span>{buyPrice} 원</span>
               </td>
               <td>
-                <span>평가 수익</span>
+                <span>{profit} 원</span>
               </td>
               <td>
-                <span>수익률</span>
+                <span>{profitRate} %</span>
               </td>
             </tr>
           )}

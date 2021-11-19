@@ -20,7 +20,7 @@ module.exports = class Assets extends Sequelize.Model {
           type: Sequelize.STRING(45),
           allowNull: false,
         },
-        coin: {
+        coinId: {
           allowNull: false,
           type: Sequelize.STRING(45),
         },
@@ -28,7 +28,7 @@ module.exports = class Assets extends Sequelize.Model {
           type: Sequelize.INTEGER,
           allowNull: true,
         },
-        price: {
+        buyPrice: {
           type: Sequelize.INTEGER,
           allowNull: true,
         },

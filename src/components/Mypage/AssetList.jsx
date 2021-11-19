@@ -14,6 +14,9 @@ const AssetList = ({ loading, assets, editShow, children }) => {
 							<span>보유 코인</span>
 						</th>
 						<th>
+							<span>현재가</span>
+						</th>
+						<th>
 							<span>매수 평균가</span>
 						</th>
 						<th>
@@ -26,12 +29,8 @@ const AssetList = ({ loading, assets, editShow, children }) => {
 							<span>매수 금액</span>
 						</th>
 						<th>
-							<span>평가 수익</span>
+							<span> {editShow ? null : '평가 수익'}</span>
 						</th>
-						<th>
-							<span>수익률</span>
-						</th>
-						<th> </th>
 					</tr>
 				</thead>
 				<tbody className="table-dark">

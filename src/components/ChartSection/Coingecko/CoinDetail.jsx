@@ -18,27 +18,8 @@ const CoinDetail = () => {
 		}));
 	};
 	
+	// 서버에 데이터 요청
 	const fetchData = async () => {
-		// const result = await Promise.all([
-		// 	coingecko.get(`/coins/${id}/market_chart`, {
-		// 		params: {
-		// 			vs_currency: "usd",
-		// 			days: timeFormat,
-		// 		},
-		// 	}),
-		// 	coingecko.get(`/coins/bitcoin/market_chart`, {
-		// 		params: {
-		// 			vs_currency: "usd",
-		// 			days: timeFormat,
-		// 		},
-		// 	}),
-		// 	coingecko.get("/coins/markets", {
-		// 		params: {
-		// 			vs_currency: "usd",
-		// 			ids: id,
-		// 		},
-		// 	}),
-		// ]);
 		const baseUrl = 'http://localhost:5000'
 		const result = await Promise.all([
 			axios.request({
