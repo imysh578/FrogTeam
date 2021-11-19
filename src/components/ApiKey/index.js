@@ -68,7 +68,7 @@ const ApiKey = () => {
                     onchange={handleAccess}
                     type="text"
                     name="Access"
-                    value={value}
+                    // value={value}
                     required
                   />
                   <FormLabel htmlFor="for">secretKey</FormLabel>
