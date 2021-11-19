@@ -9,6 +9,8 @@ const indexRouter = require("./routers/index.js");
 const usersRouter = require("./routers/users.js");
 const signinRouter = require("./routers/signin.js");
 const signupRouter = require("./routers/signup.js");
+const coinsRouter = require("./routers/coins.js");
+const apikeyRouter = require("./routers/apikey");
 
 // 포트 설정
 const PORT = 7000;
@@ -23,6 +25,8 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/signin", signinRouter);
 app.use("/signup", signupRouter);
+app.use("/coins", coinsRouter);
+app.use("/apikey", apikeyRouter);
 
 // 에러 메서지
 app.use((err, req, res, next) => {

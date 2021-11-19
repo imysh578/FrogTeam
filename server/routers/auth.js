@@ -1,15 +1,12 @@
 const express = require("express");
 const passport = require("passport");
-const bcrypt = require("bcrypt");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 const axios = require("axios");
 
 const router = express.Router();
 
-// ,
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
   try {
-    console.log(req.body);
     const { email, password } = await req.body;
     const result = await axios.post("http://localhost:7000/signup", {
       email,
@@ -22,7 +19,6 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
   }
 });
 
-// , isNotLoggedIn
 router.post("/login", isNotLoggedIn, async (req, res, next) => {
   try {
     // passport를 이용하면 req.session 객체에 정보를 넣는게 쉬워서 사용하는 것이다.
@@ -48,6 +44,30 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
   } catch {
     console.log("얘도 확인");
   }
+});
+
+router.post("/key", isLoggedIn, async (req, res, next) => {
+  try {
+    const accessKey = await req.body.Access;
+    const secretKey = await req.body.Secret;
+    const whatKey = await req.body.whatKey;
+    const user = await req.session;
+
+    const result = await axios.post("http://localhost:7000/apikey", {
+      accessKey,
+      secretKey,
+      whatKey,
+      user,
+    });
+    return res.redirect("/");
+  } catch (error) {
+    console.error(error);
+    return next(error);
+  }
+});
+
+router.get("/session", isLoggedIn, (req, res) => {
+  res.json(req.session);
 });
 
 router.get("/logout", isLoggedIn, (req, res) => {

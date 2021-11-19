@@ -1,11 +1,19 @@
 import React from "react";
-import PieChart from "./PieChart";
+import TotalChart from "./TotalChart";
 
-const Total = ({ loading = true }) => {
+function totalAsset (arr) {
+  let total = 0;
+  arr.forEach(el => {
+    total +=  el.balance * el.price
+  });
+  return total
+}
+
+const Total = ({ loading = true, assets }) => {
 	return (
     <div>
-      {/* <PieChart data={}/> */}
-      <table className="table coinlist-table table-striped table-hover text-center">
+      <TotalChart assets={assets}/>
+      <table className="table coinlist-table table-striped table-hover text-center mt-4">
         <thead className="text-light bg-success ">
           <tr>
             <th>
@@ -32,7 +40,7 @@ const Total = ({ loading = true }) => {
           ) : (
             <tr>
               <td>
-                <span>평가 금액</span>
+                <span>{totalAsset(assets).toFixed(0)} 원</span>
               </td>
               <td>
                 <span>매수 금액</span>

@@ -75,7 +75,7 @@ const CoinList = () => {
 				<tbody className="table-dark">
 					{loading && <tr><td colSpan={6}><h1 className="text-center">Loading...</h1></td></tr>}
 					{coinsDisplay.map((coin, index) => (
-						<Coin key={coin.id} coin={coin} index={index + 1} />
+						<Coin key={coin.id} coin={coin} index={coin.market_cap_rank} />
 					))}
 				</tbody>
 			</table>

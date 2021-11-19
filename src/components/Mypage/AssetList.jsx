@@ -1,8 +1,7 @@
 import React from "react";
 import Asset from "./Asset";
 
-const AssetList = ({ loading, assets }) => {
-	
+const AssetList = ({ loading, assets, editShow, children }) => {
 	return (
 		<>
 			<table className="table coinlist-table table-striped table-hover text-center">
@@ -32,18 +31,19 @@ const AssetList = ({ loading, assets }) => {
 						<th>
 							<span>수익률</span>
 						</th>
+						<th> </th>
 					</tr>
 				</thead>
 				<tbody className="table-dark">
 					{loading && (
 						<tr>
-							<td colSpan={9}>
+							<td colSpan={10}>
 								<h1 className="text-center">Loading...</h1>
 							</td>
 						</tr>
 					)}
 					{assets.map((asset, index) => (
-						<Asset key={asset.currency} asset={asset} index={index + 1} />
+						<Asset key={asset.currency} asset={asset} index={index + 1} editShow={editShow} />
 					))}
 				</tbody>
 			</table>

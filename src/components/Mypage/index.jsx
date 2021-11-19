@@ -1,31 +1,57 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import useAxios from "../../hooks/useAxios";
-import AssetList from "./AssetList";
+import Details from "./Details";
 import Total from "./Total";
 
-function removeDuplicates (arr) {
-  arr.sort((a,b)=>{
-    let currencyA = a.currency.toUpperCase(); // ignore upper and lowercase
-    let currencyB = b.currency.toUpperCase(); // ignore upper and lowercase
-    return currencyA.localeCompare(currencyB)
-  });
+function sorting(arr, key) {
+	arr.sort((a, b) => {
+		if (typeof a[key] == "string") {
+			let A = a[key].toUpperCase();
+			let B = b[key].toUpperCase();
+			return A.localeCompare(B);
+		} else {
+			let A = a[key];
+			let B = b[key];
+			return A - B;
+		}
+	});
+}
 
-  for (let i = 0; i < arr.length; i++) {
-    if(i<arr.length-1){
-      if(arr[i].currency === arr[i+1].currency){
-        arr[i].balance = Number(arr[i].balance) + Number(arr[i+1].balance);
-        arr.splice(i+1,1)
-        i-=1;
-      } else arr[i].balance = Number(arr[i].balance)
-    }
-  }
+function removeDuplicates(arr) {
+	for (let i = 0; i < arr.length; i++) {
+		if (i < arr.length - 1) {
+			if (arr[i].currency === arr[i + 1].currency) {
+				arr[i].balance = Number(arr[i].balance) + Number(arr[i + 1].balance);
+				arr.splice(i + 1, 1);
+				i -= 1;
+			} else arr[i].balance = Number(arr[i].balance);
+		}
+	}
+}
+
+function addExchange(arr, exchange) {
+	return arr.map((el) => (el = { ...el, exchange: exchange }));
+}
+
+function getDetails(arr) {
+	let coins = [];
+	let amount = [];
+	let length = arr.length;
+	arr.forEach((el) => {
+		coins = [...coins, el.currency];
+		amount = [...amount, el.balance];
+	});
+	return { coins, amount, length };
 }
 
 const Mypage = () => {
 	const [tab, setTab] = useState("Total");
 	const [assets, setAssets] = useState([]);
-	const [assetList, setAssetList] = useState([]);
+	const [totalAssets, setTotalAssets] = useState([]);
+	const [prices, setPrices] = useState([]);
+	const [content, setContent] = useState(true);
 
 	const baseUrl = "http://localhost:5000";
 	const upbitData = useAxios({
@@ -38,15 +64,6 @@ const Mypage = () => {
 		baseURL: baseUrl,
 		url: "binance/account",
 	});
-	const coingeckoData = useAxios({
-		method: "GET",
-		baseURL: baseUrl,
-		url: "coingecko/price",
-		params: {
-			assets,
-			vs_currencies: "krw",
-		},
-	});
 
 	useEffect(() => {
 		if (
@@ -55,61 +72,83 @@ const Mypage = () => {
 			!binanceData.loading &&
 			binanceData.data
 		) {
-      let data = [];
+			let upbitAssets = addExchange(upbitData.data, "upbit");
+			let binanceAssets = addExchange(binanceData.data, "binance");
+			let totalData = [...upbitAssets, ...binanceAssets];
+			let data = [];
 			switch (tab) {
 				case "Total":
-          data = [...upbitData.data, ...binanceData.data,];
+					data = [...totalData];
 					break;
 				case "Upbit":
-          data = [...upbitData.data,];
+					data = [...upbitAssets];
 					break;
 				case "Binance":
-          data = [...binanceData.data,];
+					data = [...binanceAssets];
 					break;
 				default:
-					data = [...upbitData.data, ...binanceData.data,];
+					data = [...totalData];
 					break;
-        }
-        removeDuplicates(data);
-        setAssets(data);
+			}
+			sorting(data, "currency");
+			removeDuplicates(data);
+			setAssets(data);
+			sorting(totalData, "exchange");
+			setTotalAssets(totalData);
 		}
 	}, [binanceData.loading, upbitData.loading, tab]);
 
-	const handleAddOnclick = () => {
-		console.log("자산 추가!");
-	};
-	const handleTabClick = () => (e) => {
+	useEffect(() => {
+		// 가격 속성 추가
+		const fetchPrice = async () => {
+			let { coins } = getDetails(totalAssets);
+			const coingeckoData = await axios.post(baseUrl + "/coingecko/price", {
+				ids: coins,
+			});
+			let priceList = coingeckoData.data;
+			setPrices(priceList);
+			let temp = [...totalAssets];
+			temp = temp.map((el) => {
+				if (priceList[el.currency.toLowerCase()]) {
+					el = {
+						...el,
+						price: Number(priceList[el.currency.toLowerCase()].krw),
+					};
+				}
+				return el;
+			});
+			setTotalAssets(temp);
+		};
+		if (totalAssets) {
+			fetchPrice();
+		}
+	}, [assets]);
+
+	const handleTabClick = (e) => {
 		console.log(e.target.innerText);
 		setTab(e.target.innerText);
 	};
+	const handleDetailClick = () => {
+		setContent(!content)
+	}
 
 	return (
 		<div className="Mypage-Container">
-			<Total loading={upbitData.loading || binanceData.loading} />
-			<div class="d-flex justify-content-between">
-				<ButtonGroup className="mb-2">
-					<Button className="tab" onClick={handleTabClick()} variant="success">
-						Total
-					</Button>
-					<Button className="tab" onClick={handleTabClick()} variant="primary">
-						Upbit
-					</Button>
-					<Button className="tab" onClick={handleTabClick()} variant="warning">
-						Binance
-					</Button>
-				</ButtonGroup>
-				<ButtonGroup className="mb-2 float-right">
-					<Button onClick={handleAddOnclick} variant="danger">
-						자산 추가
-					</Button>
-				</ButtonGroup>
-			</div>
-			<div className="total">
-				<AssetList
+			<Button className="mb-4" onClick={handleDetailClick} variant={content ? "danger" : "primary"} >
+				{content ? '자세히' : '차트보기'}
+			</Button>
+			{content ? (
+				<Total
+					loading={upbitData.loading || binanceData.loading}
+					assets={totalAssets}
+				/>
+			) : (
+				<Details
+					handleTabClick={handleTabClick}
 					loading={upbitData.loading || binanceData.loading}
 					assets={assets}
 				/>
-			</div>
+			)}
 		</div>
 	);
 };
