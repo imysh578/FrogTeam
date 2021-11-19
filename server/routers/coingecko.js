@@ -71,7 +71,6 @@ router.route('/price').post(async(req,res,next) => {
         ids: req.body.ids.toString(),
       },
     });
-    console.log(data);
     res.send(data)
   } catch (err) {
     console.error(err);
@@ -79,24 +78,23 @@ router.route('/price').post(async(req,res,next) => {
   }
 })
 
-router.route('/ticker').post(async(req,res,next) => {
-  try {
-    const {data} = await axios.request({
-      method: "GET",
-      baseURL: coingeckoUrl,
-      url: `/simple/price`,
-      params: {
-        vs_currencies : 'krw,usd',
-        ids: req.body.ids.toString(),
-      },
-    });
-    console.log(data);
-    res.send(data)
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-})
+// router.route('/ticker').post(async(req,res,next) => {
+//   try {
+//     const {data} = await axios.request({
+//       method: "GET",
+//       baseURL: coingeckoUrl,
+//       url: `/`,
+//       params: {
+//         
+//       },
+//     });
+//     console.log(data);
+//     res.send(data)
+//   } catch (err) {
+//     console.error(err);
+//     next(err);
+//   }
+// })
 
 
 

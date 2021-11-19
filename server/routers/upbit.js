@@ -9,6 +9,7 @@ const sign = require("jsonwebtoken").sign;
 const access_key = process.env.UPBIT_OPEN_API_ACCESS_KEY;
 const secret_key = process.env.UPBIT_OPEN_API_SECRET_KEY;
 const server_url = "https://api.upbit.com/v1";
+const dbUrl = "http://localhost:7000"
 
 const payload = {
   access_key: access_key,
@@ -26,6 +27,13 @@ router.route("/account").get(async (req, res, next) => {
       },
     });
     if(data){
+      // symbol을 coin 이름으로 바꿈
+      for (let i = 0; i < data.length; i++) {
+        const result = await axios.get(dbUrl + `/coins/query/${data[i].currency}`)
+        if(result.data[0]){
+          data[i].currency = result.data[0].id
+        }
+      }
       res.send(data.slice(1,));
     }
   } catch (error) {

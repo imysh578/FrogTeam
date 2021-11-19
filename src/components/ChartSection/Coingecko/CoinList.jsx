@@ -81,7 +81,7 @@ const CoinList = () => {
             </tr>
           )}
           {coinsDisplay.map((coin, index) => (
-            <Coin key={coin.id} coin={coin} index={index + 1} />
+            <Coin key={coin.id} coin={coin} index={coin.market_cap_rank} />
           ))}
         </tbody>
       </table>

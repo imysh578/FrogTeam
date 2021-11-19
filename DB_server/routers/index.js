@@ -1,12 +1,14 @@
+const { default: axios } = require("axios");
 const express = require("express");
+const Coins = require("../models/coins.js");
 const Users = require("../models/users.js");
 const Apis = require("../models/apiKeys");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("DB server!");
-});
+router.get('/', (req,res) => {
+  res.send('DB server!')
+})
 
 router.get("/userSession", async (req, res) => {
   try {

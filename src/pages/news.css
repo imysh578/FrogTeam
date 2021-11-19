@@ -1,16 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .newscontainer {
   font-family: inter;
-  width: 70%;
+  width: 80%;
   border-radius: 15px;
-  margin: auto;
+  margin: 0 0 auto;
   background: inherit;
+  @media screen and (max-width: 960px) {
+    transition: 0.8s all ease;
+  }
 }
 
 .all__news {
-  margin: 1px auto;
+  margin: 20px auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 30px auto;
+  grid-gap: 10px auto;
+  overflow: auto;
 }
 
 .news {
@@ -24,23 +34,25 @@
 
 .news__title {
   padding-bottom: 10px;
+  font-size: 25px;
+  color: black;
   border-bottom: 1px solid rgb(0, 0, 0);
 }
 
 .head__text {
-  margin-top: 80px;
+  margin-top: 30px;
 }
 
 .news__desc {
   padding-top: 10px;
   line-height: 25px;
-  font-size: 14px;
+  font-size: 11px;
   text-emphasis-color: black;
-  padding-bottom: 3px;
+  padding-bottom: 0px;
 }
 
 .news__author {
-  margin-right: 5px;
+  margin-right: 10px;
   color: rgb(73, 73, 73);
 }
 
