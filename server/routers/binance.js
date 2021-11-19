@@ -70,17 +70,22 @@ router
 					el = {
 						...el,
 						price: Number(priceList[el.currency.toLowerCase()].krw),
+						exchange: 'binance',
             avg_buy_price: 0,
 					};
 				}
 				return el;
 			});
+			// DB에 assets 내용 저장
+			const result = axios.post(dbUrl+'/assets/create',{
+				data: temp,
+			})
 			console.log(temp);
 			res.send(temp);
 		} catch (err) {
 			console.error(err);
 			next(err);
 		}
-	});
+	})
 
 module.exports = router;
