@@ -23,6 +23,17 @@ const Navbar = ({ toggle }) => {
   });
   console.log(data);
 
+  const signoutHandler = async (e) => {
+    e.preventDefault();
+    try {
+      console.log("된다");
+      await axios.get("http://localhost:5000/auth/logout");
+      window.location.replace("/");
+    } catch {
+      console.log("로그아웃 오류");
+    }
+  };
+
   return (
     <>
       <Nav>
@@ -95,7 +106,9 @@ const Navbar = ({ toggle }) => {
           </NavMenu>
           <NavBtn>
             {data ? (
-              <NavBtnLink2 to="/auth/logout">Sign Out</NavBtnLink2>
+              <NavBtnLink2 to="/" onClick={signoutHandler}>
+                Sign Out
+              </NavBtnLink2>
             ) : (
               <NavBtnLink to="/signin">Sign In/Up</NavBtnLink>
             )}
