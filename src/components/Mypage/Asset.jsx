@@ -26,8 +26,6 @@ const Asset = ({ index, asset, editShow }) => {
 	};
 	const handleSubmitClick = async (e) => {
 		e.preventDefault();
-		console.log(buyPrice);
-		console.log(balance);
 		const result = await axios.post(baseUrl + "/assets/edit", {
 			email: "asdf@asdf",
 			exchange: exchange,
@@ -46,12 +44,10 @@ const Asset = ({ index, asset, editShow }) => {
 
 	// input 값 핸들러
 	const handleBuyPriceOnChange = (e) => {
-		console.log(e.target.value);
 		setInputBuyPrice(e.target.value);
 		setBuyPrice(e.target.value);
 	};
 	const handleBalanceOnChange = (e) => {
-		console.log(e.target.value);
 		setInputBalance(e.target.value);
 		setBalance(e.target.value);
 	};
@@ -95,9 +91,6 @@ const Asset = ({ index, asset, editShow }) => {
 		<>
 			<tr>
 				<th> {index} </th>
-				{/* <td>
-					<span>{exchange}</span>
-				</td> */}
 				<td>
 					<span>{assetName}</span>
 				</td>

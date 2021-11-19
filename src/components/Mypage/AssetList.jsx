@@ -10,9 +10,6 @@ const AssetList = ({ loading, assets, editShow, children }) => {
 						<th>
 							<span>#</span>
 						</th>
-						{/* <th>
-							<span>거래소</span>
-						</th> */}
 						<th>
 							<span>보유 코인</span>
 						</th>

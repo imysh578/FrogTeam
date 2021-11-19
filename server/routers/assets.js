@@ -18,5 +18,16 @@ router.route("/edit").post(async (req, res, next) => {
   }
 });
 
+router.route("/create").post(async (req, res, next) => {
+  try {
+    const data = req.body;
+    const result = await axios.post(dbUrl+'/assets/create', data)
+    res.send('Create success!')
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 
 module.exports = router;

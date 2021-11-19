@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
+import AddAsset from "./AddAsset";
 
-const ModalComponent = ({ show, onHide, children }) => {
+const ModalComponent = ({ show, onHide}) => {
 	return (
 		<div >
 			<Modal
@@ -13,13 +14,13 @@ const ModalComponent = ({ show, onHide, children }) => {
 			>
 				<Modal.Header closeButton>
 					<Modal.Title id="contained-modal-title-vcenter">
-						Modal heading
+						내 자산 추가
 					</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>{children}</Modal.Body>
-				<Modal.Footer>
-					<Button onClick={onHide}>Close</Button>
-				</Modal.Footer>
+				
+					{/* 자산 추가 form */}
+					<AddAsset onHide={onHide}/>
+				
 			</Modal>
 		</div>
 	);

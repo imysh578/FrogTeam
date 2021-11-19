@@ -32,13 +32,12 @@ const Details = ({handleTabClick, loading, assets}) => {
 					<Button variant="primary" onClick={handleEditClick}>
 						{editShow ? '되돌아가기' : '자산 수정' }
 					</Button>
+					<Button variant="warning" onClick={() => setModalShow(true)}>
+						자산추가
+					</Button>
 				</ButtonGroup>
 			</div>
-			<Button variant="primary" onClick={() => setModalShow(true)}>
-        Launch vertically centered modal
-      </Button>
-			<ModalComponent show={modalShow} onHide={handleModalShow}>
-			</ModalComponent>
+			<ModalComponent show={modalShow} onHide={handleModalShow} />
 			<div className="total">
 				<AssetList loading={loading} assets={assets} editShow={editShow}/>
 			</div>
