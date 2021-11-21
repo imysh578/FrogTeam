@@ -24,7 +24,21 @@
   border-radius: 50px;
   background: #01bf71;
   padding: 16px 64px;
-  color: #010606;
+  color: #ffff;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+.commentLayerOpener {
+  border-radius: 30px;
+  background: #01bf71;
+  padding: 3px 20px;
+  color: #ffff;
   font-size: 16px;
   outline: none;
   border: none;
@@ -37,4 +51,27 @@
 .ck.ck-editor {
   width: 590px;
   margin-left: 34%;
+}
+
+button.commentLayerOpener + div.commentLayer {
+  display: none;
+}
+button.commentLayerOpener.open + div.commentLayer {
+  display: block;
+}
+
+.form-wrapper .ck-widget__type-around__button,
+.form-wrapper .ck-widget__type-around__button {
+  display: none !important;
+}
+.form-wrapper .ck-widget_selected {
+  outline: none !important;
+}
+.userCommentContents img {
+  max-width: 800px;
+  width: 100%;
+}
+
+body {
+  min-height: 101vh;
 }

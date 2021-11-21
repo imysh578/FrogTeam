@@ -10,15 +10,7 @@ module.exports = class Comments extends Sequelize.Model {
           allowNull: false,
           primaryKey: true,
         },
-        team_name: {
-          type: Sequelize.STRING(45),
-          allowNull: false,
-        },
-        writer_id: {
-          type: Sequelize.STRING(45),
-          allowNull: false,
-        },
-        title: {
+        nickname: {
           type: Sequelize.STRING(45),
           allowNull: false,
         },
@@ -30,11 +22,6 @@ module.exports = class Comments extends Sequelize.Model {
           type: Sequelize.DATE,
           allowNull: false,
           defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-        },
-        count_views: {
-          type: Sequelize.INTEGER.UNSIGNED,
-          allowNull: false,
-          defaultValue: 0,
         },
       },
       {

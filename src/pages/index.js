@@ -11,14 +11,14 @@ import Discover2 from "../components/Discover/index2";
 // import AboutModal from "../components/AboutModal/";
 // import MdVideo from '../video/MdVideo/MdVideo.mp4';
 // import styled from 'styled-components';
-// import PostBoards from "../components/PostBoard/PostBoard";
+import PostBoards from "../components/PostBoard/PostBoard";
 
 import {
-	homeObjOne,
-	homeObjTwo,
-	homeObjThree,
-	homeObjFour,
-	homeObjFive,
+  homeObjOne,
+  homeObjTwo,
+  homeObjThree,
+  homeObjFour,
+  homeObjFive,
 } from "../components/InfoSection/Data";
 import Scroll from "../components/Scroll";
 import Mypage from "../components/Mypage/index.jsx";
@@ -38,48 +38,48 @@ import useAxios from "../hooks/useAxios";
 // `;
 
 const Home = () => {
-	const [isOpen, setIsOpen] = useState(false);
-	const toggle = () => {
-		setIsOpen(!isOpen);
-	};
-	const { data, loading, error } = useAxios({
-		method: "get",
-		baseURL: "http://localhost:5000",
-		url: "auth/session",
-	});
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+  const { data, loading, error } = useAxios({
+    method: "get",
+    baseURL: "http://localhost:5000",
+    url: "auth/session",
+  });
 
-	return (
-		<>
-			<Sidebar isOpen={isOpen} toggle={toggle} />
-			<Navbar toggle={toggle} />
-			<HeroSection />
-			<InfoSection {...homeObjOne}>
-				{/* <AboutBg>
+  return (
+    <>
+      <Sidebar isOpen={isOpen} toggle={toggle} />
+      <Navbar toggle={toggle} />
+      <HeroSection />
+      <InfoSection {...homeObjOne}>
+        {/* <AboutBg>
                 <MdVideoBg autoPlay loop muted src=
                 {MdVideo} type='.Video/mp4' />
       </ AboutBg> */}
-			</InfoSection>
-			<InfoSection {...homeObjTwo}>
-				<Discover2 />
-				{/* <PostBoards />     */}
-			</InfoSection>
-			<InfoSection {...homeObjThree}>
-				<ChartSection />
-			</InfoSection>
-			<InfoSection {...homeObjFour}>
-				<NewsContextProvider>
-					<NewS2 />
-				</NewsContextProvider>{" "}
-			</InfoSection>
-			{data ? (
-				<InfoSection {...homeObjFive}>
-					<Mypage />
-				</InfoSection>
-			) : null}
-			<Scroll showBelow={250} />
-			<Footer />
-		</>
-	);
+      </InfoSection>
+      <PostBoards page="index" />
+      <InfoSection {...homeObjTwo}>
+        <Discover2 />
+      </InfoSection>
+      <InfoSection {...homeObjThree}>
+        <ChartSection />
+      </InfoSection>
+      <InfoSection {...homeObjFour}>
+        <NewsContextProvider>
+          <NewS2 />
+        </NewsContextProvider>{" "}
+      </InfoSection>
+      {data ? (
+        <InfoSection {...homeObjFive}>
+          <Mypage />
+        </InfoSection>
+      ) : null}
+      <Scroll showBelow={250} />
+      <Footer />
+    </>
+  );
 };
 
 export default Home;
