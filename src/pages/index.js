@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar";
 import InfoSection from "../components/InfoSection";
 import ChartSection from "../components/ChartSection";
 import { NewsContextProvider } from "../components/News/NewsContext";
-import NewS2 from '../components/News/index2';
+import NewS2 from "../components/News/index2";
 import Discover2 from "../components/Discover/index2";
 // import AboutModal from "../components/AboutModal/";
 // import MdVideo from '../video/MdVideo/MdVideo.mp4';
@@ -14,14 +14,15 @@ import Discover2 from "../components/Discover/index2";
 // import PostBoards from "../components/PostBoard/PostBoard";
 
 import {
-  homeObjOne,
-  homeObjTwo,
-  homeObjThree,
-  homeObjFour,
-  homeObjFive,
+	homeObjOne,
+	homeObjTwo,
+	homeObjThree,
+	homeObjFour,
+	homeObjFive,
 } from "../components/InfoSection/Data";
 import Scroll from "../components/Scroll";
 import Mypage from "../components/Mypage/index.jsx";
+import useAxios from "../hooks/useAxios";
 
 // const AboutBg = styled.div`
 // width: 100%;
@@ -36,41 +37,49 @@ import Mypage from "../components/Mypage/index.jsx";
 // background: #232a34;
 // `;
 
-
-
 const Home = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
-  return (
-    <>
-      <Sidebar isOpen={isOpen} toggle={toggle} />
-      <Navbar toggle={toggle} />
-      <HeroSection />
-      <InfoSection {...homeObjOne} > 
-      {/* <AboutBg>
+	const [isOpen, setIsOpen] = useState(false);
+	const toggle = () => {
+		setIsOpen(!isOpen);
+	};
+	const { data, loading, error } = useAxios({
+		method: "get",
+		baseURL: "http://localhost:5000",
+		url: "auth/session",
+	});
+
+	return (
+		<>
+			<Sidebar isOpen={isOpen} toggle={toggle} />
+			<Navbar toggle={toggle} />
+			<HeroSection />
+			<InfoSection {...homeObjOne}>
+				{/* <AboutBg>
                 <MdVideoBg autoPlay loop muted src=
                 {MdVideo} type='.Video/mp4' />
       </ AboutBg> */}
-  </InfoSection>
-      <InfoSection {...homeObjTwo} > 
-      <Discover2 />
-      {/* <PostBoards />     */}
-      </InfoSection>
-      <InfoSection {...homeObjThree}>
-        <ChartSection />
-      </InfoSection>
-      <InfoSection {...homeObjFour} ><NewsContextProvider>
-        <NewS2 />
-      </NewsContextProvider>  </InfoSection>
-      <InfoSection {...homeObjFive}>
-        <Mypage />
-      </InfoSection>
-      <Scroll showBelow={250} />
-      <Footer />
-    </>
-  );
+			</InfoSection>
+			<InfoSection {...homeObjTwo}>
+				<Discover2 />
+				{/* <PostBoards />     */}
+			</InfoSection>
+			<InfoSection {...homeObjThree}>
+				<ChartSection />
+			</InfoSection>
+			<InfoSection {...homeObjFour}>
+				<NewsContextProvider>
+					<NewS2 />
+				</NewsContextProvider>{" "}
+			</InfoSection>
+			{data ? (
+				<InfoSection {...homeObjFive}>
+					<Mypage />
+				</InfoSection>
+			) : null}
+			<Scroll showBelow={250} />
+			<Footer />
+		</>
+	);
 };
 
 export default Home;

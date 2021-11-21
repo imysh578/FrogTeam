@@ -12,10 +12,10 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
       email,
       password,
     });
-    return res.redirect("/");
+    res.redirect("/");
   } catch (error) {
     console.error(error);
-    return next(error);
+    next(error);
   }
 });
 

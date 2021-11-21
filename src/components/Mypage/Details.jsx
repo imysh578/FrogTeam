@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { Button, ButtonGroup } from "react-bootstrap";
 import AssetList from "./AssetList";
-import EditAsset from './EditAsset';
 import ModalComponent from './ModalComponent';
 
-const Details = ({handleTabClick, loading, assets}) => {
+const Details = ({handleTabClick, loading, assets, inputMode, setInputMode}) => {
 	const [modalShow, setModalShow] = useState(false);
 	const [editShow, setEditShow] = useState(false);
 
@@ -33,13 +32,14 @@ const Details = ({handleTabClick, loading, assets}) => {
 					<Button variant="primary" onClick={handleEditClick}>
 						{editShow ? '되돌아가기' : '자산 수정' }
 					</Button>
+					<Button variant="warning" onClick={() => setModalShow(true)}>
+						자산추가
+					</Button>
 				</ButtonGroup>
 			</div>
-			<ModalComponent show={modalShow} onHide={handleModalShow}>
-				<EditAsset/>
-			</ModalComponent>
+			<ModalComponent show={modalShow} onHide={handleModalShow} />
 			<div className="total">
-				<AssetList loading={loading} assets={assets} editShow={editShow}/>
+				<AssetList loading={loading} assets={assets} editShow={editShow} inputMode={inputMode} setInputMode={setInputMode}/>
 			</div>
 		</>
 	);
