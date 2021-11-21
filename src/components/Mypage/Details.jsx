@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from "react-bootstrap";
 import AssetList from "./AssetList";
 import ModalComponent from './ModalComponent';
 
-const Details = ({handleTabClick, loading, assets}) => {
+const Details = ({handleTabClick, loading, assets, inputMode, setInputMode}) => {
 	const [modalShow, setModalShow] = useState(false);
 	const [editShow, setEditShow] = useState(false);
 
@@ -39,7 +39,7 @@ const Details = ({handleTabClick, loading, assets}) => {
 			</div>
 			<ModalComponent show={modalShow} onHide={handleModalShow} />
 			<div className="total">
-				<AssetList loading={loading} assets={assets} editShow={editShow}/>
+				<AssetList loading={loading} assets={assets} editShow={editShow} inputMode={inputMode} setInputMode={setInputMode}/>
 			</div>
 		</>
 	);

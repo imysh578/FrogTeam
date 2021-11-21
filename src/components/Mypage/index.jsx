@@ -32,7 +32,6 @@ function removeDuplicates(arr) {
 	}
 }
 
-
 function getDetails(arr) {
 	let currencyList = [];
 	let balanceList = [];
@@ -43,6 +42,7 @@ function getDetails(arr) {
 	});
 	return { currencyList, balanceList, length };
 }
+const baseUrl = "http://localhost:5000";
 
 /* 마이페이지 */
 const Mypage = () => {
@@ -51,26 +51,41 @@ const Mypage = () => {
 	const [totalAssets, setTotalAssets] = useState([]);
 	const [content, setContent] = useState(true);
 
-	const baseUrl = "http://localhost:5000";
-	const upbitData = useAxios({
-		method: "GET",
-		baseURL: baseUrl,
-		url: "upbit/account",
-	});
-	const binanceData = useAxios({
-		method: "GET",
-		baseURL: baseUrl,
-		url: "binance/account",
-	});
+	const [upbitData, setUpbitData] = useState([]);
+	const [binanceData, setBinanceData] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [inputMode, setInputMode] = useState(false);
+
+	useEffect(async () => {
+		setLoading(true);
+		if(!inputMode){		// 수정 요청이 있을 때에만 DB 데이터를 불러옴
+			const upbitData_temp = await axios.request({
+				method: "GET",
+				baseURL: baseUrl,
+				url: "upbit/account",
+			});
+			const binanceData_temp = await axios.request({
+				method: "GET",
+				baseURL: baseUrl,
+				url: "binance/account",
+			});
+
+			// 기존 state 값과 다른 경우에만 state 값 변경
+			if (upbitData !== upbitData_temp) {
+				setUpbitData(upbitData_temp.data);
+			} 
+			if (binanceData !== binanceData_temp) {
+				setBinanceData(binanceData_temp.data);
+			}
+		}
+		
+		return setLoading(false);
+	}, [inputMode]);
+
 	useEffect(() => {
-		if (
-			!upbitData.loading &&
-			upbitData.data &&
-			!binanceData.loading &&
-			binanceData.data
-		) {
-			let upbitAssets = [...upbitData.data];
-			let binanceAssets = [...binanceData.data];
+		if(upbitData && binanceData) {
+			let upbitAssets = [...upbitData];
+			let binanceAssets = [...binanceData];
 			let totalData = [...upbitAssets, ...binanceAssets];
 			let data = [];
 			switch (tab) {
@@ -92,32 +107,35 @@ const Mypage = () => {
 			setAssets(data);
 			sorting(totalData, "exchange");
 			setTotalAssets(totalData);
+			console.log(data);
 		}
-	}, [binanceData.loading, upbitData.loading, tab]);
+	}, [upbitData, binanceData, tab]);
 
 	const handleTabClick = (e) => {
-		console.log(e.target.innerText);
 		setTab(e.target.innerText);
 	};
 	const handleDetailClick = () => {
-		setContent(!content)
-	}
+		setContent(!content);
+	};
 
 	return (
 		<div className="Mypage-Container">
-			<Button className="mb-4" onClick={handleDetailClick} variant={content ? "danger" : "primary"} >
-				{content ? '자세히' : '차트보기'}
+			<Button
+				className="mb-4"
+				onClick={handleDetailClick}
+				variant={content ? "danger" : "primary"}
+			>
+				{content ? "자세히" : "차트보기"}
 			</Button>
 			{content ? (
-				<Total
-					loading={upbitData.loading || binanceData.loading}
-					assets={totalAssets}
-				/>
+				<Total loading={loading} assets={totalAssets} />
 			) : (
 				<Details
 					handleTabClick={handleTabClick}
-					loading={upbitData.loading || binanceData.loading}
+					loading={loading}
 					assets={assets}
+					inputMode={inputMode}
+					setInputMode={setInputMode}
 				/>
 			)}
 		</div>

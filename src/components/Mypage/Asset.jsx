@@ -4,8 +4,7 @@ import { Button, ButtonGroup } from "react-bootstrap";
 
 const baseUrl = "http://localhost:5000";
 
-const Asset = ({ index, asset, editShow }) => {
-	const [inputMode, setInputMode] = useState(false);
+const Asset = ({ index, asset, editShow, inputMode, setInputMode }) => {
 	const [buyPrice, setBuyPrice] = useState(asset.avg_buy_price);
 	const [price, setPrice] = useState(asset.price);
 	const [totalBuyPrice, setTotalBuyPrice] = useState(0);
@@ -43,7 +42,7 @@ const Asset = ({ index, asset, editShow }) => {
 		setInputBalance(e.target.value);
 	};
 
-	useEffect(() => {
+	useEffect(async () => {
 		const exchange_temp = exchange.toUpperCase();
 		const assetName_temp = assetName.toUpperCase();
 		const balance_temp = Number(Number(balance).toFixed(2));
@@ -74,17 +73,16 @@ const Asset = ({ index, asset, editShow }) => {
 		setExchange(exchange_temp);
 		setProfit(profit_temp);
 		setProfitRate(profitRate_temp);
-	}, [asset, inputMode]);
-	
-	useEffect( async ()=>{
+
+		// DB에서 바뀐 데이터 업데이트
 		const result = await axios.post(baseUrl + "/assets/edit", {
 			email: asset.email,
 			exchange: exchange,
 			coinId: assetName,
-			amount: Number(balance),
-			buyPrice: Number(buyPrice),
+			amount: Number(balance_temp),
+			buyPrice: Number(averageBuyPrice_temp),
 		});
-	}, [inputMode])
+	}, [inputMode]);
 	
 	return (
 		<>
