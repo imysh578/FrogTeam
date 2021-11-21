@@ -14,7 +14,6 @@ import {
 	NavBtn,
 	NavBtnLink,
 } from "./NavbarElements";
-import { Button } from "../ButtonElements";
 
 import ApiKey from "../ApiKey";
 
@@ -24,15 +23,6 @@ const Navbar = ({ toggle }) => {
     baseURL: "http://localhost:5000",
     url: "auth/session",
   });
-  // const data = { id: 1, aa: 2 };
-  // console.log(data);
-
-  // , payload: data }
-  // console.log(props);
-  // if (data) {
-  //   props.dispatch({ type: "세션저장" });
-  // }
-  // useEffect(() => {}, [data]);
 
   const signoutHandler = async (e) => {
     e.preventDefault();
@@ -54,30 +44,20 @@ const Navbar = ({ toggle }) => {
             <FaBars />
           </MobileIcon>
           <NavMenu>
-            <NavItem>
-              <NavLinks
-                to="about"
-                smooth={true}
-                duration={500}
-                spy={true}
-                exact="true"
-                offset={-80}
-              >
-                About
-              </NavLinks>
-            </NavItem>
-            <NavItem>
-              <NavLinks
-                to="discover"
-                smooth={true}
-                duration={500}
-                spy={true}
-                exact="true"
-                offset={-80}
-              >
-                Discover
-              </NavLinks>
-            </NavItem>
+            {data ? (
+							<NavItem>
+								<NavLinks
+									to="signup"
+									smooth={true}
+									duration={500}
+									spy={true}
+									exact="true"
+									offset={-80}
+								>
+									MyPage
+								</NavLinks>
+							</NavItem>
+						) : null}
             <NavItem>
               <NavLinks
                 to="chart"
@@ -102,27 +82,27 @@ const Navbar = ({ toggle }) => {
                 News
               </NavLinks>
             </NavItem>
-            {data ? (
-							<NavItem>
-								<NavLinks
-									to="signup"
-									smooth={true}
-									duration={500}
-									spy={true}
-									exact="true"
-									offset={-80}
-								>
-									MyPage
-								</NavLinks>
-							</NavItem>
-						) : null}
-            {data ? <ApiKey></ApiKey> : null}
+            <NavItem>
+              <NavLinks
+                to="discover"
+                smooth={true}
+                duration={500}
+                spy={true}
+                exact="true"
+                offset={-80}
+              >
+                ETF
+              </NavLinks>
+            </NavItem>
           </NavMenu>
           <NavBtn>
             {data ? (
-              <NavBtnLink2 to="/" onClick={signoutHandler}>
-                Sign Out
-              </NavBtnLink2>
+              <>
+                <ApiKey/>
+                <NavBtnLink2 to="/" onClick={signoutHandler}>
+                  Sign Out
+                </NavBtnLink2>
+              </>
             ) : (
               <NavBtnLink to="/signin">Sign In/Up</NavBtnLink>
             )}

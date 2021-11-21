@@ -1,23 +1,23 @@
-export const homeObjOne = {
-  id: "about",
-  lightBg: false,
-  lightText: true,
-  lightTextDesc: true,
-  topLine: "개구리 거래소",
-  headline: " 무한한 정보제공과 상장된 가상화폐의 서비스 가능 경로 정보 제공",
-  description:
-    "  회원가입과 동시에 250$ 상당의 가상화폐 획득! 2021년도 내의 유일한 이벤트! 자신의 투자성향과 다양한 사람들과의 수익률 경쟁",
-  buttonLabel: "Get started",
-  imgStart: true,
-  // img: require("../../images/svg1.svg"),
-  //alt: "Frog",
-  dark: true,
-  primary: true,
-  darkText: true,
-  link: "/about",
-};
+// export const homeObjOne = {
+//   id: "about",
+//   lightBg: false,
+//   lightText: true,
+//   lightTextDesc: true,
+//   topLine: "개구리 거래소",
+//   headline: " 무한한 정보제공과 상장된 가상화폐의 서비스 가능 경로 정보 제공",
+//   description:
+//     "  회원가입과 동시에 250$ 상당의 가상화폐 획득! 2021년도 내의 유일한 이벤트! 자신의 투자성향과 다양한 사람들과의 수익률 경쟁",
+//   buttonLabel: "Get started",
+//   imgStart: true,
+//   // img: require("../../images/svg1.svg"),
+//   //alt: "Frog",
+//   dark: true,
+//   primary: true,
+//   darkText: true,
+//   link: "/about",
+// };
 
-export const homeObjTwo = {
+export const homeETF = {
   id: "discover",
   lightBg: true,
   lightText: false,
@@ -35,12 +35,12 @@ export const homeObjTwo = {
   link: "/discover",
 };
 
-export const homeObjThree = {
+export const homeChart = {
   id: "chart",
   lightBg: false,
   lightText: true,
   lightTextDesc: true,
-  topLine: "차트",
+  topLine: "코인 상세 정보",
   headline: "비트/ 알트 코인 가격 차트를 살펴보고 가격 변동을 실시간으로 확인하세요.",
   description: "자유로운 차트 도구 사용으로 미래의 정확성 향상",
   buttonLabel: "Learn More",
@@ -51,7 +51,7 @@ export const homeObjThree = {
   link: "/coins",
 };
 
-export const homeObjFour = {
+export const homeNews = {
   id: "news",
   lightBg: true,
   lightText: true,
@@ -67,7 +67,7 @@ export const homeObjFour = {
   link: "/news",
 };
 
-export const homeObjFive = {
+export const homeMypage = {
   id: "signup",
   lightBg: false,
   lightText: true,

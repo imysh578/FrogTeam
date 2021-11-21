@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import {
   Container,
   FormWrap,
@@ -16,6 +15,23 @@ import {
 } from "./SignupElements";
 import axios from "axios";
 import { NavBtn } from "../Navbar/NavbarElements";
+import styled from "styled-components";
+
+const APIBtn = styled.div`
+border-radius: 50px;
+background: #01bf71;
+white-space: nowrap;
+padding: 10px 22px;
+color: #010606;
+font-size: 16px;
+outline: none;
+border: none;
+cursor: pointer;
+transition: all 0.2s ease-in-out;
+text-decoration: none;
+margin-right: 10px;
+`
+
 
 const ApiKey = () => {
   const [show, setShow] = useState(false);
@@ -54,26 +70,12 @@ const ApiKey = () => {
       console.log("안댄다 키 씨발");
     }
   };
-  // const submitHandler = async (e) => {
-  //   try {
-  //     e.preventDefault();
-  //     const news = await axios.post(
-  //       "http://localhost:5000/auth/key",
-
-  //     );
-  //   } catch {
-  //     console.log("안댄다 키 씨발");
-  //   }
-  // };
 
   return (
     <>
-      <NavBtn>
-        test
-      </NavBtn>
-      <Button variant="success" onClick={handleShow}>
+      <APIBtn onClick={handleShow}>
         나의 자산 불러오기
-      </Button>
+      </APIBtn>
 
       <Modal
         show={show}

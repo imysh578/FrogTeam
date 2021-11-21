@@ -14,11 +14,10 @@ import Discover2 from "../components/Discover/index2";
 // import PostBoards from "../components/PostBoard/PostBoard";
 
 import {
-	homeObjOne,
-	homeObjTwo,
-	homeObjThree,
-	homeObjFour,
-	homeObjFive,
+	homeETF,
+	homeChart,
+	homeNews,
+	homeMypage,
 } from "../components/InfoSection/Data";
 import Scroll from "../components/Scroll";
 import Mypage from "../components/Mypage/index.jsx";
@@ -53,29 +52,23 @@ const Home = () => {
 			<Sidebar isOpen={isOpen} toggle={toggle} />
 			<Navbar toggle={toggle} />
 			<HeroSection />
-			<InfoSection {...homeObjOne}>
-				{/* <AboutBg>
-                <MdVideoBg autoPlay loop muted src=
-                {MdVideo} type='.Video/mp4' />
-      </ AboutBg> */}
-			</InfoSection>
-			<InfoSection {...homeObjTwo}>
-				<Discover2 />
-				{/* <PostBoards />     */}
-			</InfoSection>
-			<InfoSection {...homeObjThree}>
+
+			{data ? (
+				<InfoSection {...homeMypage}>
+					<Mypage />
+				</InfoSection>
+			) : null}
+			<InfoSection {...homeChart}>
 				<ChartSection />
 			</InfoSection>
-			<InfoSection {...homeObjFour}>
+			<InfoSection {...homeNews}>
 				<NewsContextProvider>
 					<NewS2 />
 				</NewsContextProvider>{" "}
 			</InfoSection>
-			{data ? (
-				<InfoSection {...homeObjFive}>
-					<Mypage />
-				</InfoSection>
-			) : null}
+			<InfoSection {...homeETF}>
+				<Discover2 />
+			</InfoSection>
 			<Scroll showBelow={250} />
 			<Footer />
 		</>
