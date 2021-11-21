@@ -22,11 +22,11 @@ module.exports = class ApiKeys extends Sequelize.Model {
         },
         accessKey: {
           allowNull: true,
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(100),
         },
         secretKey: {
           allowNull: true,
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(100),
         },
       },
       {

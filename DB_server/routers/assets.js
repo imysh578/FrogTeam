@@ -4,15 +4,15 @@ const Assets = require("../models/assets.js");
 
 const router = express.Router();
 
-router.route('/search/:exchange').get(async(req,res,next)=>{
+router.route('/search').post(async(req,res,next)=>{
   try {
     const data = await Assets.findAll({
       where :{
-        exchange: req.params.exchange,
+        email : req.body.email,
+        exchange: req.body.exchange,
       }
     })
     let temp = data.map(el=> el = el.dataValues)
-    console.log(temp);
     res.send(temp);
   } catch (err) {
     console.error(err);
@@ -92,7 +92,7 @@ router.route('/create').post(async(req,res,next) => {
     const result = await Assets.create({
       email : email,
       exchange : data.exchange,
-      coinId : data.coinName,
+      coinId : data.coinName.id,
       amount : data.amount,
       buyPrice: data.buyPrice,
     })
