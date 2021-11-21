@@ -82,11 +82,10 @@ const ApiKey = () => {
         </Modal.Header>
         <Modal.Body>
           <Container>
-            <Icon to="/">Frog</Icon>
             <FormWrap>
               <FormContent>
                 <Form>
-                  <FormH1>API 키 입력</FormH1>
+                  <FormH1>이미 키가 입력되어있는 경우 업데이트 됩니다</FormH1>
                   <select name="whatKey" onChange={handleWhat}>
                     <option value="Upbit">Upbit</option>
                     <option value="Binance">Binance</option>

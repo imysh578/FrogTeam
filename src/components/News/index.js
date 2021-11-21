@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, FormControl, InputGroup } from "react-bootstrap";
+import { Col, FormControl, InputGroup, Button } from "react-bootstrap";
 import useAxios from "../../hooks/useAxios";
 import axios from "axios";
 
@@ -27,9 +27,20 @@ const News = () => {
 
       setCoins();
       setCoins(news.data);
-      setCoinsDisplay(news.data.slice(0, 10));
+      setCoinsDisplay(news.data.slice(0, 20));
     } catch {
       console.log("안댄다 기사 씨발");
+    }
+  };
+  let listNum = 0;
+
+  // console.log(listNum);
+  const A = async (e) => {
+    try {
+      e.preventDefault();
+      listNum = 3;
+    } catch {
+      console.log("안댐");
     }
   };
 
@@ -42,9 +53,14 @@ const News = () => {
   useEffect(() => {
     if (!loading && data) {
       setCoins(data);
-      setCoinsDisplay(data.slice(0, 10));
+      setCoinsDisplay(data.slice(0, 20));
     }
   }, [data, loading]);
+
+  useEffect(() => {
+    const a = [...coins];
+    setCoinsDisplay(a.slice(listNum * 10, (listNum + 1) * 10));
+  }, [listNum]);
 
   if (error) {
     return <h1 className="text-danger">{error.message}</h1>;
@@ -65,12 +81,13 @@ const News = () => {
               name="keyword"
               placeholder="뉴스 제목 입력"
               required
-            />
-            <button type="submit">검색</button>
+            />{" "}
+            <Button type="submit" variant="primary">
+              검색
+            </Button>
           </InputGroup>
         </Col>
       </form>
-
       <table className="table coinlist-table table-striped table-hover text-center">
         <thead className="text-light bg-success ">
           <tr>
@@ -105,7 +122,7 @@ const News = () => {
                 <span>{index + 1}</span>
               </th>
               <th>
-                <a href={coin.url}>
+                <a href={coin.url} target="_blank">
                   <span>{coin.name}</span>
                 </a>
               </th>
@@ -116,7 +133,7 @@ const News = () => {
                 <span>{coin.provider[0].name}</span>
               </th>
               <th>
-                <span>{coin.datePublished}</span>
+                <span>{coin.datePublished.substr(0, 10)}</span>
               </th>
             </tr>
           ))}
