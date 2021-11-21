@@ -118,8 +118,6 @@ const Navbar = ({ toggle }) => {
 						) : null}
             {data ? <ApiKey></ApiKey> : null}
           </NavMenu>
-
-          <NavBtnLink to="/now">실시간 연습중</NavBtnLink>
           <NavBtn>
             {data ? (
               <NavBtnLink2 to="/" onClick={signoutHandler}>

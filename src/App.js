@@ -7,7 +7,6 @@ import SigninPage from "./pages/signin";
 import SignupPage from "./pages/signup";
 import NewsPage from "./pages/news";
 import CoinsPage from "./pages/coins";
-import CoinDetail from "./components/ChartSection/Coingecko/CoinDetail";
 import DiscoverPage from "./pages/discover";
 import PostBoardPage from "./pages/postboard";
 import ApikeyPage from "./pages/apikey";
