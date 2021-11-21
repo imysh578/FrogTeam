@@ -23,19 +23,47 @@ const ApiKey = () => {
 
   const [access, access변경] = useState();
   const [secret, secret변경] = useState();
+  const [what, what변경] = useState("Upbit");
 
-  const handleAccess = ({ target: { value } }) => access변경(value);
-  const handleSecret = ({ target: { value } }) => secret변경(value);
+  const handleAccess = (e) => {
+    e.preventDefault();
+    access변경(e.target.value);
+  };
+  const handleSecret = (e) => {
+    e.preventDefault();
+    secret변경(e.target.value);
+  };
+  const handleWhat = (e) => {
+    e.preventDefault();
+    what변경(e.target.value);
+  };
 
   const handleSubmit = async (e) => {
     try {
-      console.log("일단 나오나 보자");
-      console.log(access);
-      const news = await axios.post("http://localhost:5000/auth/key", access);
+      e.preventDefault();
+      let body = {
+        Access: access,
+        Secret: secret,
+        whatKey: what,
+      };
+      const news = await axios.post("http://localhost:5000/auth/key", body);
+      window.location.replace("/");
     } catch {
+      alert("이미 키가 존재합니다 덮어쓸까요 처럼 다시 묻는거 해볼까?");
       console.log("안댄다 키 씨발");
     }
   };
+  // const submitHandler = async (e) => {
+  //   try {
+  //     e.preventDefault();
+  //     const news = await axios.post(
+  //       "http://localhost:5000/auth/key",
+
+  //     );
+  //   } catch {
+  //     console.log("안댄다 키 씨발");
+  //   }
+  // };
 
   return (
     <>
@@ -59,23 +87,22 @@ const ApiKey = () => {
               <FormContent>
                 <Form>
                   <FormH1>API 키 입력</FormH1>
-                  <select name="whatKey">
+                  <select name="whatKey" onChange={handleWhat}>
                     <option value="Upbit">Upbit</option>
                     <option value="Binance">Binance</option>
                   </select>
                   <FormLabel htmlFor="for">accessKey</FormLabel>
                   <FormInput
-                    onchange={handleAccess}
+                    onChange={handleAccess}
                     type="text"
                     name="Access"
-                    // value={value}
                     required
                   />
                   <FormLabel htmlFor="for">secretKey</FormLabel>
                   <FormInput
-                    onchange={handleSecret}
+                    onChange={handleSecret}
                     type="text"
-                    name="Access"
+                    name="Secret"
                     required
                   />
                 </Form>

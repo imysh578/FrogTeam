@@ -15,7 +15,8 @@ import {
 	NavBtnLink,
 } from "./NavbarElements";
 import { Button } from "../ButtonElements";
-import ApiKey from "../../components/ApiKey/index";
+
+import ApiKey from "../ApiKey";
 
 const Navbar = ({ toggle }) => {
   const { data, loading, error } = useAxios({
