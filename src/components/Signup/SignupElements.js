@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {Link} from 'react-router-dom';
 
 export const Container = styled.div`
-min-height: 700px;
+min-height: 100vh;
 position: relative;
 bottom: 0;
 left: 0;

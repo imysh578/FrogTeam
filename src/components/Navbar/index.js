@@ -110,23 +110,9 @@ const Navbar = ({ toggle }) => {
                 Community
               </NavLinks>
             </NavItem>
-            {data ? (
-              <NavItem>
-                <NavLinks
-                  to="signup"
-                  smooth={true}
-                  duration={500}
-                  spy={true}
-                  exact="true"
-                  offset={-80}
-                >
-                  MyPage
-                </NavLinks>
-              </NavItem>
-            ) : null}
           </NavMenu>
           <NavBtn>
-            {!data ? (
+            {data ? (
               <>
                 <ApiKey/>
                 <NavBtnLink2 to="/" onClick={signoutHandler}>

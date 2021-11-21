@@ -33,7 +33,6 @@ export const homeETF = {
   primary: true,
   darkText: true,
   link: "/discover",
-  height: '1vh',
 };
 
 export const homeChart = {
@@ -50,7 +49,6 @@ export const homeChart = {
   primary: false,
   darkText: true,
   link: "/coins",
-  height: '1vh',
 };
 
 export const homeNews = {
@@ -67,7 +65,6 @@ export const homeNews = {
   primary: false,
   darkText: true,
   link: "/news",
-  height: '1vh',
 };
 
 export const homeMypage = {
@@ -87,7 +84,6 @@ export const homeMypage = {
   primary: true,
   darkText: true,
   link: "/signup",
-  height: '1vh',
 };
 
 export const homePost = {
@@ -107,5 +103,4 @@ export const homePost = {
   primary: true,
   darkText: true,
   link: "/signup",
-  height: '1vh',
 };

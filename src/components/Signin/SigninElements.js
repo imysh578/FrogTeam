@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
-  min-height: 700px;
+  min-height: 100vh;
   position: relative;
   bottom: 0;
   left: 0;
@@ -108,7 +108,7 @@ export const FormButton2 = styled(Link)`
   border: none;
   border-radius: 4px;
   color: #fff;
-  font-size: 20px;n
+  font-size: 20px;
   cursor: pointer;
   text-align: center;
   text-decoration: none;

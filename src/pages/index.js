@@ -64,7 +64,7 @@ const Home = () => {
 			<InfoSection {...homeNews}>
 				<NewsContextProvider>
 					<NewS2 />
-				</NewsContextProvider>{" "}
+				</NewsContextProvider>
 			</InfoSection>
 			<InfoSection {...homeETF}>
 				<Discover2 />

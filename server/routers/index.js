@@ -4,6 +4,8 @@ const axios = require("axios");
 
 const router = express.Router();
 
+const ApiKey = '33352480e6mshbfd56d7ef279f55p138a5fjsnf6f45d6dabcf'
+
 router.route("/").get(async (req, res, next) => {
   try {
     res.sendFile(path.join(__dirname, "../../build/index.html"));
@@ -40,13 +42,13 @@ router.get("/news", async (req, res) => {
       headers: {
         "x-bingapis-sdk": "true",
         "x-rapidapi-host": "bing-news-search1.p.rapidapi.com",
-        "x-rapidapi-key": "a8477602eemshb89caea08d5cf54p189324jsna4545adac29d",
+        "x-rapidapi-key": ApiKey,
       },
     };
     const news = await axios(options);
     res.json(news.data.value);
-  } catch {
-    console.log("에러");
+  } catch (err) {
+    console.log(err.data);
   }
 });
 
@@ -68,7 +70,7 @@ router.post("/news", async (req, res) => {
       headers: {
         "x-bingapis-sdk": "true",
         "x-rapidapi-host": "bing-news-search1.p.rapidapi.com",
-        "x-rapidapi-key": "a8477602eemshb89caea08d5cf54p189324jsna4545adac29d",
+        "x-rapidapi-key": ApiKey,
       },
     };
     const news = await axios(options);
@@ -85,7 +87,7 @@ router.get("/new", async (req, res) => {
       url: "https://coinranking1.p.rapidapi.com/coins",
       headers: {
         "x-rapidapi-host": "coinranking1.p.rapidapi.com",
-        "x-rapidapi-key": "a8477602eemshb89caea08d5cf54p189324jsna4545adac29d",
+        "x-rapidapi-key": ApiKey,
       },
     };
     const news = await axios(options);
