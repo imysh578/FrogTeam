@@ -42,7 +42,7 @@ router
 				},
 			});
 			if (data) {
-				// symbol을 coin 이름으로 바꿈
+				// symbol을 coin id로 바꿈
 				for (let i = 0; i < data.length; i++) {
 					const result = await axios.get(
 						dbUrl + `/coins/query/${data[i].currency}`
@@ -52,7 +52,27 @@ router
 					}
 				}
 			}
-			res.locals.data = data.slice(1);
+
+			// DB 자산 확인 및 수기로 입력한 자산도 리스트에 포함시킴
+			const result = await axios.get(dbUrl+`/assets/search/upbit`)
+			let temp = [...result.data]
+			let dbData = []
+			temp.forEach(el=>{
+				dbData = [...dbData, {
+					currency: el.coinId,
+					balance: el.amount,
+					avg_buy_price: el.buyPrice,
+				}]
+			})
+			let { currencyList } = getDetails(data);
+			let assets = [...data];
+			console.log(currencyList);
+			dbData.forEach(el => {
+				if(!currencyList.includes(el.currency)){
+					assets= [...assets, el]
+				}
+			})
+			res.locals.data = assets.slice(1);
 			next();
 		} catch (error) {
 			console.error(error);
@@ -86,6 +106,7 @@ router
 			const {data} = await axios.post(dbUrl+'/assets/check',{
 				data: temp,
 			})
+			console.log(data);
 			res.send(data);
 		} catch (err) {
 			console.error(err);

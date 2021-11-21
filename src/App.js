@@ -11,6 +11,7 @@ import CoinDetail from "./components/ChartSection/Coingecko/CoinDetail";
 import DiscoverPage from "./pages/discover";
 import PostBoardPage from "./pages/postboard";
 import ApikeyPage from "./pages/apikey";
+import AddAsset from "./components/Mypage/AddAsset";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="postboard" element={<PostBoardPage />} exact />
         <Route path="apikey" element={<ApikeyPage />} exact />
       </Routes>
+      <AddAsset/>
     </Router>
   );
 }
