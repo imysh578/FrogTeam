@@ -3,7 +3,7 @@ import { Col, FormControl, InputGroup } from "react-bootstrap";
 import useAxios from "../../../hooks/useAxios";
 import Coin from "./Coin";
 
-const CoinList = () => {
+const CoinList = ({onHide, setCoinId}) => {
   const [coins, setCoins] = useState([]);
   const [coinsDisplay, setCoinsDisplay] = useState([]);
   
@@ -81,7 +81,7 @@ const CoinList = () => {
             </tr>
           )}
           {coinsDisplay.map((coin, index) => (
-            <Coin key={coin.id} coin={coin} index={coin.market_cap_rank} />
+            <Coin key={coin.id} coin={coin} index={coin.market_cap_rank} onHide={onHide} setCoinId={setCoinId}/>
           ))}
         </tbody>
       </table>

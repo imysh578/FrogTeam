@@ -68,11 +68,6 @@ const InfoSection = ({
                 )}
               </TextWrapper>
             </Column1>
-            {/* <Column2>
-              <ImgWrap>
-                <Img src={img} alt={alt} />
-              </ImgWrap>
-            </Column2> */}
           </InfoRow>
         </InfoWrapper>
       </InfoContainer>
