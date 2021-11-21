@@ -107,7 +107,6 @@ const Mypage = () => {
 			setAssets(data);
 			sorting(totalData, "exchange");
 			setTotalAssets(totalData);
-			console.log(data);
 		}
 	}, [upbitData, binanceData, tab]);
 

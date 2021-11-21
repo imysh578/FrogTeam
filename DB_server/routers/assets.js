@@ -47,7 +47,6 @@ router.route('/edit').post(async(req,res,next) => {
 router.route('/check').post(async(req,res,next) => {
   try {
     const data = req.body.data;
-    console.log(data);
     let temp = []
     for (let i = 0; i < data.length; i++) {
       const el = data[i];
