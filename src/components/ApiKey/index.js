@@ -30,6 +30,11 @@ cursor: pointer;
 transition: all 0.2s ease-in-out;
 text-decoration: none;
 margin-right: 10px;
+&:hover{
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+}
 `
 
 

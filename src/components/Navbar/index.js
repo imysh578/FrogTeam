@@ -124,10 +124,9 @@ const Navbar = ({ toggle }) => {
                 </NavLinks>
               </NavItem>
             ) : null}
-            {data ? <ApiKey></ApiKey> : null}
           </NavMenu>
           <NavBtn>
-            {data ? (
+            {!data ? (
               <>
                 <ApiKey/>
                 <NavBtnLink2 to="/" onClick={signoutHandler}>

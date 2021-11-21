@@ -37,7 +37,6 @@ const CoinDetail = ({coinId}) => {
 				url: `/coingecko/coinlist/${coinId}`,
 			}),
 		]);
-		console.log(result);
 		setChartData(xyFormat(result[0].data.prices));
 		setBitcoinChart(xyFormat(result[1].data.prices));
 		setCoinInfo(result[2].data[0]);
