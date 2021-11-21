@@ -19,7 +19,7 @@ const FormG = ({ onChange, text, type, readOnly=false, value }) => {
 	);
 };
 
-const AddAsset = ({ onHide }) => {
+const AddAsset = ({ onHide, setAddMode }) => {
 	const [exchange, setExchange] = useState("Upbit");
 	const [coinName, setCoinName] = useState("");
 	const [amount, setAmount] = useState(0);
@@ -39,7 +39,7 @@ const AddAsset = ({ onHide }) => {
       setCoins(data);
 			setCoinsDisplay(data.slice(0, 10));
     }
-  }, [data, loading]);
+  }, [data, loading, coinName]);
 
 	const exchangeOnChange = (e) => {
 		setExchange(e.target.value);
@@ -55,6 +55,7 @@ const AddAsset = ({ onHide }) => {
         searchedCoins = [...searchedCoins, coin];
       }
     });
+		setCoinName(searchedCoins[0])
     setCoinsDisplay(searchedCoins.slice(0, 10));
 	};
 	
@@ -69,12 +70,13 @@ const AddAsset = ({ onHide }) => {
 		e.preventDefault();
 		const data = {
 			exchange: exchange.toUpperCase(),
-			coinName: coinsDisplay[0],
+			coinName,
 			amount,
 			buyPrice,
 		};
 		if(exchange && buyPrice && amount) {
 			const result = await axios.post(`${baseUrl}/assets/create`, data);
+			setAddMode();
 			onHide();
 		} else {
 			window.alert('빈칸을 모두 입력해주세요!')

@@ -55,10 +55,11 @@ const Mypage = () => {
 	const [binanceData, setBinanceData] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [inputMode, setInputMode] = useState(false);
+	const [addMode, setAddMode] = useState(false);
 
 	useEffect(async () => {
 		setLoading(true);
-		if(!inputMode){		// 수정 요청이 있을 때에만 DB 데이터를 불러옴
+		if(!inputMode && !addMode){		// 수정 및 추가 요청이 있을 때에만 data refresh
 			const upbitData_temp = await axios.request({
 				method: "GET",
 				baseURL: baseUrl,
@@ -80,7 +81,7 @@ const Mypage = () => {
 		}
 		
 		return setLoading(false);
-	}, [inputMode]);
+	}, [inputMode, addMode]);
 
 	useEffect(() => {
 		if(upbitData && binanceData) {
@@ -103,7 +104,7 @@ const Mypage = () => {
 					break;
 			}
 			sorting(data, "currency");
-			removeDuplicates(data);
+			// removeDuplicates(data);
 			setAssets(data);
 			sorting(totalData, "exchange");
 			setTotalAssets(totalData);
@@ -135,6 +136,7 @@ const Mypage = () => {
 					assets={assets}
 					inputMode={inputMode}
 					setInputMode={setInputMode}
+					setAddMode={setAddMode}
 				/>
 			)}
 		</div>

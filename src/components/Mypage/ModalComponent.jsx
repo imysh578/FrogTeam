@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import AddAsset from "./AddAsset";
 
-const ModalComponent = ({ show, onHide}) => {
+const ModalComponent = ({ show, onHide, setAddMode}) => {
 	return (
 		<div >
 			<Modal
@@ -19,7 +19,7 @@ const ModalComponent = ({ show, onHide}) => {
 				</Modal.Header>
 				
 					{/* 자산 추가 form */}
-					<AddAsset onHide={onHide}/>
+					<AddAsset onHide={onHide} setAddMode={setAddMode}/>
 				
 			</Modal>
 		</div>

@@ -6,18 +6,18 @@ const router = express.Router();
 
 const sign = require("jsonwebtoken").sign;
 
-const access_key = process.env.UPBIT_OPEN_API_ACCESS_KEY;
-const secret_key = process.env.UPBIT_OPEN_API_SECRET_KEY;
+// const access_key = process.env.UPBIT_OPEN_API_ACCESS_KEY;
+// const secret_key = process.env.UPBIT_OPEN_API_SECRET_KEY;
 const server_url = "https://api.upbit.com/v1";
 const dbUrl = "http://localhost:7000";
 const baseUrl = 'http://localhost:5000';
 
-const payload = {
-	access_key: access_key,
-	nonce: uuidv4(),
-};
+// const payload = {
+// 	access_key: access_key,
+// 	nonce: uuidv4(),
+// };
 
-const token = sign(payload, secret_key);
+// const token = sign(payload, secret_key);
 
 function getDetails(arr) {
 	let currencyList = [];
@@ -32,13 +32,35 @@ function getDetails(arr) {
 
 router
 	.route("/account")
+	// API key 정보 불러오기
+	.get((req,res,next) => {
+		const apiKeys = req.user.api;
+		let access_key;
+		let secret_key;
+		apiKeys.forEach(el => {
+			if(el.exchange == 'Upbit'){
+				access_key = el.accessKey;
+				secret_key = el.secretKey;
+			}
+		})
+		console.log(access_key);
+		console.log(secret_key);
+		const payload = {
+			access_key: access_key,
+			nonce: uuidv4(),
+		};
+			
+		const token = sign(payload, secret_key);
+		res.locals.token = token;
+		next()
+	})
   // 내 자산 정보 불러오기
 	.get(async (req, res, next) => {
 		try {
 			console.log("account router");
 			const { data } = await axios.get(server_url + "/accounts", {
 				headers: {
-					Authorization: `Bearer ${token}`,
+					Authorization: `Bearer ${res.locals.token}`,
 				},
 			});
 			if (data) {
@@ -54,7 +76,10 @@ router
 			}
 
 			// DB 자산 확인 및 수기로 입력한 자산도 리스트에 포함시킴
-			const result = await axios.get(dbUrl+`/assets/search/upbit`)
+			const result = await axios.post(dbUrl+`/assets/search`, {
+				exchange: 'upbit',
+				email: req.user.user.email,
+			})
 			let temp = [...result.data]
 			let dbData = []
 			temp.forEach(el=>{
@@ -66,13 +91,13 @@ router
 			})
 			let { currencyList } = getDetails(data);
 			let assets = [...data];
-			console.log(currencyList);
 			dbData.forEach(el => {
 				if(!currencyList.includes(el.currency)){
 					assets= [...assets, el]
 				}
 			})
 			res.locals.data = assets.slice(1);
+			// console.log(temp);
 			next();
 		} catch (error) {
 			console.error(error);
@@ -106,7 +131,6 @@ router
 			const {data} = await axios.post(dbUrl+'/assets/check',{
 				data: temp,
 			})
-			console.log(data);
 			res.send(data);
 		} catch (err) {
 			console.error(err);

@@ -15,12 +15,7 @@ const { default: axios } = require("axios");
 const coingeckoUrl = "https://api.coingecko.com/api/v3";
 const dbUrl = "http://localhost:7000";
 
-const exchangeId = "binance",
-	exchangeClass = ccxt[exchangeId],
-	exchange = new exchangeClass({
-		apiKey: apiKey,
-		secret: apiSecret,
-	});
+
 
 function getDetails(arr) {
   let currencyList = [];
@@ -35,14 +30,29 @@ function getDetails(arr) {
 
 router
 	.route("/account")
+	// API key 정보 불러오기
 	.get(async (req, res, next) => {
+		const apiKeys = req.user.api;
+		let access_key;
+		let secret_key;
+		apiKeys.forEach(el => {
+			if(el.exchange == 'Binance'){
+				access_key = el.accessKey;
+				secret_key = el.secretKey;
+			}
+		})
+		const exchangeId = "binance",
+		exchangeClass = ccxt[exchangeId],
+		exchange = new exchangeClass({
+			apiKey: access_key,
+			secret: secret_key,
+		});
 		const result = await exchange.fetchBalance();
 		const data = result.total;
 		let balances = [];
-
 		for (key in data) {
 			// 적은 수량 코인은 제외
-			if (data[key]>0.01) {
+			if (data[key]>=0.1) {
 				// symbol을 coin id로 바꿈
 				const result = await axios.get(dbUrl + `/coins/query/${key}`);
 				balances = [
@@ -53,7 +63,10 @@ router
 		}
 
 		// DB 자산 확인 및 수기로 입력한 자산도 리스트에 포함시킴
-		const dbResult = await axios.get(dbUrl+`/assets/search/binance`)
+		const dbResult = await axios.post(dbUrl+`/assets/search`, {
+			exchange: 'binance',
+			email: req.user.user.email,
+		})
 		let temp = [...dbResult.data]
 		let dbData = []
 		temp.forEach(el=>{
@@ -64,7 +77,6 @@ router
 		})
 		let { currencyList } = getDetails(balances);
 		let assets = [...balances];
-		console.log(currencyList);
 		dbData.forEach(el => {
 			if(!currencyList.includes(el.currency)){
 				assets= [...assets, el]
@@ -102,7 +114,6 @@ router
 			const {data} = await axios.post(dbUrl+'/assets/check',{
 				data: temp,
 			})
-			console.log(data);
 			res.send(data);
 		} catch (err) {
 			console.error(err);
