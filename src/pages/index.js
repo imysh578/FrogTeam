@@ -11,7 +11,7 @@ import Discover2 from "../components/Discover/index2";
 // import AboutModal from "../components/AboutModal/";
 // import MdVideo from '../video/MdVideo/MdVideo.mp4';
 // import styled from 'styled-components';
-// import PostBoards from "../components/PostBoard/PostBoard";
+import PostBoards from "../components/PostBoard/PostBoard";
 
 import {
 	homeETF,
@@ -37,22 +37,21 @@ import useAxios from "../hooks/useAxios";
 // `;
 
 const Home = () => {
-	const [isOpen, setIsOpen] = useState(false);
-	const toggle = () => {
-		setIsOpen(!isOpen);
-	};
-	const { data, loading, error } = useAxios({
-		method: "get",
-		baseURL: "http://localhost:5000",
-		url: "auth/session",
-	});
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+  const { data, loading, error } = useAxios({
+    method: "get",
+    baseURL: "http://localhost:5000",
+    url: "auth/session",
+  });
 
 	return (
 		<>
 			<Sidebar isOpen={isOpen} toggle={toggle} />
 			<Navbar toggle={toggle} />
 			<HeroSection />
-
 			{data ? (
 				<InfoSection {...homeMypage}>
 					<Mypage />
@@ -69,6 +68,7 @@ const Home = () => {
 			<InfoSection {...homeETF}>
 				<Discover2 />
 			</InfoSection>
+      <PostBoards page="index" />
 			<Scroll showBelow={250} />
 			<Footer />
 		</>
