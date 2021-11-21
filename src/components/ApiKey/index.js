@@ -15,6 +15,7 @@ import {
   FormLabel,
 } from "./SignupElements";
 import axios from "axios";
+import { NavBtn } from "../Navbar/NavbarElements";
 
 const ApiKey = () => {
   const [show, setShow] = useState(false);
@@ -67,7 +68,10 @@ const ApiKey = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <NavBtn>
+        test
+      </NavBtn>
+      <Button variant="success" onClick={handleShow}>
         나의 자산 불러오기
       </Button>
 

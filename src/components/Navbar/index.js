@@ -118,7 +118,6 @@ const Navbar = ({ toggle }) => {
             ) : null}
             {data ? <ApiKey></ApiKey> : null}
           </NavMenu>
-
           <NavBtn>
             {data ? (
               <NavBtnLink2 to="/" onClick={signoutHandler}>
