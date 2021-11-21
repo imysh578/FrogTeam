@@ -9,7 +9,6 @@ router.route('/edit').post(async(req,res,next) => {
   try {
     const data = req.body;
     let result = {};
-    console.log(data);
     const read = await Assets.findOne({
       where:{
         email: data.email,
@@ -19,8 +18,8 @@ router.route('/edit').post(async(req,res,next) => {
     })
     if (read === null) {
       const create = await Assets.create({
-        email: 'asdf@asdf',
-        exchange: data.exchange,
+        email: data.email,
+        exchange: data.exchange.toUpperCase(),
         coinId: data.coinId,
         amount: data.amount,
         buyPrice: data.buyPrice,
@@ -33,7 +32,7 @@ router.route('/edit').post(async(req,res,next) => {
         where:{
           coinId: data.coinId,
           exchange: data.exchange,
-          email: 'asdf@asdf',
+          email: data.email,
         }
       })
     }
@@ -49,12 +48,11 @@ router.route('/check').post(async(req,res,next) => {
   try {
     const data = req.body.data;
     let temp = []
-
     for (let i = 0; i < data.length; i++) {
       const el = data[i];
       const read = await Assets.findOne({
         where:{
-          email: 'asdf@asdf',
+          email: el.email,
           exchange: el.exchange,
           coinId: el.currency,
         }
@@ -74,10 +72,10 @@ router.route('/check').post(async(req,res,next) => {
 
 router.route('/create').post(async(req,res,next) => {
   try {
-    const data = req.body
-    console.log(data);
+    const email = req.body.email
+    const data = req.body.data
     const result = await Assets.create({
-      email : data.email,
+      email : email,
       exchange : data.exchange,
       coinId : data.coinName,
       amount : data.amount,
@@ -102,7 +100,7 @@ router.route('/create').post(async(req,res,next) => {
 //         where:{
 //           coinId: el.currency,
 //           exchange: el.exchange,
-//           email: 'asdf@asdf',
+//           email: el.email,
 //         }
 //       })
 //     })

@@ -18,7 +18,6 @@ function Discover2(props) {
   useEffect(()=>{
     if(data){
       setDataETF(data.data)
-      console.log(data.data);
     }
   }, [data])
   

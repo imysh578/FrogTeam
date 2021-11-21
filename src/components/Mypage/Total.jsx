@@ -21,7 +21,7 @@ const Total = ({ loading = true, assets }) => {
     setTotalAsset(Math.floor(totalAsset_temp));
     setBuyPrice(Math.floor(buyPrice_temp));
     setProfit(Math.floor(profit_temp));
-    setProfitRate(profitRate_temp.toFixed(2));
+    setProfitRate(Number(profitRate_temp.toFixed(2)));
   }
   
   useEffect(() => {
@@ -58,16 +58,16 @@ const Total = ({ loading = true, assets }) => {
           ) : (
             <tr>
               <td>
-                <span>{totalAsset} 원</span>
+                <span>{totalAsset.toLocaleString()} 원</span>
               </td>
               <td>
-                <span>{buyPrice} 원</span>
+                <span>{buyPrice.toLocaleString()} 원</span>
               </td>
               <td>
-                <span>{profit} 원</span>
+                <span>{profit.toLocaleString()} 원</span>
               </td>
               <td>
-                <span>{profitRate} %</span>
+                <span>{profitRate.toLocaleString()} %</span>
               </td>
             </tr>
           )}
