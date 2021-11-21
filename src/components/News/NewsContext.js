@@ -21,7 +21,7 @@ export const NewsContextProvider = (props) => {
   useEffect(() => {
     if (!loading && data) {
       setCoins(data);
-      setCoinsDisplay(data.slice(0, 10));
+      setCoinsDisplay(data.slice(0, 3));
     }
   }, [data, loading]);
 

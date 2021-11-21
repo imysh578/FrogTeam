@@ -15,7 +15,7 @@ function NewS2(props) {
     <div>
       <NewsContainer2>
         <Link to="news">
-          <Button onClick={handleAddOnclick}>최근 뉴스 자세히</Button>
+          <Button onClick={handleAddOnclick}>뉴스 자세히 보기</Button>
         </Link>
 
         <div className="all__news">

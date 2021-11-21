@@ -29,7 +29,7 @@ router.get("/news", async (req, res) => {
       url: "https://bing-news-search1.p.rapidapi.com/news/search",
       params: {
         q: "코인",
-        count: "50",
+        count: "100",
         textDecorations: "false",
         setLang: "ko",
         cc: "KR",
@@ -57,7 +57,7 @@ router.post("/news", async (req, res) => {
       url: "https://bing-news-search1.p.rapidapi.com/news/search",
       params: {
         q: req.body.keyword,
-        count: "50",
+        count: "100",
         textDecorations: "false",
         setLang: "ko",
         cc: "KR",

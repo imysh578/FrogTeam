@@ -3,16 +3,16 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { FaBars } from "react-icons/fa";
 import {
-	Nav,
-	NavbarContainer,
-	NavBtnLink2,
-	NavLogo,
-	MobileIcon,
-	NavMenu,
-	NavItem,
-	NavLinks,
-	NavBtn,
-	NavBtnLink,
+  Nav,
+  NavbarContainer,
+  NavBtnLink2,
+  NavLogo,
+  MobileIcon,
+  NavMenu,
+  NavItem,
+  NavLinks,
+  NavBtn,
+  NavBtnLink,
 } from "./NavbarElements";
 
 import ApiKey from "../ApiKey";
@@ -110,6 +110,21 @@ const Navbar = ({ toggle }) => {
                 Community
               </NavLinks>
             </NavItem>
+            {data ? (
+              <NavItem>
+                <NavLinks
+                  to="signup"
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  exact="true"
+                  offset={-80}
+                >
+                  MyPage
+                </NavLinks>
+              </NavItem>
+            ) : null}
+            {data ? <ApiKey></ApiKey> : null}
           </NavMenu>
           <NavBtn>
             {data ? (
