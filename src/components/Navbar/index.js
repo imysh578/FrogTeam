@@ -35,11 +35,15 @@ const Navbar = ({ toggle }) => {
     }
   };
 
+  const handleClick = () => {
+		window[`scrollTo`]({ top: 0, behavior: `smooth` });
+	};
+
   return (
     <>
       <Nav>
         <NavbarContainer>
-          <NavLogo to="/"> Frog </NavLogo>
+          <NavLogo to="/" onClick={handleClick}> Frog </NavLogo>
           <MobileIcon onClick={toggle}>
             <FaBars />
           </MobileIcon>
@@ -92,6 +96,18 @@ const Navbar = ({ toggle }) => {
                 offset={-80}
               >
                 ETF
+              </NavLinks>
+            </NavItem>
+            <NavItem>
+              <NavLinks
+                to="community"
+                smooth={true}
+                duration={500}
+                spy={true}
+                exact="true"
+                offset={-80}
+              >
+                Community
               </NavLinks>
             </NavItem>
           </NavMenu>

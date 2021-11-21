@@ -33,6 +33,7 @@ export const homeETF = {
   primary: true,
   darkText: true,
   link: "/discover",
+  height: '1vh',
 };
 
 export const homeChart = {
@@ -49,6 +50,7 @@ export const homeChart = {
   primary: false,
   darkText: true,
   link: "/coins",
+  height: '1vh',
 };
 
 export const homeNews = {
@@ -65,6 +67,7 @@ export const homeNews = {
   primary: false,
   darkText: true,
   link: "/news",
+  height: '1vh',
 };
 
 export const homeMypage = {
@@ -75,7 +78,7 @@ export const homeMypage = {
   topLine: "마이페이지",
   headline: " 자신의 자산을 API 로 연결하여 수익률및 투자행동 분석",
   description:
-    "국내 가상회폐 거래소의 API 와 연동하여 자신의 투자행동을 분석하며 수익률을 한눈에 확인할 수 있습니다. ",
+    "국내 가상화폐 거래소의 API 와 연동하여 자신의 투자행동을 분석하며 수익률을 한눈에 확인할 수 있습니다. ",
   buttonLabel: "Start Now",
   imgStart: false,
   // img: require("../../images/svg2.svg"),
@@ -84,4 +87,25 @@ export const homeMypage = {
   primary: true,
   darkText: true,
   link: "/signup",
+  height: '1vh',
+};
+
+export const homePost = {
+  id: "community",
+  lightBg: false,
+  lightText: true,
+  lightTextDesc: true,
+  topLine: "커뮤니티",
+  headline: "게시판에서 여러 정보를 공유하세요",
+  description:
+    "국내 최고 규모의 가상화폐 커뮤니티! 나만의 투자 전략을 공유해보세요.",
+  buttonLabel: "Start Now",
+  imgStart: false,
+  // img: require("../../images/svg2.svg"),
+  // alt: "paper",
+  dark: true,
+  primary: true,
+  darkText: true,
+  link: "/signup",
+  height: '1vh',
 };

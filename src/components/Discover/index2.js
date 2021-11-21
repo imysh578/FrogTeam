@@ -24,7 +24,7 @@ function Discover2(props) {
   return (
   
       <DiscoverContainer>
-        <h1 className= "DiscoverTitle">Discover ETF </h1>
+        {/* <h1 className= "DiscoverTitle text-black">Discover ETF </h1> */}
         <table className="table coinlist-table table-striped table-hover text-center">
 				<thead className="text-light bg-success ">
 					<tr>
@@ -49,9 +49,9 @@ function Discover2(props) {
             : "Loading"}
         </tbody>
 			</table>
-      <Link to='discover'>
-                <Button onClick={handleAddOnclick}>
-                ETF 찾아보기
+      <Link to='discover' className='d-flex justify-content-end text-decoration-none'>
+                <Button variant='danger' onClick={handleAddOnclick}>
+                펼쳐보기
                 </Button>
       </Link>
       </DiscoverContainer>

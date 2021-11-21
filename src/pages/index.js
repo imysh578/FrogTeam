@@ -18,6 +18,7 @@ import {
 	homeChart,
 	homeNews,
 	homeMypage,
+  homePost,
 } from "../components/InfoSection/Data";
 import Scroll from "../components/Scroll";
 import Mypage from "../components/Mypage/index.jsx";
@@ -68,7 +69,9 @@ const Home = () => {
 			<InfoSection {...homeETF}>
 				<Discover2 />
 			</InfoSection>
-      <PostBoards page="index" />
+			<InfoSection {...homePost}>
+        <PostBoards page="index" />
+			</InfoSection>
 			<Scroll showBelow={250} />
 			<Footer />
 		</>
