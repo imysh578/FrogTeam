@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { ButtonGroup, Button } from "react-bootstrap";
-import { Route, Routes } from "react-router-dom";
 import CoingeckoCoinDetail from "./Coingecko/CoinDetail";
 import CoingeckoCoinList from "./Coingecko/CoinList";
 import "./index.scss";
+import ModalComponent from "./ModalComponent";
 import UpbitCoinList from "./Upbit/CoinList";
 
 const ChartSection = () => {
 	const [tab, setTab] = useState("Coingecko");
+	const [modalShow, setModalShow] = useState(false);
+	const [coinId, setCoinId] = useState();
+
+	const handleModalShow = () => {
+		setModalShow(!modalShow);
+	};
 
 	const handleTabClick = () => (e) => {
 		console.log(e.target.innerText);
@@ -24,11 +30,14 @@ const ChartSection = () => {
 					Upbit
 				</Button>
 			</ButtonGroup>
-
-			<Routes>
-				<Route path="/" element={tab ==='Coingecko' ? <CoingeckoCoinList/> : <UpbitCoinList/>} exact />
-				<Route path="/:id" element={<CoingeckoCoinDetail />} exact />
-			</Routes>
+			{tab === "Coingecko" ? (
+				<CoingeckoCoinList onHide={handleModalShow} setCoinId={setCoinId} />
+			) : (
+				<UpbitCoinList onHide={handleModalShow} setCoinId={setCoinId}/>
+			)}
+			<ModalComponent show={modalShow} onHide={handleModalShow}>
+				<CoingeckoCoinDetail coinId={coinId} />
+			</ModalComponent>
 		</div>
 	);
 };

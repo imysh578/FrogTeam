@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Coin = ({ coin, index }) => {
+const Coin = ({ coin, index, onHide, setCoinId }) => {
+	const handleOnClick = (e) => {
+		const id = e.target.innerHTML.toLowerCase();
+		setCoinId(id);
+		onHide();
+	}
+
 	return (
 		<>
 			<tr>
@@ -10,9 +16,7 @@ const Coin = ({ coin, index }) => {
 					<img src={coin.image} alt={coin.name} />
 				</td>
 				<td>
-					<Link to={`/coins/${coin.id}`} className="text-decoration-none ">
-						<span className="text-light">{coin.name}</span>
-					</Link>
+					<a onClick={handleOnClick} className="text-light">{coin.name}</a>
 				</td>
 				<td>
 					<span>$ {coin.current_price.toLocaleString()}</span>

@@ -10,6 +10,6 @@ right: 0;
 top: 0;
 z-index: 0;
 overflow: hidden;
-background: #01bf71;
+/* background: #01bf71; */
 
 `

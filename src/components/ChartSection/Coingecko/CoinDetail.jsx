@@ -1,11 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import {coingecko} from "../../../apis/configs";
 import StaticChart from "./StaticChart";
 
-const CoinDetail = () => {
-	const { id } = useParams();
+const CoinDetail = ({coinId}) => {
 	const [chartData, setChartData] = useState([]);
 	const [coinInfo, setCoinInfo] = useState([]);
 	const [bitcoinChart, setBitcoinChart] = useState([]);
@@ -25,7 +22,7 @@ const CoinDetail = () => {
 			axios.request({
 				method: 'GET',
 				baseURL: baseUrl,
-				url: `/coingecko/chart/${id}/${timeFormat}`,
+				url: `/coingecko/chart/${coinId}/${timeFormat}`,
 			}),
 			
 			axios.request({
@@ -37,7 +34,7 @@ const CoinDetail = () => {
 			axios.request({
 				method: 'GET',
 				baseURL: baseUrl,
-				url: `/coingecko/coinlist/${id}`,
+				url: `/coingecko/coinlist/${coinId}`,
 			}),
 		]);
 		console.log(result);

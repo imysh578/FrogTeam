@@ -14,11 +14,11 @@ import Discover2 from "../components/Discover/index2";
 import PostBoards from "../components/PostBoard/PostBoard";
 
 import {
-  homeObjOne,
-  homeObjTwo,
-  homeObjThree,
-  homeObjFour,
-  homeObjFive,
+	homeETF,
+	homeChart,
+	homeNews,
+	homeMypage,
+  homePost,
 } from "../components/InfoSection/Data";
 import Scroll from "../components/Scroll";
 import Mypage from "../components/Mypage/index.jsx";
@@ -48,38 +48,34 @@ const Home = () => {
     url: "auth/session",
   });
 
-  return (
-    <>
-      <Sidebar isOpen={isOpen} toggle={toggle} />
-      <Navbar toggle={toggle} />
-      <HeroSection />
-      <InfoSection {...homeObjOne}>
-        {/* <AboutBg>
-                <MdVideoBg autoPlay loop muted src=
-                {MdVideo} type='.Video/mp4' />
-      </ AboutBg> */}
-      </InfoSection>
-      <PostBoards page="index" />
-      <InfoSection {...homeObjTwo}>
-        <Discover2 />
-      </InfoSection>
-      <InfoSection {...homeObjThree}>
-        <ChartSection />
-      </InfoSection>
-      <InfoSection {...homeObjFour}>
-        <NewsContextProvider>
-          <NewS2 />
-        </NewsContextProvider>{" "}
-      </InfoSection>
-      {data ? (
-        <InfoSection {...homeObjFive}>
-          <Mypage />
-        </InfoSection>
-      ) : null}
-      <Scroll showBelow={250} />
-      <Footer />
-    </>
-  );
+	return (
+		<>
+			<Sidebar isOpen={isOpen} toggle={toggle} />
+			<Navbar toggle={toggle} />
+			<HeroSection />
+			{data ? (
+				<InfoSection {...homeMypage}>
+					<Mypage />
+				</InfoSection>
+			) : null}
+			<InfoSection {...homeChart}>
+				<ChartSection />
+			</InfoSection>
+			<InfoSection {...homeNews}>
+				<NewsContextProvider>
+					<NewS2 />
+				</NewsContextProvider>{" "}
+			</InfoSection>
+			<InfoSection {...homeETF}>
+				<Discover2 />
+			</InfoSection>
+			<InfoSection {...homePost}>
+        <PostBoards page="index" />
+			</InfoSection>
+			<Scroll showBelow={250} />
+			<Footer />
+		</>
+	);
 };
 
 export default Home;
