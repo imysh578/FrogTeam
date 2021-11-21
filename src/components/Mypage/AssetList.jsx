@@ -1,7 +1,7 @@
 import React from "react";
 import Asset from "./Asset";
 
-const AssetList = ({ loading, assets, editShow, inputMode, setInputMode,}) => {
+const AssetList = ({ loading, assets, editShow, inputMode, setInputMode }) => {
 	return (
 		<>
 			<table className="table coinlist-table table-striped table-hover text-center">
@@ -29,7 +29,7 @@ const AssetList = ({ loading, assets, editShow, inputMode, setInputMode,}) => {
 							<span>매수 금액</span>
 						</th>
 						<th>
-							<span> {editShow ? null : '평가 수익'}</span>
+							<span> {editShow ? null : "평가 수익"}</span>
 						</th>
 					</tr>
 				</thead>
@@ -40,10 +40,19 @@ const AssetList = ({ loading, assets, editShow, inputMode, setInputMode,}) => {
 								<h1 className="text-center">Loading...</h1>
 							</td>
 						</tr>
-					) : assets.map((asset, index) => (
-						<Asset key={asset.currency} asset={asset} index={index + 1} editShow={editShow} inputMode={inputMode} setInputMode={setInputMode}/>
-					))}
-					</tbody>
+					) : (
+						assets.map((asset, index) => (
+							<Asset
+								key={asset.currency}
+								asset={asset}
+								index={index + 1}
+								editShow={editShow}
+								inputMode={inputMode}
+								setInputMode={setInputMode}
+							/>
+						))
+					)}
+				</tbody>
 			</table>
 		</>
 	);

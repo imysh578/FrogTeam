@@ -43,7 +43,7 @@ router
 		for (key in data) {
 			// 적은 수량 코인은 제외
 			if (data[key]>0.01) {
-				// symbol을 coin 이름으로 바꿈
+				// symbol을 coin id로 바꿈
 				const result = await axios.get(dbUrl + `/coins/query/${key}`);
 				balances = [
 					...balances,
@@ -51,9 +51,30 @@ router
 				];
 			}
 		}
-    res.locals.data = balances;
+
+		// DB 자산 확인 및 수기로 입력한 자산도 리스트에 포함시킴
+		const dbResult = await axios.get(dbUrl+`/assets/search/binance`)
+		let temp = [...dbResult.data]
+		let dbData = []
+		temp.forEach(el=>{
+			dbData = [...dbData, {
+				currency: el.coinId,
+				balance: el.amount,
+			}]
+		})
+		let { currencyList } = getDetails(balances);
+		let assets = [...balances];
+		console.log(currencyList);
+		dbData.forEach(el => {
+			if(!currencyList.includes(el.currency)){
+				assets= [...assets, el]
+			}
+		})
+		
+    res.locals.data = assets;
     next()
 	})
+	// 가격 정보 추가
 	.get(async (req, res, next) => {
 		try {
 			let { currencyList } = getDetails(res.locals.data);
@@ -81,6 +102,7 @@ router
 			const {data} = await axios.post(dbUrl+'/assets/check',{
 				data: temp,
 			})
+			console.log(data);
 			res.send(data);
 		} catch (err) {
 			console.error(err);

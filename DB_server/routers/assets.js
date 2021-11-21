@@ -4,6 +4,21 @@ const Assets = require("../models/assets.js");
 
 const router = express.Router();
 
+router.route('/search/:exchange').get(async(req,res,next)=>{
+  try {
+    const data = await Assets.findAll({
+      where :{
+        exchange: req.params.exchange,
+      }
+    })
+    let temp = data.map(el=> el = el.dataValues)
+    console.log(temp);
+    res.send(temp);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+})
 
 router.route('/edit').post(async(req,res,next) => {
   try {
