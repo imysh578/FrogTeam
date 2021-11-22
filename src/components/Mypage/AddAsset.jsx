@@ -100,12 +100,12 @@ const AddAsset = ({ onHide, setAddMode }) => {
 					</Form.Group>
 					<FormG
 						onChange={coinNameOnChange}
-						text="코인 이름 검색"
+						text="코인 검색"
 						type="text"
 					/>
 					<Form.Group as={Row} className="mb-3">
 						<Form.Label column sm="2">
-							거래소
+							코인 이름
 						</Form.Label>
 						<Col sm="10">
 							<Form.Select required className="mb-3">
@@ -127,7 +127,7 @@ const AddAsset = ({ onHide, setAddMode }) => {
 					<FormG onChange={amountOnChange} text="보유 수량" type="number" />
 					<FormG
 						onChange={buyPriceOnChange}
-						text="매수 평균가 (원)"
+						text="매수 평균가(원)"
 						type="number"
 					/>
 				</Form>

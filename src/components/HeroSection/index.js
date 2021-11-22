@@ -32,28 +32,28 @@ const HeroSection = () => {
 			<HeroBg>
 				<VideoBg autoPlay loop muted src={Video} type="video/mp4" />
 			</HeroBg>
-            {!data && 
-                <HeroContent>
-                    <HeroH1>개구리 투자분석</HeroH1>
-                    <HeroP>오늘 회원가입하면 250$상당의 XRP 지급</HeroP>
-                    <HeroBtnWrapper>
-                        <Button
-                            to="signup"
-                            onMouseEnter={onHover}
-                            onMouseLeave={onHover}
-                            primary="true"
-                            dark="true"
-                            smooth={true}
-                            duration={500}
-                            spy={true}
-                            exact="true"
-                            offset={-80}
-                        >
-                            Get started {hover ? <ArrowForward /> : <ArrowRight />}
-                        </Button>
-                    </HeroBtnWrapper>
-                </HeroContent>
-            }
+			<HeroContent>
+				<HeroH1>개구리 투자분석</HeroH1>
+				<HeroP>오늘 회원가입하면 250$상당의 XRP 지급</HeroP>
+				{!data && (
+					<HeroBtnWrapper>
+						<Button
+							to="signup"
+							onMouseEnter={onHover}
+							onMouseLeave={onHover}
+							primary="true"
+							dark="true"
+							smooth={true}
+							duration={500}
+							spy={true}
+							exact="true"
+							offset={-80}
+						>
+							Get started {hover ? <ArrowForward /> : <ArrowRight />}
+						</Button>
+					</HeroBtnWrapper>
+				)}
+			</HeroContent>
 		</HeroContainer>
 	);
 };
