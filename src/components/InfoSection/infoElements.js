@@ -2,9 +2,8 @@ import styled from "styled-components";
 
 export const InfoContainer = styled.div`
 color: #fff;
-background: ${({ lightBg }) => (lightBg ? '#f9f9f9' : '#fff')}
-;
-
+background: ${({ lightBg }) => (lightBg ? '#f9f9f9' : '#fff')};
+height: 100vh;
   @media screen and (max-width: 768px) {
     padding: 100px 0;
   }
@@ -12,12 +11,13 @@ background: ${({ lightBg }) => (lightBg ? '#f9f9f9' : '#fff')}
 
 export const InfoWrapper = styled.div`
 z-index: 1;
-min-height: 860px;
+min-height: 800px;
 width: 100%;
 max-width: 1000px;
 margin-right: auto;
 margin-left: auto;
 padding: 24px;
+padding-top:48px;
 justify-content: center;
 `
 export const InfoRow = styled.div`
