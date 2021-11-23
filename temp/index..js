@@ -1,7 +1,7 @@
 // Modules
 const express = require("express");
 const mysql = require("mysql2");
-const cors = require('cors');
+const cors = require("cors");
 
 // Env Settings
 const app = express();
@@ -9,7 +9,7 @@ const port = 8011;
 
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader("Access-Control-Allow-Methods", "*");
   res.setHeader("Access-Control-Allow-Headers", "*");
   res.setHeader("X-test", "sdfsdfsdfsdf");
   next();
@@ -36,7 +36,12 @@ app.get("/", (req, res) => {
 app.post("/write", cors(), (request, response) => {
   const req = request.query;
   const query = "INSERT INTO comments SET ?";
-  const params = { post_num: null, team_name: req.name, title: req.title, contents:: req.contents };
+  const params = {
+    post_num: null,
+    team_name: req.name,
+    title: req.title,
+    contents: req.contents,
+  };
   connection.query(query, params, (err, result, fields) => {
     if (err) throw err;
     response.json({ saved: result.affectedRows, inserted_id: result.insertId });

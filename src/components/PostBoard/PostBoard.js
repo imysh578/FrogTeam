@@ -175,7 +175,7 @@ function App({ page }) {
         console.log(arr);
         setViewContent(arr);
 
-        if (count === 0 || count <= 7) {
+        if (count === 0 || count <= 5) {
           setLoadingEnd(false);
         }
       });
@@ -265,7 +265,8 @@ function App({ page }) {
             border-width: 2px;
             margin-left : 10px;
             margin-right : 10px;
-            border-color: gray;"
+            border-color: gray;
+            color : black;"
             >
               <div style={{ float: "left", fontSize: 16, fontWeight: "bold" }}>
                 {element.nickname}

@@ -94,11 +94,11 @@ app.get("/list", (request, response) => {
   if (isNaN(req.pages)) req.pages = 1;
   if (req.pages <= 1) req.pages = 1;
 
-  let current_page = req.pages * 8;
-  current_page = current_page - 8;
+  let current_page = req.pages * 5;
+  current_page = current_page - 5;
   const start = req.pages == undefined ? 0 : current_page;
   connection.query(
-    "SELECT * FROM comments ORDER BY `post_num` DESC LIMIT " + start + ", 8",
+    "SELECT * FROM comments ORDER BY `post_num` DESC LIMIT " + start + ", 5",
     (err, rows) => {
       if (err) throw err;
       response.json({ data: rows });
