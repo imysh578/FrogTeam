@@ -61,7 +61,7 @@
 - 개발 언어 : `JavaScript` `HTML` `CSS`
 - 웹 화면 구성 : `React` `MUI` `styled-components`
 - DB 구성 : `MySQL` `sequelize`
-- 서버 개발 : `NodeJs` `Axios`
+- 서버 개발 : `NodeJs` `Express` `Axios`
 - 서버 배포 : `EC2` `RDS`
 - 협업 Tool : `GitHub` `Google Drive`
 
