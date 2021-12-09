@@ -1,70 +1,141 @@
-# Getting Started with Create React App
+# 🐸 **Frog**
+> Coin Asset Management Website (코인 자산 관리 사이트 )
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 기간 : `2021-11-03 ~ 2021-11-22`
 
-## Available Scripts
+### 팀원 및 역할
 
-In the project directory, you can run:
+[`윤석훈`](https://github.com/imysh578) : 코인 자산 관리 툴 구현, DB 구성, 코인 정보 Open API 적용 <br/>
+[`박정호`]() : 로그인/회원가입 구현, 서버 배포, News Open API 적용<br/>
+[`이관훈`]() : 웹페이지 디자인, ETF Open API 적용<br/>
+[`곽지현`]() : 게시판 구현, 게시판 DB 구성 <br/>
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+***
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# 목차
+[1. 개요](#개요)
 
-### `npm run build`
+[2. 목적](#목적)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[3. 사용 기술](#사용-기술)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+[4. 주요 기능](#주요-기능)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[5. 상세 설명](#상세-설명)
 
-### `npm run eject`
+[6. 발생한 이슈 & 해결 방법](#발생한-이슈--해결-방법)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+***
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 개요📒
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- 다양한 코인 거래소에 흩어져 있는 자산을 한 번에 관리할 수 있는 웹사이트를 목표로 프로젝트를 시작했습니다.
 
-## Learn More
+***
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 목적🎯
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### (1) 배경
+- 다양한 거래소가 존재하며, 각 거래소마다 거래 가능한 코인이 다름
+- 대부분의 거래소에서 24h 수익률만 제공하며, 매수 평균가에 따른 수익률을 제공하지 않음
+- 코인 입출금에 따라 매수 평균가가 부정확함
 
-### Code Splitting
+#### (2) 주요 고객
+- 여러 거래소에서 코인을 거래하며, 자산을 일괄적으로 관리하길 희망하는 고객
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### (3) 개발 목표
+- 한 눈에 쉽게 자산을 관리할 수 있는 툴 개발
+- 코인 거래에 있어서 필요한 다양한 정보를 제공
+- 의견을 토론하고 공유할 수 있는 커뮤니티 제공
+- 사용자에게 높은 접근성과 편의성 제공
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+***
 
-### Making a Progressive Web App
+## 사용 기술🛠
+- 개발 Tool : `Visual Studio Code`
+- 개발 언어 : `JavaScript` `HTML` `CSS`
+- 웹 화면 구성 : `React` `MUI` `styled-components`
+- DB 구성 : `MySQL` `sequelize`
+- 서버 개발 : `NodeJs` `Axios`
+- 서버 배포 : `EC2` `RDS`
+- 협업 Tool : `GitHub` `Google Drive`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+***
 
-### Advanced Configuration
+## 주요 기능⚙
+- 회원가입/로그인
+- 거래소의 내 자산 정보 불러오기
+- 매수 평균가에 따른 수익률 표시
+- 보유 자산 비율 차트 표시
+- 자산목록 추가 및 수정 기능
+- 뉴스 및 관련 ETF 검색 기능
+- 사용자 커뮤니티
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+***
 
-### Deployment
+## 상세 설명🧾
+### 페이지 미리보기
+| 페이지 | 화면 | 설명 |
+| --- | --- | --- |
+| **메인페이지** |  이미지 | 설명 |
+| **로그인/회원가입** | 이미지 | 페이지 설명 |
+| **마이페이지** | 이미지 | 페이지 설명|
+  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### DB 테이블 관계도
+| EER diagram | 설명 |
+| --- | --- |
+| 이미지 | 관계도 설명 |
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+***
+
+## 발생한 이슈 & 해결 방법🤬
+
+### "제목"
+- [상황]  
+
+
+- [문제]  
+
+
+- [해결]  
+```
+코드
+```
+
+  
+### "제목"  
+
+- [상황]  
+
+- [문제]  
+
+
+- [해결]  
+```
+코드
+```
+
+
+### "AWS 배포"
+- [상황]  
+
+
+- [문제]  
+
+
+- [해결]  
+```
+코드
+```
+
+
+
+***
