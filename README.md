@@ -1,5 +1,5 @@
 # 🐸 **Frog**
-> Coin Asset Management Website (코인 자산 관리 사이트 )
+> Coin Asset Management & Information Provision Website (코인 자산 관리 및 정보 검색 사이트 )
 
 ### 기간 : `2021-11-03 ~ 2021-11-22`
 
