@@ -1,6 +1,9 @@
 # 🐸 **Frog**
 > Coin Asset Management & Information Provision Website (코인 자산 관리 및 정보 검색 사이트 )
 
+
+![image](https://user-images.githubusercontent.com/33863016/145717626-5b2d7c90-4984-4e57-8e29-c68af7fa12ee.png)
+
 ### 기간 : `2021-11-03 ~ 2021-11-22`
 
 ### 팀원 및 역할
